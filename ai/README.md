@@ -1,29 +1,32 @@
 # AI Profile — Scenario 02 DGA + High NXDOMAIN Activity
 
-**Status:** Planned — the shared AI bridge is common infrastructure and is built outside this repository.
+**Status:** Shared AI infrastructure ready; Scenario 02 profile not created.
 
-This folder will contain only the scenario-specific payload/profile mapping once the final detection has stable fields.
+The shared Flask/OpenAI bridge already exists in the Infrastructure repository. This folder will contain only the Scenario 02 profile/payload mapping after the final detection fields are stable.
 
-## Expected workflow
+## Future workflow
 
 ```text
-Stable Splunk detection
+Stable Scenario 02 alert
       ↓
-Structured scenario payload
+Structured evidence payload
       ↓
-Shared Flask / LLM bridge
+Shared dns-soc-ai-bridge
       ↓
-Structured AI summary
+Structured analyst assistance
       ↓
-Splunk index=dns_soc_ai
+index=dns_soc_ai
       ↓
-Human SOC validation against raw evidence
+Human validation against raw resolver evidence
 ```
+
+Likely evidence includes client identity, first/last time, query/NXDOMAIN counts and ratio, representative qnames/qtypes/results, label metrics, optional ML score if later implemented, and supporting sinkhole/network context.
 
 ## Rules
 
-- AI assistance never becomes the source of truth.
-- Do not let the LLM decide whether containment happens.
-- Preserve the input payload and returned summary as evidence.
-- Record where the AI was correct, incomplete or wrong.
-- Add a real scenario profile here only after the detection fields are finalized.
+- AI is not the source of truth.
+- AI does not authorize RPZ containment.
+- ML and LLM are separate: ML may score abnormal behavior; LLM explains/enriches stable evidence.
+- Preserve the real input payload and response after implementation.
+- Record where the summary is correct, incomplete or wrong.
+- Do not create a fake Scenario 02 profile before alert fields exist.
