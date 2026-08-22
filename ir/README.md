@@ -1,26 +1,34 @@
 # Incident Response Workspace — Scenario 02 DGA + High NXDOMAIN Activity
 
-**Status:** Planned.
+**Status:** Reusable RPZ/sinkhole control is infrastructure-ready; Scenario 02 IR exercise not performed.
 
-This folder records the human response decision, approved containment, verification and cleanup/reset actions for the scenario.
+The shared Infrastructure repository already proved that Unbound can log an RPZ match, redirect one controlled hostname to `10.50.30.30`, produce sinkhole Nginx evidence, and return to disabled enforcement afterward.
 
-## Response rule
+That technical validation is **not** the human Scenario 02 response record.
 
-After human confirmation, use the team-controlled resolver to apply the approved sinkhole/deny action and prove that subsequent victim DNS behavior changes. Generated public Route 53 records are not created simply to avoid NXDOMAIN.
-
-A complete response record should show:
+## Future response rule
 
 ```text
 Finding
-→ human decision
-→ approved action
-→ expected technical change
-→ observed post-response evidence
-→ final verification
+→ human SOC investigation
+→ approved containment decision
+→ enable approved RPZ response
+→ expected DNS change
+→ sinkhole/network evidence
+→ verification
+→ reset to safe state
 ```
 
-Do not treat a Splunk alert or AI summary as automatic response authorization.
+Do not treat a detection, ML anomaly score or AI summary as automatic authorization.
 
-## Final artifacts later
+## Expected evidence later
 
-The exact files depend on the exercise. A completed scenario may include an incident-response note/playbook, containment commands/configuration and a before/after verification record.
+- analyst-confirmed finding;
+- who approved/performed containment;
+- exact RPZ rule/pattern used for the scenario;
+- pre-response DNS result;
+- post-response `10.50.30.30` result;
+- sinkhole access evidence;
+- final reset and verification.
+
+No Scenario 02 IR artifact exists here yet.
