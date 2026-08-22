@@ -1,92 +1,140 @@
 # Scenario 02 Runbook — DGA + High NXDOMAIN Activity
 
-**Status:** Planned — requires Scenario 02 defender-DNS infrastructure before execution  
-**Primary MITRE ATT&CK:** T1568.002 — Dynamic Resolution: Domain Generation Algorithms
+**Status:** Infrastructure ready — scenario execution, Detection Engineering and ML not started  
+**Primary MITRE ATT&CK:** `T1568.002` — Dynamic Resolution: Domain Generation Algorithms
 
-This is the working checklist for the scenario. Sections remain marked **Planned** until real implementation or evidence exists. Do not fill gaps with invented values.
+This is the working checklist for the scenario. Infrastructure prerequisites are now real; scenario sections stay **Planned** until the corresponding exercise evidence exists. Do not fill gaps with invented values.
 
 ## 1. Objective
 
 Generate harmless controlled DNS requests that resemble domain-generation behavior and determine whether the SOC can identify the pattern without treating every NXDOMAIN response as malicious.
 
-**Status:** Planned.
+**Status:** Planned — exercise not run.
 
 ## 2. Architecture
 
-Describe only the systems and paths actually used when the scenario is prepared.
+The Scenario 02 infrastructure dependency is complete:
 
 ```text
-Shared infrastructure
-      ↓
-Scenario-specific infrastructure (if any)
-      ↓
-Controlled simulation
-      ↓
-Telemetry
-      ↓
-Splunk / AI / Human SOC / IR
+dns-soc-victim01 / 10.50.30.20
+        |
+        | DNS
+        v
+dns-soc-resolver01 / 10.50.30.10 / Unbound
+        |
+        +--> normal forward -> AWS VPC Resolver 10.50.0.2
+        |
+        +--> resolver UF -> Splunk / dns_soc_dns
+        |
+        +--> RPZ when human-approved -> 10.50.30.30
+                                    -> dns-soc-sinkhole01 / Nginx
+                                    -> sinkhole UF -> Splunk / dns_soc_web
 ```
 
-**Scenario infrastructure dependency:** Before execution, deploy `dns-soc-resolver01` (`10.50.30.10`) and `dns-soc-victim01` (`10.50.30.20`) in `SOC-MONITORING-SUBNET`, create the minimum DNS/victim security controls, send resolver telemetry to Splunk, and establish the reusable sinkhole path around `10.50.30.30`.
+Final infrastructure RPZ state: policy loaded, logging available, `rpz-action-override: disabled`.
 
-**Status:** Planned.
+**Status:** Infrastructure complete.
 
 ## 3. Prerequisites
 
-Before execution, confirm:
+Already satisfied:
 
-- required shared infrastructure is healthy;
-- scenario-specific infrastructure, if any, has been built and validated;
-- telemetry is arriving with usable timestamps/fields;
-- the shared AI bridge is available;
-- the Project Lead has the approved simulation plan and ground-truth clock;
-- Detection Engineer has captured the normal baseline before attack activity;
-- SOC Analyst and IR/Defender know the expected exercise window but do not receive the final detection answer in advance.
+- shared AWS/Splunk/AI platform healthy;
+- resolver/victim/sinkhole infrastructure built;
+- resolver query/reply telemetry searchable;
+- core DNS fields validated;
+- private sinkhole path and RPZ capability validated;
+- RPZ enforcement reset to safe disabled state.
 
-**Status:** Planned.
+Still required before the scenario simulation:
+
+- Detection Engineer captures a normal DNS baseline;
+- Project Lead defines the controlled DGA generator, rate and safety limit;
+- exercise start/end ground-truth method is agreed;
+- SOC Analyst and IR/Defender know the exercise window but are not handed a pre-written conclusion;
+- optional ML implementation remains deferred until baseline/rule-based work exists.
+
+**Status:** Infrastructure prerequisites complete; execution prerequisites pending.
 
 ## 4. Attack / Simulation
 
-Record the final controlled commands/tools, safety limits and start/end timestamps only when the exercise is executed.
+Generate harmless nonexistent labels under an owned/authorized lab namespace. Do not create thousands of public Route 53 records just to avoid NXDOMAIN.
 
-The simulation must stay inside owned/authorized lab infrastructure and match the scenario objective.
+Conceptual pattern:
+
+```text
+<generated-label>.dga.soclab.abdul4rehman215.tech
+```
+
+Record final commands/tool, generation rate, maximum duration/count and exact ground-truth timestamps only when executed.
 
 **Status:** Planned.
 
 ## 5. Telemetry
 
-List the real sources that capture this scenario. Candidate shared sources include:
+### Primary Scenario 02 resolver source — ready
 
-- Route 53 public authoritative query logs;
+```text
+index=dns_soc_dns
+host=dns-soc-resolver01
+source=/var/log/dns-soc/unbound.log
+sourcetype=unbound:dns
+```
+
+Validated fields:
+
+```text
+event_type
+client_ip
+qname
+qtype
+rcode
+response_time
+cache_flag
+response_size
+```
+
+### Sinkhole application source — ready
+
+```text
+index=dns_soc_web
+host=dns-soc-sinkhole01
+source=/var/log/nginx/access.log
+sourcetype=nginx:access
+```
+
+### Supporting shared sources
+
+Use only where they contribute real evidence:
+
 - AWS VPC Resolver Query Logs;
-- team-controlled resolver logs from Scenario 02 onward;
 - VPC Flow Logs;
-- Nginx access telemetry when Web follow-up is relevant;
-- CloudTrail when control-plane changes are part of the evidence;
-- endpoint/client telemetry only where it is actually collected.
+- Route 53 public query logs;
+- CloudTrail when control-plane changes are relevant;
+- shared AI result index after alert integration;
+- endpoint/client telemetry only if actually onboarded later.
 
-Do not force unused telemetry into the scenario.
-
-**Status:** Planned.
+**Status:** Infrastructure telemetry validated; scenario DGA telemetry not generated yet.
 
 ## 6. Detection
 
-Detection focus:
+Future behavioral hypothesis should evaluate:
 
-- NXDOMAIN count and NXDOMAIN ratio over time;
-- unique generated-name count and repeated client behavior;
-- domain/label length and randomness features validated from real events;
-- query rate by victim/client;
-- process/client context when endpoint telemetry is actually available;
-- normal baseline versus controlled generated-domain behavior;
+- NXDOMAIN count and ratio;
+- total query rate;
+- unique qnames;
+- label length/randomness/entropy features derived from `qname`;
+- repeated client identity (`client_ip`);
+- time-window behavior;
+- query-type diversity where it adds value.
 
-Write the final behavioral hypothesis after observing baseline data.
+The final threshold/window is set only after normal baseline and controlled simulation results exist.
 
 **Status:** Planned.
 
 ## 7. SPL / Detection Logic
 
-Use files under [`spl/`](spl/) after real searches exist:
+Create real files under [`spl/`](spl/) only after the searches exist:
 
 ```text
 baseline.spl
@@ -95,158 +143,186 @@ detection.spl
 validation.spl
 ```
 
-Thresholds must be tuned from real baseline and controlled testing rather than copied from an example.
+Required order:
+
+```text
+baseline -> hunting -> initial detection -> controlled positive test
+-> benign/false-positive test -> tune only if needed
+-> final detection -> validation
+```
 
 **Status:** Planned.
 
 ## 8. Alert
 
-The final alert should contain enough evidence for a human analyst to start investigation without guessing field meanings.
-
-Recommended common fields:
+After final detection is stable, create an analyst-ready scheduled alert containing at least:
 
 - detection name/version;
-- first/last event time;
-- observed client/source identity;
-- query count / unique-name count / scenario-specific metric;
-- relevant query names/types/results;
-- supporting Web/network context;
-- severity and rationale;
-- raw-event or drilldown search.
+- first/last time;
+- client identity;
+- query/NXDOMAIN counts and ratio;
+- unique-name and relevant label metrics;
+- representative qnames/qtypes/results;
+- severity/rationale;
+- drilldown/raw search;
+- supporting sinkhole/network context only when available.
 
 **Status:** Planned.
 
 ## 9. AI Triage
 
-The shared AI bridge is reused. This repository adds only the scenario profile/payload mapping after the detection fields are stable.
+Reuse the shared AI bridge. Add a Scenario 02 profile only after stable alert fields exist.
 
-Record:
+ML and LLM remain different components:
 
-- payload sent;
-- AI summary returned;
-- useful observations;
-- missing/incorrect claims;
-- what the SOC Analyst verified independently.
+- ML may later contribute an anomaly score;
+- the LLM explains/enriches structured alert evidence;
+- neither authorizes containment.
+
+Record the input payload, AI response and human validation against raw Splunk evidence.
 
 **Status:** Planned.
 
 ## 10. SOC Analysis
 
-Build the human investigation timeline from raw evidence. Document pivots, competing explanations, disposition and confidence.
-
-The AI output is supporting context only.
+Build the investigation from raw resolver events and supporting telemetry. Document pivots, timeline, competing explanations, disposition and confidence.
 
 **Status:** Planned.
 
 ## 11. Incident Response
 
-After human confirmation, use the team-controlled resolver to apply the approved sinkhole/deny action and prove that subsequent victim DNS behavior changes. Generated public Route 53 records are not created simply to avoid NXDOMAIN.
+The reusable RPZ/sinkhole control is technically ready, but the Scenario 02 response has **not** been performed.
 
-Record the approved decision and who performed it.
+Future response chain:
+
+```text
+Finding
+  ↓
+Human investigation
+  ↓
+Human-approved containment decision
+  ↓
+Enable the approved RPZ response
+  ↓
+Victim resolves selected name/pattern to 10.50.30.30
+  ↓
+Sinkhole evidence appears
+  ↓
+Verify result
+  ↓
+Reset policy to safe state
+```
+
+Do not treat a Splunk result, ML score or AI summary as automatic response authorization.
 
 **Status:** Planned.
 
 ## 12. Evidence
 
-Store structured evidence notes under [`evidence/`](evidence/) and screenshots under [`screenshots/`](screenshots/).
+Infrastructure proof stays in the shared Infrastructure repository. Scenario evidence stored here later should cover:
 
-Evidence should cover:
-
-- pre-scenario health/baseline;
-- ground-truth timing;
-- telemetry;
+- baseline;
+- ground-truth simulation timing;
+- DGA/high-NXDOMAIN telemetry;
 - detection/alert;
-- AI output;
-- SOC analysis;
-- containment;
-- verification.
+- false-positive validation;
+- optional ML comparison;
+- AI result;
+- human SOC analysis;
+- approved response;
+- before/after containment verification;
+- reset and lessons.
 
 **Status:** Planned.
 
 ## 13. Containment
 
-Containment is performed only after the human investigation reaches the scenario's approved response condition.
-
-Do not treat detection or AI output as automatic authorization.
+Containment is performed only after the human investigation reaches the approved response condition.
 
 **Status:** Planned.
 
 ## 14. Verification
 
-Prove what changed after response. Use before/after DNS, network, Web or endpoint evidence appropriate to the scenario.
+Prove both states with evidence:
+
+```text
+Before response:
+generated/suspicious controlled name -> normal resolver outcome / NXDOMAIN
+
+After approved response:
+selected name/pattern -> RPZ -> 10.50.30.30 -> Nginx sinkhole
+```
+
+Then prove the final reset state again.
 
 **Status:** Planned.
 
 ## 15. Results
 
-Summarize the final outcome after the exercise:
-
-- detection result;
-- SOC disposition;
-- response result;
-- verification result;
-- whether the scenario completion condition passed.
+Summarize the final detection result, optional ML comparison, SOC disposition, response, verification and overall scenario completion condition.
 
 **Status:** Planned.
 
 ## 16. MITRE ATT&CK Mapping
 
-Primary mapping: **T1568.002 — Dynamic Resolution: Domain Generation Algorithms**.
+Primary mapping: **`T1568.002` — Dynamic Resolution: Domain Generation Algorithms**.
 
-Review the mapping against the behavior that was actually generated and detected. Add no extra techniques unless evidence supports them.
-
-If a Cyber Kill Chain view is included, record only the phase that the implemented behavior genuinely demonstrates and cite the scenario evidence for that choice.
+Map only behavior actually generated, observed and detected. Do not add extra techniques because they sound related.
 
 **Status:** Planned.
 
 ## 17. False Positives
 
-Test plausible benign activity that resembles part of the scenario. Record each threshold or logic change and why it improved separation.
+Deliberately test plausible benign NXDOMAIN behavior and other normal activity that may resemble part of the detection. Record every threshold/feature change and the evidence for it.
 
 **Status:** Planned.
 
 ## 18. Lessons Learned
 
-Capture useful technical, detection, analyst and IR lessons. Write them as reusable engineering knowledge rather than a chat/debugging transcript.
+Capture technical, detection, ML, analyst and IR lessons as reusable engineering knowledge rather than a chat/debug transcript.
 
 **Status:** Planned.
 
 ## 19. Reproduction Instructions
 
-At completion, provide a clean ordered path:
+At scenario completion, provide one clean order:
 
 ```text
-Prerequisites
-→ scenario infrastructure
-→ baseline
-→ controlled simulation
-→ validate telemetry
-→ run detection
-→ investigate
-→ AI comparison
-→ contain
-→ verify
-→ cleanup/reset
+verify completed infrastructure
+-> baseline
+-> controlled DGA simulation
+-> validate telemetry
+-> dashboard/hunting
+-> rule-based detection
+-> optional ML comparison
+-> benign/positive validation
+-> alert
+-> AI triage
+-> human investigation
+-> approved RPZ containment
+-> verify
+-> reset
 ```
 
 **Status:** Planned.
 
 ## 20. Screenshots
 
-Use descriptive filenames and show screenshots next to the sections they prove. Keep a compact screenshot index in [`screenshots/README.md`](screenshots/README.md).
+Scenario execution screenshots start in [`screenshots/`](screenshots/) only when the real exercise begins. Infrastructure evidence remains in the shared Infrastructure repository and is not duplicated here.
 
 **Status:** Planned.
 
 ## Network & protocol view
 
-- Layer 7 DNS: generated names, NXDOMAIN/rcode, query type and label structure;
-- Layer 4: client-to-resolver UDP/TCP 53;
-- Layer 3: victim/resolver addressing and relevant flow context;
-- Endpoint: victim identity/process context where collected;
-- Containment: resolver answer/block/sinkhole before vs after;
-
-This section should be updated with the actual fields/ports seen during execution.
+- **Layer 7 DNS:** `qname`, `qtype`, `rcode`, generated-label structure, NXDOMAIN ratio;
+- **Layer 4:** victim -> resolver UDP/TCP 53; HTTP 80 to sinkhole after response;
+- **Layer 3:** `10.50.30.20 -> 10.50.30.10`, then `10.50.30.20 -> 10.50.30.30` after approved containment; VPC Flow context where useful;
+- **Endpoint:** victim identity is known; process context is added only if later telemetry really provides it;
+- **Cloud:** AWS Resolver/Route 53/CloudTrail used only where they support the story;
+- **Application follow-up:** sinkhole Nginx access proves the redirected HTTP request.
 
 ## Completion gate
 
-Resolver/victim telemetry is trusted, the detection distinguishes benign NXDOMAIN activity from the controlled DGA pattern, false positives are tested, AI and SOC conclusions are validated, and containment produces measurable before/after evidence.
+Infrastructure is ready, but the scenario is not complete until the team can reproduce:
+
+**Simulation → Telemetry → Detection → Alert → AI Assistance → Human Investigation → Response → Verification → Lessons Learned.**
