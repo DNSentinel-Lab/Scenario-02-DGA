@@ -1,49 +1,130 @@
 # Scenario 02 — DGA + High NXDOMAIN Activity
 
-**Status:** Planned — requires Scenario 02 defender-DNS infrastructure before execution  
-**Primary MITRE ATT&CK:** T1568.002 — Dynamic Resolution: Domain Generation Algorithms
+**Status:** Infrastructure ready — scenario execution, Detection Engineering and ML not started  
+**Primary MITRE ATT&CK:** `T1568.002` — Dynamic Resolution: Domain Generation Algorithms
 
 ## Objective
 
 Generate harmless controlled DNS requests that resemble domain-generation behavior and determine whether the SOC can identify the pattern without treating every NXDOMAIN response as malicious.
 
-## Infrastructure dependency
+## Infrastructure dependency — complete
 
-Before execution, deploy `dns-soc-resolver01` (`10.50.30.10`) and `dns-soc-victim01` (`10.50.30.20`) in `SOC-MONITORING-SUBNET`, create the minimum DNS/victim security controls, send resolver telemetry to Splunk, and establish the reusable sinkhole path around `10.50.30.30`.
+The permanent defender-DNS platform is ready in the shared [DNS Lab Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) repository:
 
-The shared AWS/Splunk platform is not rebuilt inside this repository. Any new AWS resource is designed in the infrastructure project and documented there after it exists.
+```text
+dns-soc-victim01    10.50.30.20
+        |
+        | DNS
+        v
+dns-soc-resolver01  10.50.30.10
+        |  Unbound + query/reply logging + RPZ
+        |
+        +--> AWS VPC Resolver 10.50.0.2 -> normal DNS
+        |
+        +--> Splunk -> index=dns_soc_dns
+        |
+        +--> approved RPZ response -> 10.50.30.30
+                                   -> dns-soc-sinkhole01 / Nginx
+                                   -> Splunk
+```
 
-## Detection focus
+The three EC2 roles are private and separate. Scenario 02 infrastructure validation has already proven normal DNS, real NXDOMAIN, resolver telemetry, RPZ safe-match logging, one controlled redirect to the private sinkhole, and final reset to disabled enforcement.
 
-- NXDOMAIN count and NXDOMAIN ratio over time;
-- unique generated-name count and repeated client behavior;
-- domain/label length and randomness features validated from real events;
-- query rate by victim/client;
-- process/client context when endpoint telemetry is actually available;
-- normal baseline versus controlled generated-domain behavior;
+That infrastructure test is **not** the Scenario 02 incident-response exercise. This repository still has to produce the DGA behavior, detection, alert, AI-assisted analysis, human decision and response evidence.
 
-## Network & protocol view
+## Trusted telemetry already available
 
-- Layer 7 DNS: generated names, NXDOMAIN/rcode, query type and label structure;
-- Layer 4: client-to-resolver UDP/TCP 53;
-- Layer 3: victim/resolver addressing and relevant flow context;
-- Endpoint: victim identity/process context where collected;
-- Containment: resolver answer/block/sinkhole before vs after;
+### Team-controlled resolver
 
-DNS is Layer 7 evidence, but the scenario should correlate it with the Layer 3/4, endpoint, cloud or application evidence that actually helps prove the behavior.
+```text
+index      = dns_soc_dns
+host       = dns-soc-resolver01
+source     = /var/log/dns-soc/unbound.log
+sourcetype = unbound:dns
+```
+
+Validated fields:
+
+```text
+event_type
+client_ip
+qname
+qtype
+rcode
+response_time
+cache_flag
+response_size
+```
+
+`transport` is not directly present in the current Unbound text log and is not invented. RPZ events are searchable in raw resolver telemetry; a normalized `rpz_action` field has not been claimed yet.
+
+### Private sinkhole
+
+```text
+index      = dns_soc_web
+host       = dns-soc-sinkhole01
+source     = /var/log/nginx/access.log
+sourcetype = nginx:access
+```
+
+The shared AWS telemetry and shared AI bridge also remain available when they add real investigation value.
+
+## Detection focus — future work
+
+- NXDOMAIN count **and ratio** over time;
+- unique generated-name count;
+- query rate by client/window;
+- label length and randomness/entropy features derived from real `qname` values;
+- repeated client behavior and time pattern;
+- query-type diversity where useful;
+- normal baseline versus controlled generated-domain activity;
+- sinkhole before/after evidence after human-approved response.
+
+No final threshold is locked yet. Thresholds must come from the real baseline and controlled DGA/high-NXDOMAIN simulation.
+
+## ML plan — approved, not implemented
+
+Scenario 02 is the project scenario selected for an optional anomaly-detection comparison after rule-based detection works.
+
+Planned design:
+
+```text
+Normal DNS baseline
+      +
+Rule-based Splunk DGA detection
+      +
+Isolation Forest anomaly score
+      |
+      v
+Compare detections, misses and false positives
+```
+
+The first model is planned as **Isolation Forest** using Python, pandas/numpy and scikit-learn. Deep learning is not required.
+
+ML stays separate from the existing LLM:
+
+```text
+Machine Learning = helps identify abnormal DNS behavior
+LLM              = explains/enriches a stable alert for the analyst
+```
+
+No additional EC2 is planned. A future lightweight `dns-soc-ml` component can run separately on the existing Splunk EC2. The exact Splunk-to-ML transport is still TBD and must not be invented before implementation.
+
+See [`ml/README.md`](ml/README.md).
 
 ## Planned dashboard
 
-The dashboard should follow one shared time range and lead the analyst from summary → behavior → correlation → raw evidence.
+The future dashboard should use the validated resolver fields and lead the analyst from summary -> behavior -> correlation -> raw evidence:
 
-- Shared time range plus victim/client, query-type and response filters;
-- KPIs: total queries, NXDOMAIN count, NXDOMAIN ratio, unique names, active clients;
-- Queries/NXDOMAIN ratio over time;
-- Top generated names/parent patterns plus label-length/randomness views;
-- Client behavior and resolver context;
-- Before/after sinkhole or deny verification table;
+- shared time range plus client, query-type and response-code filters;
+- total queries, NXDOMAIN count/ratio, unique names and active clients;
+- DNS/NXDOMAIN behavior over time;
+- top generated names and label-length/randomness views;
+- client/resolver context;
+- before/after containment verification;
+- analyst-ready investigation table.
 
-See [`dashboard/README.md`](dashboard/README.md) for the planned layout.
+See [`dashboard/README.md`](dashboard/README.md).
 
 ## Team
 
@@ -54,36 +135,64 @@ See [`dashboard/README.md`](dashboard/README.md) for the planned layout.
 | Detection Engineer | Lubaba |
 | IR / Defender | Abdul-Rehman |
 
-## Scenario workflow
+## Planned execution order
 
-This repository follows the common 20-part standard:
-
-**Objective → Architecture → Prerequisites → Simulation → Telemetry → Detection → SPL → Alert → AI Triage → SOC Analysis → IR → Evidence → Containment → Verification → Results → MITRE → False Positives → Lessons → Reproduction → Screenshots.**
-
-The working checklist is [`SCENARIO-RUNBOOK.md`](SCENARIO-RUNBOOK.md).
+```text
+Infrastructure ready
+      ↓
+Normal DNS baseline
+      ↓
+Controlled DGA / high-NXDOMAIN generation
+      ↓
+Dashboard + hunting
+      ↓
+Rule-based detection + tuning
+      ↓
+Optional Isolation Forest comparison
+      ↓
+Benign / false-positive validation
+      ↓
+Scheduled alert
+      ↓
+Scenario 02 profile through shared AI bridge
+      ↓
+Human SOC investigation
+      ↓
+Human-approved RPZ containment
+      ↓
+Sinkhole before/after verification
+      ↓
+Reset + lessons learned
+```
 
 ## Repository map
 
 ```text
 .
-├── README.md                 # scenario overview and locked design
-├── SCENARIO-RUNBOOK.md       # 20-part execution/documentation checklist
-├── dashboard/                # dashboard plan, later final XML/export
-├── spl/                      # baseline, hunting, detection and validation SPL
-├── ai/                       # scenario profile/payload mapping for shared AI bridge
-├── ir/                       # response/containment/verification record
-├── evidence/                 # structured ground truth and evidence notes
-└── screenshots/              # curated visual evidence
+├── README.md
+├── SCENARIO-RUNBOOK.md
+├── dashboard/                # dashboard plan; final export only after tested
+├── spl/                      # real baseline/hunting/detection/validation SPL later
+├── ml/                       # approved Isolation Forest plan; no model yet
+├── ai/                       # Scenario 02 profile only after stable detection fields
+├── ir/                       # human decision/containment/verification later
+├── evidence/                 # scenario ground truth/evidence later
+└── screenshots/              # scenario execution screenshots later
 ```
 
-The folders are prepared now, but fake implementation artifacts are not. Real `.spl`, dashboard XML, AI profiles and evidence are added only when they have been built and tested.
+Infrastructure screenshots and configuration live in the shared infrastructure repository and are not duplicated here.
 
 ## Shared project references
 
-- [DNS Lab Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) — shared AWS, DNS, Splunk and AI foundation
-- [Scenario infrastructure roadmap](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure/blob/main/00-project-design/scenario-infrastructure-roadmap.md) — future EC2/DNS/network changes owned by the infrastructure repository
-- [Scenario documentation standard](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure/blob/main/00-project-design/scenario-documentation-standard.md) — common 20-part SOC workflow, dashboard and evidence rules
+- [DNS Lab Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure)
+- [Scenario 02 defender DNS implementation](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure/blob/main/02-aws-build/08-scenario-02-defender-dns.md)
+- [Scenario 02 resolver/sinkhole Splunk onboarding](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure/blob/main/03-splunk-build/07-scenario-02-dns-onboarding.md)
+- [Scenario documentation standard](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure/blob/main/00-project-design/scenario-documentation-standard.md)
 
 ## Completion condition
 
-Resolver/victim telemetry is trusted, the detection distinguishes benign NXDOMAIN activity from the controlled DGA pattern, false positives are tested, AI and SOC conclusions are validated, and containment produces measurable before/after evidence.
+This scenario is complete only when the team can reproduce and defend the full chain:
+
+**Simulation → Telemetry → Detection → Alert → AI Assistance → Human Investigation → Response → Verification → Lessons Learned.**
+
+Infrastructure readiness alone does not satisfy that condition.
