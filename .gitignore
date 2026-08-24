@@ -1,0 +1,17 @@
+# Python runtime
+__pycache__/
+*.py[cod]
+
+# Local secrets / environment files
+.env
+.env.*
+!.env.example
+
+# Serialized model artifacts are rebuilt from trusted lab data
+*.joblib
+*.pkl
+*.pickle
+
+# Private/raw working evidence stays outside the public repository
+private-evidence/
+raw-evidence/
