@@ -1,0 +1,14 @@
+index=dns_soc_dns client_ip="10.50.30.20" qname=* qtype=* rcode=*
+| where _time>=1787557606 AND _time<=1787558509
+| bin _time span=1m
+| stats
+    count as events
+    dc(qname) as unique_qnames
+    sum(eval(if(rcode="NXDOMAIN",1,0))) as nxdomain_count
+    by _time client_ip
+| eval nxdomain_ratio=round(nxdomain_count/events,3)
+| stats
+    count as one_minute_windows
+    sum(events) as total_events
+    avg(events) as avg_events_per_window
+    avg(nxdomain_ratio) as avg_nxdomain_ratio

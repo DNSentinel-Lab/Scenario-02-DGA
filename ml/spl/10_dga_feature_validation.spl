@@ -1,0 +1,18 @@
+index=dns_soc_dns client_ip="10.50.30.20" qname=* qtype=* rcode=*
+| where _time>=1787561668 AND _time<=1787561968
+| eval qname_len=len(qname)
+| eval tld=mvindex(split(rtrim(qname,"."),"."),-1)
+| bin _time span=1m
+| stats
+    count as query_count
+    dc(qname) as unique_qnames
+    sum(eval(if(rcode="NXDOMAIN",1,0))) as nxdomain_count
+    avg(qname_len) as avg_qname_length
+    max(qname_len) as max_qname_length
+    dc(tld) as unique_tlds
+    sum(eval(if(qtype="A",1,0))) as a_count
+    sum(eval(if(qtype="AAAA",1,0))) as aaaa_count
+    by _time client_ip
+| eval nxdomain_ratio=round(nxdomain_count/query_count,4)
+| table _time client_ip query_count unique_qnames nxdomain_count nxdomain_ratio avg_qname_length max_qname_length unique_tlds a_count aaaa_count
+| sort _time

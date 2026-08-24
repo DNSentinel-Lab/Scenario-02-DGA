@@ -1,0 +1,7 @@
+index=dns_soc_dns client_ip="10.50.30.20"
+| where _time>=1787557606 AND _time<=1787558509
+| stats
+    count as events
+    dc(qname) as unique_qnames
+    values(qtype) as qtypes
+    values(rcode) as rcodes
