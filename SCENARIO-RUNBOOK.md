@@ -1,3 +1,12 @@
+<a id="top"></a>
+
+> 🧭 [Scenario 02](README.md) › **Scenario 02 Runbook — DGA + High NXDOMAIN Activity**
+
+![Scenario](https://img.shields.io/badge/Scenario_02-Infrastructure_Ready-D29922?style=flat-square)
+![DNSentinel](https://img.shields.io/badge/DNSentinel-Technical_Record-D966FF?style=flat-square)
+
+---
+
 # Scenario 02 Runbook — DGA + High NXDOMAIN Activity
 
 **Status:** Infrastructure ready — scenario execution, Detection Engineering and ML not started  
@@ -326,3 +335,13 @@ Scenario execution screenshots start in [`screenshots/`](screenshots/) only when
 Infrastructure is ready, but the scenario is not complete until the team can reproduce:
 
 **Simulation → Telemetry → Detection → Alert → AI Assistance → Human Investigation → Response → Verification → Lessons Learned.**
+
+---
+
+<div align="center">
+
+[🏠 Scenario Home](README.md) · [🏗️ Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [⬆ Back to top](#top)
+
+<sub>DNSentinel Lab · Evidence-first DNS security engineering</sub>
+
+</div>
