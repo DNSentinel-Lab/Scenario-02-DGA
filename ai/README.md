@@ -3,7 +3,7 @@
 
 <div align="center">
 
-![Scenario](https://img.shields.io/badge/Scenario_02-Infrastructure_Ready-D29922?style=flat-square)
+![Scenario](https://img.shields.io/badge/Scenario_02-ML_Engineering_Complete-2EA44F?style=flat-square)
 ![Workspace](https://img.shields.io/badge/Workspace-AI_Integration_%2F_Profile-7B2CBF?style=flat-square)
 
 [🏠 Scenario Home](../README.md) · [🏗️ Shared Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [🗂️ All Scenario Repositories](https://github.com/orgs/DNSentinel-Lab/repositories)
@@ -12,7 +12,7 @@
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
-**Status:** Shared AI infrastructure ready; Scenario 02 profile not created.
+**Status:** Shared AI infrastructure ready; Scenario 02 ML Engineering complete; Scenario 02 AI profile not created.
 
 The shared Flask/OpenAI bridge already exists in the Infrastructure repository. This folder will contain only the Scenario 02 profile/payload mapping after the final detection fields are stable.
 
@@ -32,13 +32,13 @@ index=dns_soc_ai
 Human validation against raw resolver evidence
 ```
 
-Likely evidence includes client identity, first/last time, query/NXDOMAIN counts and ratio, representative qnames/qtypes/results, label metrics, optional ML score if later implemented, and supporting sinkhole/network context.
+Likely evidence includes client identity, first/last time, query/NXDOMAIN counts and ratio, representative qnames/qtypes/results, rule-based detection context, the already-implemented ML prediction/score where useful, and supporting sinkhole/network context.
 
 ## Rules
 
 - AI is not the source of truth.
 - AI does not authorize RPZ containment.
-- ML and LLM are separate: ML may score abnormal behavior; LLM explains/enriches stable evidence.
+- ML and LLM are separate: Isolation Forest v1 now scores abnormal behavior in `dns_soc_ml`; the LLM will later explain/enrich stable alert evidence.
 - Preserve the real input payload and response after implementation.
 - Record where the summary is correct, incomplete or wrong.
 - Do not create a fake Scenario 02 profile before alert fields exist.

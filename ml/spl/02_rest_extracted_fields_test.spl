@@ -1,0 +1,3 @@
+search index=dns_soc_dns earliest=-24h client_ip=* qname=* qtype=* rcode=*
+| head 2
+| table _time client_ip qname qtype rcode response_time cache_flag response_size

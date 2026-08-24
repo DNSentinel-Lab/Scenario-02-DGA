@@ -1,0 +1,17 @@
+# Scenario 2 ML service block used with the existing dns-soc-internal network.
+# Merge this under services: in the existing compose.yaml; do not replace the full file with this snippet.
+ml:
+  build:
+    context: /opt/dns-soc-ml
+  container_name: dns-soc-ml
+  hostname: dns-soc-ml
+  restart: unless-stopped
+
+  networks:
+    - dns-soc-internal
+
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "5"

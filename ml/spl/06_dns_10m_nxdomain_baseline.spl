@@ -1,0 +1,10 @@
+index=dns_soc_dns client_ip=* qname=* qtype=* rcode=*
+| bin _time span=10m
+| stats
+    count as replies
+    dc(qname) as unique_qnames
+    sum(eval(if(rcode="NXDOMAIN",1,0))) as nxdomain_count
+    values(qname) as qnames
+    by _time
+| eval nxdomain_ratio=round(nxdomain_count/replies,3)
+| convert ctime(_time)

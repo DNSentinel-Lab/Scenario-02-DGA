@@ -3,7 +3,7 @@
 
 <div align="center">
 
-![Scenario](https://img.shields.io/badge/Scenario_02-Infrastructure_Ready-D29922?style=flat-square)
+![Scenario](https://img.shields.io/badge/Scenario_02-ML_Engineering_Complete-2EA44F?style=flat-square)
 ![Workspace](https://img.shields.io/badge/Workspace-Dashboard_Workspace-0A84FF?style=flat-square)
 
 [🏠 Scenario Home](../README.md) · [🏗️ Shared Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [🗂️ All Scenario Repositories](https://github.com/orgs/DNSentinel-Lab/repositories)
@@ -12,7 +12,7 @@
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
-**Status:** Planned — infrastructure telemetry and core resolver fields are ready; dashboard engineering has not started.
+**Status:** Pending — infrastructure telemetry and the ML result source are ready; Scenario 02 dashboard engineering has not started.
 
 ## Real data available
 
@@ -44,6 +44,16 @@ index=dns_soc_web
 host=dns-soc-sinkhole01
 sourcetype=nginx:access
 ```
+ML evidence is also available through:
+
+```text
+index=dns_soc_ml
+host=dns-soc-ml
+sourcetype=dns_soc:ml:iforest
+```
+
+The dashboard may later compare rule-based evidence with the ML prediction/score, but it must not turn the ML result into an automatic incident verdict.
+
 
 ## Design goal
 
@@ -55,7 +65,8 @@ The dashboard is an investigation surface, not decoration. Every panel must answ
 - filters for `client_ip`, `qtype`, `rcode` and domain/name where useful;
 - KPIs: total queries, NXDOMAIN count, NXDOMAIN ratio, unique qnames, active clients;
 - query/NXDOMAIN behavior over time;
-- generated-name and label-length/randomness views after those derived features are validated;
+- generated-name / qname-length views derived from real resolver fields;
+- rule-based detection and ML context shown as separate analyst signals;
 - client/resolver behavior;
 - sinkhole before/after response verification;
 - analyst-ready investigation table with raw-event pivots.

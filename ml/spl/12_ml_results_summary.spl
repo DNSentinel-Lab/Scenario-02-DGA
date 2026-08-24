@@ -1,0 +1,8 @@
+index=dns_soc_ml sourcetype="dns_soc:ml:iforest"
+| stats
+    count as scored_windows
+    count(eval(prediction="ANOMALY")) as anomalies
+    avg(anomaly_score) as avg_anomaly_score
+    min(anomaly_score) as min_anomaly_score
+    max(anomaly_score) as max_anomaly_score
+    by model scenario client_ip

@@ -3,7 +3,7 @@
 
 <div align="center">
 
-![Scenario](https://img.shields.io/badge/Scenario_02-Infrastructure_Ready-D29922?style=flat-square)
+![Scenario](https://img.shields.io/badge/Scenario_02-ML_Engineering_Complete-2EA44F?style=flat-square)
 ![Workspace](https://img.shields.io/badge/Workspace-SPL_Workspace-00B8D9?style=flat-square)
 
 [🏠 Scenario Home](../README.md) · [🏗️ Shared Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [🗂️ All Scenario Repositories](https://github.com/orgs/DNSentinel-Lab/repositories)
@@ -12,7 +12,7 @@
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
-**Status:** Planned — resolver fields are validated, but baseline/hunting/detection/validation searches have not been created for the scenario yet.
+**Status:** Detection Engineering next — ML Engineering is complete, but the official Scenario 02 `baseline.spl`, `hunting.spl`, `detection.spl` and `validation.spl` have not been created yet.
 
 ## Real input fields
 
@@ -60,7 +60,7 @@ baseline
 -> validation
 ```
 
-Potential future features derived from `qname` can include label length, entropy/randomness and digit ratio, but they are not claimed as existing fields yet.
+The completed ML implementation already derives its own one-minute feature rows under [`../ml/spl/`](../ml/spl/). Those searches support ML engineering only and are deliberately kept separate from the final Detection Engineering SPL in this folder.
 
 ## Rules
 
@@ -68,7 +68,8 @@ Potential future features derived from `qname` can include label length, entropy
 - NXDOMAIN **ratio** matters in addition to raw count.
 - Keep `client_ip` as a primary pivot.
 - Test benign NXDOMAIN patterns deliberately.
-- Keep rule-based detection independently useful even if ML is later added.
+- Keep rule-based detection independently useful even though ML is now implemented.
+- Compare the final rule with `dns_soc_ml` only after the rule works on its own.
 - Do not create placeholder `.spl` files just to make the repository look complete.
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />

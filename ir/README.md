@@ -3,7 +3,7 @@
 
 <div align="center">
 
-![Scenario](https://img.shields.io/badge/Scenario_02-Infrastructure_Ready-D29922?style=flat-square)
+![Scenario](https://img.shields.io/badge/Scenario_02-ML_Engineering_Complete-2EA44F?style=flat-square)
 ![Workspace](https://img.shields.io/badge/Workspace-Incident_Response_Workspace-E5534B?style=flat-square)
 
 [🏠 Scenario Home](../README.md) · [🏗️ Shared Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [🗂️ All Scenario Repositories](https://github.com/orgs/DNSentinel-Lab/repositories)
@@ -12,7 +12,7 @@
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
-**Status:** Reusable RPZ/sinkhole control is infrastructure-ready; Scenario 02 IR exercise not performed.
+**Status:** Reusable RPZ/sinkhole control is infrastructure-ready and ML Engineering is complete; the Scenario 02 IR exercise has not been performed.
 
 The shared Infrastructure repository already proved that Unbound can log an RPZ match, redirect one controlled hostname to `10.50.30.30`, produce sinkhole Nginx evidence, and return to disabled enforcement afterward.
 
@@ -31,7 +31,7 @@ Finding
 → reset to safe state
 ```
 
-Do not treat a detection, ML anomaly score or AI summary as automatic authorization.
+Do not treat a rule-based detection, the implemented ML anomaly result, or a future AI summary as automatic authorization.
 
 ## Expected evidence later
 
