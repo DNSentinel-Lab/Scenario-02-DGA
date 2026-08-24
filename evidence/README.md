@@ -3,33 +3,63 @@
 
 <div align="center">
 
-![Scenario](https://img.shields.io/badge/Scenario_02-Infrastructure_Ready-D29922?style=flat-square)
+![Scenario](https://img.shields.io/badge/Scenario_02-ML_Engineering_Complete-2EA44F?style=flat-square)
 ![Workspace](https://img.shields.io/badge/Workspace-Evidence_Workspace-2EA44F?style=flat-square)
 
-[🏠 Scenario Home](../README.md) · [🏗️ Shared Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [🗂️ All Scenario Repositories](https://github.com/orgs/DNSentinel-Lab/repositories)
+[🏠 Scenario Home](../README.md) · [🧠 ML Engineering](../ml/README.md) · [🏗️ Shared Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure)
 
 </div>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
-**Status:** Empty by design for the Scenario 02 exercise.
+**Status:** ✅ ML Engineering evidence complete; official Scenario 02 Detection Engineering / SOC / IR evidence pending.
 
-Infrastructure evidence already exists in the shared DNS Lab Infrastructure repository. Do not duplicate those screenshots here or mislabel infrastructure RPZ testing as the Scenario 02 incident-response exercise.
+Infrastructure evidence remains in the shared DNS Lab Infrastructure repository. This scenario repository now preserves the evidence that belongs specifically to Musfira's Machine Learning Engineering phase.
 
-Store real scenario evidence here later, such as:
+## ML Engineering validation
 
-- normal baseline measurements;
-- controlled DGA generator parameters and start/end timestamps;
-- DGA/high-NXDOMAIN telemetry notes;
-- detection tuning and false-positive decisions;
-- optional ML comparison results;
+Primary record:
+
+- [`ml-engineering-validation.md`](ml-engineering-validation.md) — compact acceptance matrix, ground-truth windows, model configuration and small controlled evaluation.
+
+Full narrative:
+
+- [`../ml/ML-ENGINEERING.md`](../ml/ML-ENGINEERING.md) — question → observation → decision → action → validation → lesson.
+
+Curated screenshots:
+
+- [`../screenshots/ml/`](../screenshots/ml/) — core success evidence, supporting setup evidence and selected troubleshooting lessons.
+
+## Evidence already preserved
+
+- real resolver path and private Splunk ML integration;
+- least-privilege REST read path;
+- dedicated HEC result path;
+- exact controlled benign run timestamps;
+- 32 one-minute feature windows;
+- 24 training / 8 held-out benign rows;
+- Isolation Forest v1 training output;
+- exact controlled DGA run timestamps;
+- six DGA feature windows;
+- `6 / 6` DGA anomaly result;
+- six successful HEC result writes;
+- final `dns_soc_ml` Splunk summary;
+- selected reusable troubleshooting evidence;
+- complete Python / SPL / Docker source under [`../ml/`](../ml/).
+
+## Still pending for the official Scenario 02 exercise
+
+Do not confuse ML engineering ground truth with the later official case evidence. Future evidence will include:
+
+- Detection Engineering baseline, hunting, positive/benign validation and final rule;
+- official adversary ground truth after defender conclusions are locked;
 - scheduled alert evidence;
-- SOC analyst timeline/findings;
-- AI comparison notes;
-- approved containment/verification notes;
-- cleanup/reset confirmation.
-
-Screenshots belong in [`../screenshots/`](../screenshots/).
+- Scenario 02 AI result and human comparison;
+- SOC analyst timeline/disposition;
+- IR decision;
+- approved RPZ containment;
+- before/after sinkhole verification;
+- final reset and ground-truth comparison.
 
 Evidence should prove the scenario chain rather than preserve every intermediate command or troubleshooting message.
 
@@ -39,7 +69,7 @@ Evidence should prove the scenario chain rather than preserve every intermediate
 
 **DNSentinel Scenario 02 · DGA + High NXDOMAIN**
 
-[🏠 Scenario Home](../README.md) · [🏗️ Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [⬆ Back to top](#top)
+[🏠 Scenario Home](../README.md) · [🧠 ML Engineering](../ml/README.md) · [⬆ Back to top](#top)
 
 </div>
 
