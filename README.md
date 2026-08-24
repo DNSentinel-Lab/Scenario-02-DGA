@@ -211,7 +211,7 @@ The shared AWS telemetry and shared AI bridge remain available when they add rea
 
 ## 🧠 Machine Learning Engineering — Complete
 
-Scenario 02 now has a working Isolation Forest v1 implementation built by **Musfira Zafar**.
+Scenario 02 now has a working Isolation Forest v1 implementation built by [**Musfira Zafar**](https://github.com/MUSFIRA-ZAFAR).
 
 ```text
 Controlled benign DNS
@@ -294,11 +294,9 @@ No final Scenario 02 dashboard artifact exists yet. See [`dashboard/README.md`](
 | Role | Member | Current Scenario 02 contribution |
 |---|---|---|
 | **Project Lead / Adversary Operator** | [Musfira](https://github.com/MUSFIRA-ZAFAR) | Scenario lead; also completed the Scenario 02 ML Engineering implementation |
-| **SOC Analyst / Threat Hunter** | Sonia | Official Scenario 02 analyst work pending |
-| **Detection Engineer / AI Integrator** | Lubaba | **Next phase:** baseline, dashboard, SPL detection, validation, alert and Scenario 02 AI mapping |
-| **IR / Defender** | Abdul-Rehman | Official response / containment decision pending |
-
-Musfira's ML contribution is recorded as an additional technical implementation responsibility. The locked role rotation is unchanged: Lubaba remains the Scenario 02 Detection Engineer.
+| **SOC Analyst / Threat Hunter** | [Sonia](https://github.com/sonia11mansha415) | Official Scenario 02 analyst work pending |
+| **Detection Engineer / AI Integrator** | [Lubaba](https://github.com/lubaba1513-pixel) | **Next phase:** baseline, dashboard, SPL detection, validation, alert and Scenario 02 AI mapping |
+| **IR / Defender** | [Abdul-Rehman](https://github.com/abdul4rehman215) | Official response / containment decision pending |
 
 ## 🧭 Current Execution Order
 
