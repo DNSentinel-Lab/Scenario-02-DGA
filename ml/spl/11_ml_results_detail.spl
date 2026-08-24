@@ -1,0 +1,3 @@
+index=dns_soc_ml sourcetype="dns_soc:ml:iforest"
+| table _time host source event_type model scenario client_ip window_time prediction anomaly_score query_count unique_qnames nxdomain_count nxdomain_ratio avg_qname_length max_qname_length
+| sort window_time
