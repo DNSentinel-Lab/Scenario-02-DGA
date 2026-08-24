@@ -1,0 +1,2 @@
+search (index=dns_soc_ai OR index=dns_soc_ml) earliest=-24h
+| stats count by index

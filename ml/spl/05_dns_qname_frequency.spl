@@ -1,0 +1,3 @@
+index=dns_soc_dns client_ip=* qname=* qtype=* rcode=*
+| stats count values(rcode) as rcodes by qname
+| sort - count

@@ -1,0 +1,10 @@
+index=dns_soc_dns
+| stats
+    count as total_events
+    min(_time) as firstSeen
+    max(_time) as lastSeen
+    dc(client_ip) as clients
+    dc(qname) as unique_qnames
+    values(qtype) as qtypes
+    values(rcode) as rcodes
+| convert ctime(firstSeen) ctime(lastSeen)
