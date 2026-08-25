@@ -1,0 +1,4 @@
+index=dns_soc_ai sourcetype="dns_soc:ai:triage"
+| spath
+| table _time request_id processed_at alert.alert_id alert.alert_name alert.scenario alert.severity alert.source alert.evidence.scenario_id alert.evidence.ai_profile ai.summary ai.confidence ai.observed_indicators ai.suspicion_reasons ai.network_context.primary_osi_layer ai.network_context.related_layers ai.network_context.protocols ai.mitre_attack.tactic ai.mitre_attack.technique_id ai.mitre_attack.technique_name ai.missing_evidence ai.response_considerations human_validation_required
+| sort 0 - _time

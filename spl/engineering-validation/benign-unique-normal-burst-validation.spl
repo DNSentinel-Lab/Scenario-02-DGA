@@ -1,0 +1,30 @@
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply" earliest="08/25/2026:08:16:52" latest="08/25/2026:08:16:58"
+| eval qname_norm=lower(rtrim(qname,"."))
+| eval qname_length=len(qname_norm)
+| eval event_epoch=_time
+| bin _time span=1m
+| stats min(event_epoch) as first_event
+        max(event_epoch) as last_event
+        count as query_count
+        dc(qname_norm) as unique_qnames
+        count(eval(rcode="NXDOMAIN")) as nxdomain_count
+        avg(qname_length) as avg_qname_length
+        max(qname_length) as max_qname_length
+        dc(qtype) as distinct_qtypes
+        values(qtype) as qtypes
+        values(rcode) as response_codes
+        values(qname_norm) as qname_samples
+    by _time client_ip
+| eval unique_qname_ratio=round(unique_qnames/query_count,4)
+| eval nxdomain_ratio=round(nxdomain_count/query_count,4)
+| eval avg_qname_length=round(avg_qname_length,2)
+| eval candidate_status=if(
+    query_count>=20
+    AND unique_qnames>=15
+    AND nxdomain_ratio>=0.75,
+    "CANDIDATE DETECT",
+    "BELOW CANDIDATE"
+  )
+| convert ctime(first_event) ctime(last_event)
+| table _time first_event last_event client_ip query_count unique_qnames unique_qname_ratio nxdomain_count nxdomain_ratio avg_qname_length max_qname_length distinct_qtypes qtypes response_codes qname_samples candidate_status
+| sort 0 _time

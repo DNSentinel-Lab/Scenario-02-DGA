@@ -1,85 +1,95 @@
 <a id="top"></a>
-<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=6,12,19,24,30&height=135&section=header&text=%F0%9F%94%8E%20SPL%20Workspace&fontSize=28&fontColor=ffffff&animation=fadeIn&desc=Scenario%2002%20%E2%80%94%20DGA%20%2B%20High%20NXDOMAIN&descSize=14&descAlignY=68&descColor=D966FF" width="100%" alt="🔎 SPL Workspace" />
+<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=6,12,19,24,30&height=135&section=header&text=%F0%9F%94%8E%20SPL%20Workspace&fontSize=28&fontColor=ffffff&animation=fadeIn&desc=Scenario%2002%20%E2%80%94%20DGA%20%2B%20High%20NXDOMAIN&descSize=14&descAlignY=68&descColor=D966FF" width="100%" alt="SPL Workspace" />
 
 <div align="center">
 
-![Scenario](https://img.shields.io/badge/Scenario_02-ML_Engineering_Complete-2EA44F?style=flat-square)
-![Workspace](https://img.shields.io/badge/Workspace-SPL_Workspace-00B8D9?style=flat-square)
+![Scenario](https://img.shields.io/badge/Scenario_02-Detection_Engineering_Complete-2EA44F?style=flat-square)
+![Detection](https://img.shields.io/badge/Detection-v1.0-D966FF?style=flat-square)
+![MITRE](https://img.shields.io/badge/MITRE-T1568.002-E34F26?style=flat-square)
 
-[🏠 Scenario Home](../README.md) · [🏗️ Shared Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [🗂️ All Scenario Repositories](https://github.com/orgs/DNSentinel-Lab/repositories)
+[🏠 Scenario Home](../README.md) · [🚦 Detection Engineering](../detection-engineering/README.md) · [📊 Dashboard](../dashboard/README.md) · [🤖 AI Mapping](../ai/README.md)
 
 </div>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
-**Status:** Detection Engineering next — ML Engineering is complete, but the official Scenario 02 `baseline.spl`, `hunting.spl`, `detection.spl` and `validation.spl` have not been created yet.
+**Status:** ✅ Scenario 02 rule-based Detection Engineering SPL complete.
 
-## Real input fields
+This workspace preserves the four canonical Detection Engineering stages required by the project standard. Supporting test searches are kept separately so the main path stays easy to review.
 
-Primary source:
-
-```text
-index=dns_soc_dns sourcetype=unbound:dns
-```
-
-Available persistent fields:
+## Canonical lifecycle
 
 ```text
-event_type
-client_ip
-qname
-qtype
-rcode
-response_time
-cache_flag
-response_size
+baseline.spl
+    ↓
+hunting.spl
+    ↓
+detection.spl
+    ↓
+validation.spl
 ```
 
-## Final file pattern
+| File | Purpose |
+|---|---|
+| [`baseline.spl`](baseline.spl) | Reproduce the known-clean 32-window baseline and median/p95/max metrics used to understand normal resolver behavior. |
+| [`hunting.spl`](hunting.spl) | Threshold-free one-minute/client behavior summary plus raw resolver pivot. |
+| [`detection.spl`](detection.spl) | Final production Detection v1.0, including the stable analyst/AI evidence contract. |
+| [`validation.spl`](validation.spl) | Apply the same frozen v1.0 boundary while keeping both `WOULD DETECT` and `BELOW THRESHOLD` rows visible. |
+| [`scheduled-alert.md`](scheduled-alert.md) | Final cadence, lookback, trigger actions, real trigger evidence and webhook result-contract note. |
 
-Create these only after real searches exist:
+## Final Detection v1.0
 
 ```text
-spl/
-├── baseline.spl
-├── hunting.spl
-├── detection.spl
-└── validation.spl
+Primary source:  dns_soc_dns / Unbound reply events
+Entity:          client_ip
+Window:          1 minute
+
+query_count >= 20
+AND unique_qnames >= 15
+AND nxdomain_ratio >= 0.75
 ```
 
-## Required development order
+The threshold is lab-derived, not copied from a generic DGA guide. See the full reasoning in [`../detection-engineering/DETECTION-ENGINEERING.md`](../detection-engineering/DETECTION-ENGINEERING.md).
 
-```text
-baseline
--> hunting
--> initial rule-based DGA detection
--> controlled positive test
--> minimal benign/false-positive test
--> tune only if evidence requires it
--> final detection
--> validation
-```
+## Engineering validation searches
 
-The completed ML implementation already derives its own one-minute feature rows under [`../ml/spl/`](../ml/spl/). Those searches support ML engineering only and are deliberately kept separate from the final Detection Engineering SPL in this folder.
+Folder: [`engineering-validation/`](engineering-validation/)
 
-## Rules
+These are exact supporting searches used to challenge and verify the final rule. They are preserved for reproducibility but do not replace the canonical four SPL artifacts.
 
-- Final thresholds come from the lab baseline + controlled DGA/high-NXDOMAIN behavior.
-- NXDOMAIN **ratio** matters in addition to raw count.
-- Keep `client_ip` as a primary pivot.
-- Test benign NXDOMAIN patterns deliberately.
-- Keep rule-based detection independently useful even though ML is now implemented.
-- Compare the final rule with `dns_soc_ml` only after the rule works on its own.
-- Do not create placeholder `.spl` files just to make the repository look complete.
+The read-only resolver field/timing/contamination/baseline work is preserved as [`resolver-validation-and-baseline-searches.spl`](engineering-validation/resolver-validation-and-baseline-searches.spl). It documents how the Detection Engineer established trusted inputs before hunting or threshold selection.
+
+| Search | Engineering question |
+|---|---|
+| `historical-candidate-validation.spl` | Would the candidate separate the known historical DGA run from benign history? |
+| `fresh-positive-validation.spl` | Does a new controlled DGA run cross the same candidate? |
+| `benign-ordinary-dns-validation.spl` | Does ordinary DNS stay below? |
+| `benign-limited-nxdomain-validation.spl` | Does a small benign NXDOMAIN pattern stay below? |
+| `benign-cache-limited-burst-validation.spl` | What did the resolver actually observe during a repeated-name burst? |
+| `benign-unique-normal-burst-validation.spl` | Does high-volume/high-unique legitimate DNS still stay below without high NXDOMAIN? |
+| `rule-vs-ml-comparison.spl` | How does frozen rule output compare with the existing Isolation Forest on the same historical DGA windows? |
+| `scheduled-alert-raw-drilldown.spl` | Can the analyst recover the raw resolver events behind a triggered minute? |
+| `ai-evidence-contract-test.spl` | Does one detection row satisfy the shared webhook evidence contract? |
+| `ai-index-validation.spl` | Did structured AI triage return to `dns_soc_ai`? |
+| `ai-vs-raw-final-validation.spl` | Do the AI's core DNS numbers match raw resolver telemetry? |
+
+## Separation from ML SPL
+
+[`../ml/spl/`](../ml/spl/) remains Musfira's ML Engineering workspace. Those searches were used for ML data inventory, feature engineering, training/evaluation support and ML result validation.
+
+Root `spl/` belongs to Lubaba's explainable rule-based Detection Engineering lifecycle.
+
+## Detection boundary
+
+- `NXDOMAIN` is central to this scenario but **not sufficient by itself**.
+- `unique_qname_ratio` and qname length remain useful investigation context even though they are not mandatory v1.0 conditions.
+- ML is supporting context, not a dependency of `detection.spl`.
+- No SPL here enables RPZ, sinkholes a domain or authorizes Incident Response.
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
 
-**DNSentinel Scenario 02 · DGA + High NXDOMAIN**
-
-[🏠 Scenario Home](../README.md) · [🏗️ Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [⬆ Back to top](#top)
+[🏠 Scenario Home](../README.md) · [🚦 Detection Story](../detection-engineering/DETECTION-ENGINEERING.md) · [⬆ Back to top](#top)
 
 </div>
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,19,24,30&height=75&section=footer" width="100%" alt="footer" />

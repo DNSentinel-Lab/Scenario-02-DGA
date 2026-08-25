@@ -1,0 +1,45 @@
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply" earliest=1787561668 latest=1787561968
+| eval qname_norm=lower(rtrim(qname,"."))
+| bin _time span=1m
+| stats count as query_count
+        dc(qname_norm) as unique_qnames
+        count(eval(rcode="NXDOMAIN")) as nxdomain_count
+    by _time client_ip
+| eval nxdomain_ratio=round(nxdomain_count/query_count,4)
+| eval rule_status=if(
+    query_count>=20
+    AND unique_qnames>=15
+    AND nxdomain_ratio>=0.75,
+    "DETECT",
+    "BELOW"
+  )
+| eval comparison_time=_time
+| fields comparison_time client_ip query_count unique_qnames nxdomain_ratio rule_status
+| append [
+    search index=dns_soc_ml host=dns-soc-ml sourcetype="dns_soc:ml:iforest"
+    | spath
+    | eval window_time=mvindex(window_time,0)
+    | eval client_ip=mvindex(client_ip,0)
+    | eval prediction=mvindex(prediction,0)
+    | eval anomaly_score=mvindex(anomaly_score,0)
+    | eval comparison_time=strptime(window_time,"%Y-%m-%d %H:%M:%S.%3N %Z")
+    | where comparison_time>=1787561640 AND comparison_time<=1787561940
+    | fields comparison_time client_ip prediction anomaly_score
+  ]
+| bin comparison_time span=1m
+| stats values(query_count) as query_count
+        values(unique_qnames) as unique_qnames
+        values(nxdomain_ratio) as nxdomain_ratio
+        values(rule_status) as rule_status
+        values(prediction) as ml_prediction
+        values(anomaly_score) as anomaly_score
+    by comparison_time client_ip
+| eval comparison_time=strftime(comparison_time,"%Y-%m-%d %H:%M:%S")
+| eval comparison=case(
+    rule_status="DETECT" AND ml_prediction="ANOMALY","RULE + ML AGREE",
+    rule_status="DETECT" AND ml_prediction!="ANOMALY","RULE ONLY",
+    rule_status!="DETECT" AND ml_prediction="ANOMALY","ML ONLY",
+    true(),"BOTH BELOW/NORMAL"
+  )
+| table comparison_time client_ip query_count unique_qnames nxdomain_ratio rule_status ml_prediction anomaly_score comparison
+| sort 0 comparison_time

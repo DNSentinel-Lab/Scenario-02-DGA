@@ -1,0 +1,75 @@
+# Scenario 02 — Detection Engineering baseline
+# Detection Engineer: Lubaba
+# Purpose: independently characterize known-clean Unbound reply behavior
+# before choosing a rule threshold.
+#
+# Known-clean periods were reused from the completed benign ML engineering runs,
+# but the Detection Engineering metrics below were derived independently from
+# raw dns_soc_dns resolver evidence.
+
+# -----------------------------------------------------------------------------
+# BASELINE 1 — 1-minute/client rows
+# Benign Run 1: 2026-08-24 07:46:46Z -> 08:01:49Z
+# Benign Run 2: 2026-08-24 08:16:22Z -> 08:31:28Z
+# -----------------------------------------------------------------------------
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply" client_ip="10.50.30.20"
+| where (_time>=1787557606 AND _time<=1787558509)
+     OR (_time>=1787559382 AND _time<=1787560288)
+| eval qname_norm=lower(rtrim(qname,"."))
+| eval qname_length=len(qname_norm)
+| bin _time span=1m
+| stats count as query_count
+        dc(qname_norm) as unique_qnames
+        count(eval(rcode="NXDOMAIN")) as nxdomain_count
+        avg(qname_length) as avg_qname_length
+        max(qname_length) as max_qname_length
+        dc(qtype) as distinct_qtypes
+        values(qtype) as qtypes
+        avg(response_time) as avg_response_time
+    by _time client_ip
+| eval nxdomain_ratio=round(nxdomain_count/query_count,4)
+| eval unique_qname_ratio=round(unique_qnames/query_count,4)
+| eval avg_qname_length=round(avg_qname_length,2)
+| eval avg_response_time=round(avg_response_time,6)
+| table _time client_ip query_count unique_qnames unique_qname_ratio nxdomain_count nxdomain_ratio avg_qname_length max_qname_length distinct_qtypes qtypes avg_response_time
+| sort 0 _time
+
+# -----------------------------------------------------------------------------
+# BASELINE 2 — median / p95 / maximum summary across the same 32 windows
+# -----------------------------------------------------------------------------
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply" client_ip="10.50.30.20"
+| where (_time>=1787557606 AND _time<=1787558509)
+     OR (_time>=1787559382 AND _time<=1787560288)
+| eval qname_norm=lower(rtrim(qname,"."))
+| eval qname_length=len(qname_norm)
+| bin _time span=1m
+| stats count as query_count
+        dc(qname_norm) as unique_qnames
+        count(eval(rcode="NXDOMAIN")) as nxdomain_count
+        avg(qname_length) as avg_qname_length
+        max(qname_length) as max_qname_length
+        dc(qtype) as distinct_qtypes
+        avg(response_time) as avg_response_time
+    by _time client_ip
+| eval nxdomain_ratio=nxdomain_count/query_count
+| eval unique_qname_ratio=unique_qnames/query_count
+| eval metric_value=mvappend(
+        "query_count=".query_count,
+        "unique_qnames=".unique_qnames,
+        "unique_qname_ratio=".unique_qname_ratio,
+        "nxdomain_count=".nxdomain_count,
+        "nxdomain_ratio=".nxdomain_ratio,
+        "avg_qname_length=".avg_qname_length,
+        "max_qname_length=".max_qname_length,
+        "distinct_qtypes=".distinct_qtypes,
+        "avg_response_time=".avg_response_time)
+| mvexpand metric_value
+| rex field=metric_value "^(?<metric>[^=]+)=(?<value>.+)$"
+| eval value=tonumber(value)
+| stats count(value) as baseline_windows
+        median(value) as median
+        perc95(value) as p95
+        max(value) as maximum
+    by metric
+| eval median=round(median,4), p95=round(p95,4), maximum=round(maximum,4)
+| sort metric
