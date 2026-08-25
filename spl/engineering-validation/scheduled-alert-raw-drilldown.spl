@@ -1,0 +1,7 @@
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply"
+client_ip="10.50.30.20"
+earliest="08/25/2026:09:09:00"
+latest="08/25/2026:09:10:00"
+| eval qname=lower(rtrim(qname,"."))
+| table _time client_ip qname qtype rcode response_time cache_flag response_size
+| sort 0 _time

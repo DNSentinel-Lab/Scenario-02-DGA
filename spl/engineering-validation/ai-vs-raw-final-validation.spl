@@ -1,0 +1,13 @@
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply"
+client_ip="10.50.30.20"
+earliest="08/25/2026:10:10:00"
+latest="08/25/2026:10:11:00"
+| eval qname_norm=lower(rtrim(qname,"."))
+| stats count as query_count
+        dc(qname_norm) as unique_qnames
+        count(eval(rcode="NXDOMAIN")) as nxdomain_count
+        values(rcode) as response_codes
+        values(qname_norm) as qname_samples
+| eval unique_qname_ratio=round(unique_qnames/query_count,4)
+| eval nxdomain_ratio=round(nxdomain_count/query_count,4)
+| table query_count unique_qnames unique_qname_ratio nxdomain_count nxdomain_ratio response_codes qname_samples

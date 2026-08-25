@@ -1,0 +1,511 @@
+{
+    "title": "Scenario 02 — DGA + High NXDOMAIN Investigation",
+    "description": "Investigate DGA and high-NXDOMAIN DNS behavior using resolver telemetry, behavioral metrics, raw DNS evidence, and ML supporting context.",
+    "inputs": {
+        "input_DXYe9wIM": {
+            "options": {
+                "defaultValue": "*",
+                "token": "qname_filter"
+            },
+            "title": "Qname / Domain",
+            "type": "input.text"
+        },
+        "input_VAGrJL08": {
+            "context": {
+                "formattedConfig": {
+                    "number": {
+                        "prefix": ""
+                    }
+                },
+                "formattedStatics": ">statics | formatByType(formattedConfig)",
+                "label": ">primary | seriesByName(\"rcode\") | renameSeries(\"label\") | formatByType(formattedConfig)",
+                "statics": [
+                    [
+                        "All"
+                    ],
+                    [
+                        "*"
+                    ]
+                ],
+                "value": ">primary | seriesByName(\"rcode\") | renameSeries(\"value\") | formatByType(formattedConfig)"
+            },
+            "dataSources": {
+                "primary": "ds_L6Pmhjbm"
+            },
+            "options": {
+                "defaultValue": "*",
+                "items": ">frame(label, value) | prepend(formattedStatics) | objects()",
+                "token": "rcode_filter"
+            },
+            "title": "Response Code",
+            "type": "input.dropdown"
+        },
+        "input_XA504GeS": {
+            "context": {
+                "formattedConfig": {
+                    "number": {
+                        "prefix": ""
+                    }
+                },
+                "formattedStatics": ">statics | formatByType(formattedConfig)",
+                "label": ">primary | seriesByName(\"client_ip\") | renameSeries(\"label\") | formatByType(formattedConfig)",
+                "statics": [
+                    [
+                        "All"
+                    ],
+                    [
+                        "*"
+                    ]
+                ],
+                "value": ">primary | seriesByName(\"client_ip\") | renameSeries(\"value\") | formatByType(formattedConfig)"
+            },
+            "dataSources": {
+                "primary": "ds_BRrOEJkS"
+            },
+            "options": {
+                "defaultValue": "*",
+                "items": ">frame(label, value) | prepend(formattedStatics) | objects()",
+                "token": "client_ip_filter"
+            },
+            "title": "Client IP",
+            "type": "input.dropdown"
+        },
+        "input_fxsciO5B": {
+            "context": {
+                "formattedConfig": {
+                    "number": {
+                        "prefix": ""
+                    }
+                },
+                "formattedStatics": ">statics | formatByType(formattedConfig)",
+                "label": ">primary | seriesByName(\"qtype\") | renameSeries(\"label\") | formatByType(formattedConfig)",
+                "statics": [
+                    [
+                        "All"
+                    ],
+                    [
+                        "*"
+                    ]
+                ],
+                "value": ">primary | seriesByName(\"qtype\") | renameSeries(\"value\") | formatByType(formattedConfig)"
+            },
+            "dataSources": {
+                "primary": "ds_F6WsodY4"
+            },
+            "options": {
+                "defaultValue": "*",
+                "items": ">frame(label, value) | prepend(formattedStatics) | objects()",
+                "token": "qtype_filter"
+            },
+            "title": "Query Type",
+            "type": "input.dropdown"
+        },
+        "input_global_trp": {
+            "options": {
+                "defaultValue": "-24h@h,now",
+                "token": "global_time"
+            },
+            "title": "Global Time Range",
+            "type": "input.timerange"
+        }
+    },
+    "defaults": {
+        "dataSources": {
+            "ds.search": {
+                "options": {
+                    "queryParameters": {
+                        "earliest": "$global_time.earliest$",
+                        "latest": "$global_time.latest$"
+                    }
+                }
+            },
+            "ds.spl2": {
+                "options": {
+                    "queryParameters": {
+                        "earliest": "$global_time.earliest$",
+                        "latest": "$global_time.latest$"
+                    }
+                }
+            }
+        },
+        "visualizations": {
+            "global": {
+                "showProgressBar": true
+            }
+        }
+    },
+    "visualizations": {
+        "viz_7ssHtDCw": {
+            "dataSources": {
+                "primary": "ds_ZbBEjKAU"
+            },
+            "title": "ML Anomalous Windows",
+            "type": "splunk.singlevalue"
+        },
+        "viz_Fl4jwRi3": {
+            "dataSources": {
+                "primary": "ds_OHpamcmD"
+            },
+            "title": "Total DNS Replies",
+            "type": "splunk.singlevalue"
+        },
+        "viz_IK0AnLKU": {
+            "dataSources": {
+                "primary": "ds_aaFhg8mY"
+            },
+            "title": "Active Clients",
+            "type": "splunk.singlevalue"
+        },
+        "viz_Rua5zAbm": {
+            "dataSources": {
+                "primary": "ds_XqqUUA0u"
+            },
+            "title": "NXDOMAIN Count",
+            "type": "splunk.singlevalue"
+        },
+        "viz_SaQMfWPt": {
+            "dataSources": {
+                "primary": "ds_MM6OPe5h"
+            },
+            "title": "DNS Volume + NXDOMAIN Over Time",
+            "type": "splunk.line"
+        },
+        "viz_Ypq2GY71": {
+            "dataSources": {
+                "primary": "ds_MSUUdsad"
+            },
+            "title": "Top NXDOMAIN Names",
+            "type": "splunk.table"
+        },
+        "viz_je2ulAC0": {
+            "dataSources": {
+                "primary": "ds_U7REA0jd"
+            },
+            "title": "Unique Qnames",
+            "type": "splunk.singlevalue"
+        },
+        "viz_p759HjOd": {
+            "dataSources": {
+                "primary": "ds_aqqm73xx"
+            },
+            "title": "Query-Type Distribution",
+            "type": "splunk.bar"
+        },
+        "viz_pkzkblR3": {
+            "dataSources": {
+                "primary": "ds_rSfOAc9X"
+            },
+            "description": "Isolation Forest supporting signal. anomaly_score is the raw decision-function output; higher does not mean more malicious.",
+            "title": "ML Window Context — Supporting Signal",
+            "type": "splunk.table"
+        },
+        "viz_ry2VjVTg": {
+            "dataSources": {
+                "primary": "ds_jed7Nv7r"
+            },
+            "title": "Average + Maximum Qname Length Over Time",
+            "type": "splunk.line"
+        },
+        "viz_uK2AKqzS": {
+            "dataSources": {
+                "primary": "ds_Uw69hi5n"
+            },
+            "options": {
+                "y": "> primary | frameBySeriesNames('Unique Qnames')",
+                "y2": "> primary | frameBySeriesNames('NXDOMAIN Ratio (%)')"
+            },
+            "title": "Unique Qnames + NXDOMAIN Ratio Over Time",
+            "type": "splunk.line"
+        },
+        "viz_uWVoRE2n": {
+            "dataSources": {
+                "primary": "ds_TlD0d71D"
+            },
+            "title": "Raw DNS Investigation",
+            "type": "splunk.table"
+        },
+        "viz_zr59m7d8": {
+            "dataSources": {
+                "primary": "ds_lLLqntsY"
+            },
+            "options": {
+                "numberPrecision": 2
+            },
+            "title": "NXDOMAIN Ratio (%)",
+            "type": "splunk.singlevalue"
+        }
+    },
+    "dataSources": {
+        "ds_BRrOEJkS": {
+            "name": "Search_13",
+            "options": {
+                "query": "index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type=\"reply\"\r\n| stats count by client_ip\r\n| fields client_ip\r\n| sort client_ip"
+            },
+            "type": "ds.search"
+        },
+        "ds_F6WsodY4": {
+            "name": "Search_15",
+            "options": {
+                "query": "index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type=\"reply\"\r\n| stats count by qtype\r\n| fields qtype\r\n| sort qtype"
+            },
+            "type": "ds.search"
+        },
+        "ds_L6Pmhjbm": {
+            "name": "Search_14",
+            "options": {
+                "query": "index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type=\"reply\"\r\n| stats count by rcode\r\n| fields rcode\r\n| sort rcode"
+            },
+            "type": "ds.search"
+        },
+        "ds_MM6OPe5h": {
+            "name": "Search_7",
+            "options": {
+                "query": "index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type=\"reply\" client_ip=\"$client_ip_filter$\" qtype=\"$qtype_filter$\"\r\n| eval qname_norm=lower(rtrim(qname,\".\"))\r\n| eval qname_filter_value=lower(\"$qname_filter$\")\r\n| where qname_filter_value=\"*\" OR like(qname_norm,\"%\".qname_filter_value.\"%\")\r\n| timechart span=1m\r\n    count as \"DNS Replies\"\r\n    count(eval(rcode=\"NXDOMAIN\")) as \"NXDOMAIN Replies\""
+            },
+            "type": "ds.search"
+        },
+        "ds_MSUUdsad": {
+            "name": "Search_11",
+            "options": {
+                "query": "index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type=\"reply\" client_ip=\"$client_ip_filter$\" qtype=\"$qtype_filter$\" rcode=\"NXDOMAIN\"\r\n| eval qname_norm=lower(rtrim(qname,\".\"))\r\n| eval qname_filter_value=lower(\"$qname_filter$\")\r\n| where qname_filter_value=\"*\" OR like(qname_norm,\"%\".qname_filter_value.\"%\")\r\n| stats count as nxdomain_replies\r\n        values(qtype) as qtypes\r\n        min(_time) as first_seen\r\n        max(_time) as last_seen\r\n    by qname_norm\r\n| convert ctime(first_seen) ctime(last_seen)\r\n| sort - nxdomain_replies\r\n| head 15\r\n| rename qname_norm as \"Qname\",\r\n         nxdomain_replies as \"NXDOMAIN Replies\",\r\n         qtypes as \"Qtypes\",\r\n         first_seen as \"First Seen\",\r\n         last_seen as \"Last Seen\""
+            },
+            "type": "ds.search"
+        },
+        "ds_OHpamcmD": {
+            "name": "Search_1",
+            "options": {
+                "query": "index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type=\"reply\" client_ip=\"$client_ip_filter$\"  rcode=\"$rcode_filter$\" qtype=\"$qtype_filter$\"\r\n| eval qname_norm=lower(rtrim(qname,\".\"))\r\n| eval qname_filter_value=lower(\"$qname_filter$\")\r\n| where qname_filter_value=\"*\" OR like(qname_norm,\"%\".qname_filter_value.\"%\")\r\n| stats count as total_dns_replies"
+            },
+            "type": "ds.search"
+        },
+        "ds_TlD0d71D": {
+            "name": "Search_12",
+            "options": {
+                "query": "index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type=\"reply\" client_ip=\"$client_ip_filter$\" rcode=\"$rcode_filter$\" qtype=\"$qtype_filter$\"\r\n| eval qname_norm=lower(rtrim(qname,\".\"))\r\n| eval qname_filter_value=lower(\"$qname_filter$\")\r\n| where qname_filter_value=\"*\" OR like(qname_norm,\"%\".qname_filter_value.\"%\")\r\n| table _time client_ip qname_norm qtype rcode response_time cache_flag response_size\r\n| rename qname_norm as qname\r\n| sort - _time\r\n| head 100"
+            },
+            "type": "ds.search"
+        },
+        "ds_U7REA0jd": {
+            "name": "Search_4",
+            "options": {
+                "query": "index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type=\"reply\" client_ip=\"$client_ip_filter$\"  rcode=\"$rcode_filter$\" qtype=\"$qtype_filter$\"\r\n| eval qname_norm=lower(rtrim(qname,\".\"))\r\n| eval qname_filter_value=lower(\"$qname_filter$\")\r\n| where qname_filter_value=\"*\" OR like(qname_norm,\"%\".qname_filter_value.\"%\")\r\n| stats dc(qname_norm) as unique_qnames"
+            },
+            "type": "ds.search"
+        },
+        "ds_Uw69hi5n": {
+            "name": "Search_8",
+            "options": {
+                "query": "index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type=\"reply\" client_ip=\"$client_ip_filter$\" qtype=\"$qtype_filter$\"\r\n| eval qname_norm=lower(rtrim(qname,\".\"))\r\n| eval qname_filter_value=lower(\"$qname_filter$\")\r\n| where qname_filter_value=\"*\" OR like(qname_norm,\"%\".qname_filter_value.\"%\")\r\n| timechart span=1m\r\n    count as total_replies\r\n    dc(qname_norm) as \"Unique Qnames\"\r\n    count(eval(rcode=\"NXDOMAIN\")) as nxdomain_count\r\n| eval \"NXDOMAIN Ratio (%)\"=if(total_replies>0,round((nxdomain_count/total_replies)*100,2),0)\r\n| fields _time \"Unique Qnames\" \"NXDOMAIN Ratio (%)\""
+            },
+            "type": "ds.search"
+        },
+        "ds_XqqUUA0u": {
+            "name": "Search_2",
+            "options": {
+                "query": "index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type=\"reply\" client_ip=\"$client_ip_filter$\" qtype=\"$qtype_filter$\"\r\n| eval qname_norm=lower(rtrim(qname,\".\"))\r\n| eval qname_filter_value=lower(\"$qname_filter$\")\r\n| where qname_filter_value=\"*\" OR like(qname_norm,\"%\".qname_filter_value.\"%\")\r\n| stats count(eval(rcode=\"NXDOMAIN\")) as nxdomain_count"
+            },
+            "type": "ds.search"
+        },
+        "ds_ZbBEjKAU": {
+            "name": "Search_6",
+            "options": {
+                "query": "index=dns_soc_ml host=dns-soc-ml sourcetype=\"dns_soc:ml:iforest\" prediction=\"ANOMALY\" \r\n| stats count as ml_anomalous_windows"
+            },
+            "type": "ds.search"
+        },
+        "ds_aaFhg8mY": {
+            "name": "Search_5",
+            "options": {
+                "query": "index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type=\"reply\" \r\n| stats dc(client_ip) as active_clients"
+            },
+            "type": "ds.search"
+        },
+        "ds_aqqm73xx": {
+            "name": "Search_10",
+            "options": {
+                "query": "index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type=\"reply\" client_ip=\"$client_ip_filter$\"  rcode=\"$rcode_filter$\"\r\n| eval qname_norm=lower(rtrim(qname,\".\"))\r\n| eval qname_filter_value=lower(\"$qname_filter$\")\r\n| where qname_filter_value=\"*\" OR like(qname_norm,\"%\".qname_filter_value.\"%\")\r\n| stats count as queries by qtype\r\n| sort - queries"
+            },
+            "type": "ds.search"
+        },
+        "ds_jed7Nv7r": {
+            "name": "Search_9",
+            "options": {
+                "query": "index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type=\"reply\" client_ip=\"$client_ip_filter$\"  rcode=\"$rcode_filter$\" qtype=\"$qtype_filter$\"\r\n| eval qname_norm=lower(rtrim(qname,\".\"))\r\n| eval qname_filter_value=lower(\"$qname_filter$\")\r\n| where qname_filter_value=\"*\" OR like(qname_norm,\"%\".qname_filter_value.\"%\")\r\n| eval qname_length=len(qname_norm)\r\n| timechart span=1m\r\n    avg(qname_length) as \"Average Qname Length\"\r\n    max(qname_length) as \"Maximum Qname Length\""
+            },
+            "type": "ds.search"
+        },
+        "ds_lLLqntsY": {
+            "name": "Search_3",
+            "options": {
+                "query": "index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type=\"reply\" client_ip=\"$client_ip_filter$\" qtype=\"$qtype_filter$\"\r\n| eval qname_norm=lower(rtrim(qname,\".\"))\r\n| eval qname_filter_value=lower(\"$qname_filter$\")\r\n| where qname_filter_value=\"*\" OR like(qname_norm,\"%\".qname_filter_value.\"%\")\r\n| stats count as total_replies\r\n        count(eval(rcode=\"NXDOMAIN\")) as nxdomain_count\r\n| eval nxdomain_ratio=round((nxdomain_count/total_replies)*100,2)\r\n| fields nxdomain_ratio"
+            },
+            "type": "ds.search"
+        },
+        "ds_rSfOAc9X": {
+            "name": "Search_16",
+            "options": {
+                "query": "index=dns_soc_ml host=dns-soc-ml sourcetype=\"dns_soc:ml:iforest\" client_ip=\"$client_ip_filter$\"\r\n| table _time window_time client_ip prediction anomaly_score query_count unique_qnames nxdomain_count nxdomain_ratio avg_qname_length max_qname_length\r\n| sort - _time\r\n| head 100"
+            },
+            "type": "ds.search"
+        }
+    },
+    "layout": {
+        "globalInputs": [
+            "input_global_trp",
+            "input_XA504GeS",
+            "input_VAGrJL08",
+            "input_fxsciO5B",
+            "input_DXYe9wIM"
+        ],
+        "layoutDefinitions": {
+            "layout_1": {
+                "options": {
+                    "height": 960,
+                    "width": 1440
+                },
+                "structure": [
+                    {
+                        "item": "viz_Fl4jwRi3",
+                        "position": {
+                            "h": 149,
+                            "w": 558,
+                            "x": 0,
+                            "y": 0
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_Rua5zAbm",
+                        "position": {
+                            "h": 149,
+                            "w": 468,
+                            "x": 558,
+                            "y": 0
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_zr59m7d8",
+                        "position": {
+                            "h": 149,
+                            "w": 414,
+                            "x": 1026,
+                            "y": 0
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_je2ulAC0",
+                        "position": {
+                            "h": 138,
+                            "w": 558,
+                            "x": 0,
+                            "y": 149
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_IK0AnLKU",
+                        "position": {
+                            "h": 138,
+                            "w": 468,
+                            "x": 558,
+                            "y": 149
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_7ssHtDCw",
+                        "position": {
+                            "h": 138,
+                            "w": 414,
+                            "x": 1026,
+                            "y": 149
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_SaQMfWPt",
+                        "position": {
+                            "h": 278,
+                            "w": 720,
+                            "x": 0,
+                            "y": 287
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_ry2VjVTg",
+                        "position": {
+                            "h": 303,
+                            "w": 720,
+                            "x": 0,
+                            "y": 565
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_uK2AKqzS",
+                        "position": {
+                            "h": 278,
+                            "w": 720,
+                            "x": 720,
+                            "y": 287
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_p759HjOd",
+                        "position": {
+                            "h": 303,
+                            "w": 720,
+                            "x": 720,
+                            "y": 565
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_Ypq2GY71",
+                        "position": {
+                            "h": 400,
+                            "w": 1440,
+                            "x": 0,
+                            "y": 868
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_uWVoRE2n",
+                        "position": {
+                            "h": 400,
+                            "w": 1440,
+                            "x": 0,
+                            "y": 1268
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_pkzkblR3",
+                        "position": {
+                            "h": 400,
+                            "w": 1440,
+                            "x": 0,
+                            "y": 1668
+                        },
+                        "type": "block"
+                    }
+                ],
+                "type": "grid"
+            }
+        },
+        "options": {},
+        "tabs": {
+            "items": [
+                {
+                    "label": "Investigation",
+                    "layoutId": "layout_1"
+                }
+            ]
+        }
+    }
+}

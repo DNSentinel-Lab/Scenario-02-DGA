@@ -1,11 +1,11 @@
 <a id="top"></a>
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,19,24,30&height=225&section=header&text=Scenario%2002%20%E2%80%94%20DGA%20%2B%20High%20NXDOMAIN&fontSize=38&fontColor=ffffff&animation=fadeIn&fontAlignY=36&desc=DNSentinel%20Lab%20%7C%20ML%20Engineering%20Complete%20%7C%20Detection%20Engineering%20Next&descSize=16&descAlignY=58&descColor=D966FF" width="100%" alt="Scenario 02 — DGA + High NXDOMAIN" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,19,24,30&height=225&section=header&text=Scenario%2002%20%E2%80%94%20DGA%20%2B%20High%20NXDOMAIN&fontSize=38&fontColor=ffffff&animation=fadeIn&fontAlignY=36&desc=DNSentinel%20Lab%20%7C%20ML%20%2B%20Detection%20Engineering%20Complete%20%7C%20Official%20Exercise%20Next&descSize=16&descAlignY=58&descColor=D966FF" width="100%" alt="Scenario 02 — DGA + High NXDOMAIN" />
 
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=21&duration=2900&pause=900&color=D966FF&center=true&vCenter=true&repeat=true&width=960&height=72&lines=Infrastructure+%E2%86%92+ML+Engineering+%E2%86%92+Detection+Engineering;Isolation+Forest+v1+%E2%86%92+Splunk+%E2%86%92+Human+SOC" alt="Scenario workflow animation" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=21&duration=2900&pause=900&color=D966FF&center=true&vCenter=true&repeat=true&width=960&height=72&lines=Infrastructure+%E2%86%92+ML+%E2%86%92+Detection+v1.0+%E2%86%92+AI;Engineering+Complete+%E2%86%92+Official+SOC%2FIR+Exercise+Next" alt="Scenario workflow animation" />
 
-![Scenario](https://img.shields.io/badge/Scenario_02-ML_Engineering_Complete-2EA44F?style=for-the-badge)
+![Scenario](https://img.shields.io/badge/Scenario_02-Engineering_Ready-2EA44F?style=for-the-badge)
 ![AWS](https://img.shields.io/badge/AWS-Security_Lab-FF9900?style=for-the-badge&logo=amazonwebservices&logoColor=white)
 ![Splunk](https://img.shields.io/badge/Splunk-Enterprise-000000?style=for-the-badge&logo=splunk&logoColor=white)
 ![DNS](https://img.shields.io/badge/DNS-Security-00B8D9?style=for-the-badge)
@@ -23,7 +23,7 @@
 ![License](https://img.shields.io/github/license/DNSentinel-Lab/Scenario-02-DGA?style=flat-square)
 ![Issues](https://img.shields.io/github/issues/DNSentinel-Lab/Scenario-02-DGA?style=flat-square)
 
-**A defender-controlled DNS case study where the infrastructure and Isolation Forest ML layer are complete, while explainable Detection Engineering and the official human SOC/IR exercise remain the next stages.**
+**A defender-controlled DNS case study with Infrastructure, Isolation Forest ML, explainable Detection v1.0, Dashboard Studio, scheduled alerting and Scenario 02 AI evidence integration complete — now ready for the official information-separated SOC/IR exercise.**
 
 [🏗️ Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [🔎 Scenario 01](https://github.com/DNSentinel-Lab/Scenario-01-DNS-Recon) · [**🧬 Scenario 02**](https://github.com/DNSentinel-Lab/Scenario-02-DGA) · [🔄 Scenario 03](https://github.com/DNSentinel-Lab/Scenario-03-Fast-Flux) · [🛰️ Scenario 04](https://github.com/DNSentinel-Lab/Scenario-04-DNS-Tunneling)
 
@@ -36,43 +36,52 @@
 | Field | Scenario record |
 |---|---|
 | **Mission** | Generate harmless DGA-like / high-NXDOMAIN DNS activity and separate unusual behavior from ordinary DNS failure noise |
-| **Status** | 🟢 Defender DNS infrastructure + Machine Learning Engineering complete; Detection Engineering / official exercise pending |
+| **Engineering status** | 🟢 Infrastructure + ML Engineering + Detection Engineering + Dashboard/Alert + Scenario AI integration complete |
+| **Official exercise** | ⏳ Adversary → SOC → IR → containment/verification pending |
 | **MITRE ATT&CK** | `T1568.002 — Dynamic Resolution: Domain Generation Algorithms` |
 | **Cyber Kill Chain** | Command & Control |
 | **Defender path** | Victim → team-controlled Unbound resolver → Splunk |
 | **ML result path** | `dns_soc_dns` → private REST → `dns-soc-ml` → Isolation Forest → private HEC → `dns_soc_ml` |
-| **Detection approach** | Future explainable SPL will be compared with the implemented ML anomaly signal |
-| **Response path** | Human-approved RPZ / private sinkhole with before/after verification |
+| **Detection v1.0** | `query_count>=20 AND unique_qnames>=15 AND nxdomain_ratio>=0.75` in 1-minute/client reply-side windows |
+| **AI path** | Scheduled alert → shared internal bridge → OpenAI → HEC → `dns_soc_ai` → human validation |
+| **Response path** | Future human-approved RPZ / private sinkhole with before/after verification |
 
 ### What this scenario is designed to prove
 
-The goal is not “NXDOMAIN = malicious.” The scenario is designed to show whether the team can understand normal DNS behavior, identify generated-domain patterns with explainable detection logic, use ML as a second opinion, validate AI assistance later, and prove a human-approved containment result.
+The goal is not “NXDOMAIN = malicious.” The engineering completed so far proves that the team can establish a real resolver baseline, compare explainable rule logic with ML, operationalize the rule as a scheduled alert, preserve raw DNS evidence, and pass a stable Scenario 02 evidence contract through the shared AI bridge.
 
-The completed ML phase has already shown that the project can learn from its own resolver evidence and return anomaly results to Splunk without turning ML into an automatic verdict.
-
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+The next phase tests whether the **frozen** engineering survives a fresh information-separated adversary run and supports independent human SOC and IR decisions.
 
 ## 🏗️ Scenario Architecture
 
 ```mermaid
 flowchart LR
     V[Victim] -->|DNS| U[Defender Unbound Resolver]
-    U -->|DNS telemetry| SPL[Splunk Enterprise]
+    U -->|reply telemetry| SPL[Splunk / dns_soc_dns]
     U --> UP[Upstream DNS]
+
     SPL -->|private REST 8089| ML[Isolation Forest v1]
-    ML -->|private HEC 8088| MLI[index=dns_soc_ml]
-    SPL -. future rule-based SPL .-> RULE[Detection Engineering]
-    MLI -. compare signal .-> RULE
-    RULE -. future alert .-> SOC[SOC Investigation]
+    ML -->|private HEC 8088| MLI[dns_soc_ml]
+
+    SPL --> RULE[Detection v1.0]
+    RULE --> CMP[Rule ↔ ML Context]
+    MLI --> CMP
+
+    RULE --> ALERT[Scheduled Alert]
+    ALERT --> RAW[Raw DNS Drilldown]
+    ALERT --> AI[Shared AI Bridge]
+    AI --> AII[dns_soc_ai]
+
+    RAW --> SOC[Future SOC Investigation]
+    CMP --> SOC
+    AII --> SOC
     SOC --> IR[Human IR Decision]
     IR -. approved RPZ .-> U
     U -. redirect .-> SH[Private Sinkhole]
     SH -->|verification telemetry| SPL
 ```
 
-> ML and LLM remain deliberately separate. The completed ML component scores unusual DNS behavior; the shared LLM will later explain stable alert evidence to a human analyst. Neither authorizes containment.
-
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+> ML, Detection v1.0 and the LLM remain separate layers. ML scores unusual behavior, the rule creates an explainable detection lead, and the shared AI bridge summarizes stable evidence. None of them authorizes containment.
 
 ## 🔄 SOC Lifecycle & Implementation Reality
 
@@ -80,16 +89,18 @@ flowchart LR
 |---|---|
 | **Infrastructure** | ✅ Complete |
 | **ML Engineering** | ✅ Complete — Musfira |
-| **Official Scenario Baseline / Simulation** | ⚪ Pending |
-| **Detection Engineering** | ⚪ Next |
-| **Dashboard / Alert** | ⚪ Pending |
-| **AI Scenario Integration** | ⚪ Pending |
-| **SOC / IR Exercise** | ⚪ Pending |
-| **ML Documentation / Evidence** | ✅ Complete |
-| **Official Response Verification / Final Scenario Record** | ⚪ Pending |
+| **Detection Engineering** | ✅ Complete — Lubaba |
+| **Dashboard Studio** | ✅ Complete — Lubaba |
+| **Scheduled Alert** | ✅ Complete — Lubaba |
+| **Scenario 02 AI Integration** | ✅ Complete — `dga_nxdomain_v1` |
+| **Detection / ML / AI Documentation & Evidence** | ✅ Complete |
+| **Official Adversary Execution** | ⏳ Next — Musfira |
+| **Independent SOC Investigation** | ⏳ Pending — Sonia |
+| **Independent IR / Containment** | ⏳ Pending — Abdul-Rehman |
+| **Official Response Verification / Final Scenario Record** | ⏳ Pending |
 
 > [!IMPORTANT]
-> The controlled benign and DGA runs used to engineer the ML model are **ML engineering ground truth**, not the official information-separated Scenario 02 exercise. ✅ means supported by implemented evidence; ⚪ means future work and is not presented as complete.
+> Controlled benign and DGA traffic used for ML and Detection Engineering are **engineering validation evidence**, not the official information-separated Scenario 02 attack. The full scenario remains open until the adversary/SOC/IR/verification chain is complete.
 
 ## 🖼️ ML Evidence Highlights
 
@@ -103,32 +114,48 @@ flowchart LR
 
 Full implementation evidence is under [`screenshots/ml/`](screenshots/ml/) and the technical story is in [`ml/ML-ENGINEERING.md`](ml/ML-ENGINEERING.md).
 
+## 🖼️ Detection Engineering Evidence Highlights
+
+<table>
+<tr>
+<td width="33%"><img src="screenshots/detection-engineering/04-dga-investigation-dashboard.png" alt="Scenario 02 dashboard"><br/><sub><b>Investigation surface:</b> final Dashboard Studio view for DGA/high-NXDOMAIN behavior.</sub></td>
+<td width="33%"><img src="screenshots/detection-engineering/09-rule-vs-ml-comparison.png" alt="Rule vs ML"><br/><sub><b>Independent signals:</b> frozen rule and Isolation Forest agree on six historical controlled DGA windows.</sub></td>
+<td width="33%"><img src="screenshots/detection-engineering/14-detection-engineering-final-readiness.png" alt="AI vs raw readiness"><br/><sub><b>Evidence check:</b> AI core DNS metrics match a separate raw resolver aggregation exactly.</sub></td>
+</tr>
+</table>
+
+[🚦 Detection Engineering Workspace](detection-engineering/README.md) · [📖 Lubaba's Engineering Story](detection-engineering/DETECTION-ENGINEERING.md) · [✅ Validation Record](detection-engineering/detection-engineering-validation.md)
+
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 ## 🧠 Rule-Based Detection vs Machine Learning
 
 ```mermaid
 flowchart TB
-    DNS[Validated Resolver Telemetry] --> MLBASE[Controlled Benign ML Baseline]
-    MLBASE --> ML[Isolation Forest v1 - Complete]
-    DNS -. next phase .-> SPL[Explainable Rule-Based SPL]
+    DNS[Validated Resolver Telemetry] --> SPL[Explainable Detection v1.0]
+    DNS --> ML[Isolation Forest v1]
     ML --> MLI[dns_soc_ml]
-    MLI -. compare .-> CMP[Detection Engineering Comparison]
-    SPL -. compare .-> CMP
-    CMP --> SOC[Human SOC Investigation]
+    SPL --> CMP[Analyst Comparison]
+    MLI --> CMP
+    SPL --> ALERT[Scheduled Alert]
+    ALERT --> AI[Shared AI Bridge]
+    AI --> AII[dns_soc_ai]
+    CMP --> SOC[Future Human SOC Investigation]
+    AII --> SOC
     SOC --> IR[Human-Approved Response]
 ```
 
 | Component | Project role | State |
 |---|---|---|
-| **Splunk SPL** | Primary explainable hunting/detection logic | ⚪ Detection Engineering next |
-| **Isolation Forest v1** | Additional anomaly signal from 1-minute DNS behavior | ✅ Implemented |
-| **LLM / shared AI bridge** | Later explanation/enrichment of stable alert evidence | ⚪ Scenario profile pending |
-| **Human SOC / IR** | Final security judgement and response authorization | ⚪ Official exercise pending |
+| **Splunk Detection v1.0** | Primary explainable rule-based security lead | ✅ Implemented / validated |
+| **Isolation Forest v1** | Independent anomaly signal from 1-minute DNS behavior | ✅ Implemented |
+| **Rule ↔ ML comparison** | Supporting agreement/disagreement context | ✅ Validated on historical controlled DGA |
+| **LLM / shared AI bridge** | Structured explanation/enrichment of stable alert evidence | ✅ Scenario 02 mapping validated |
+| **Human SOC / IR** | Final security judgement and response authorization | ⏳ Official exercise pending |
 
-The ML implementation is intentionally a **second opinion**, not the final detection. It learned from controlled benign DNS windows, classified all six controlled DGA evaluation windows as anomalous, and wrote those results back to Splunk. It also flagged some held-out benign windows, which is exactly why the later rule-based and human investigation layers remain necessary.
+The rule does not depend on ML to fire. Historical controlled DGA produced **6/6 Rule DETECT + ML ANOMALY** agreement, while the ML phase also preserved benign anomalies (`2/8` held-out benign windows), so disagreement remains a valid investigation signal.
 
-[🧠 ML Workspace](ml/README.md) · [📖 Musfira's ML Engineering Story](ml/ML-ENGINEERING.md) · [🧾 ML Validation Record](evidence/ml-engineering-validation.md)
+[🧠 ML Workspace](ml/README.md) · [🚦 Detection Engineering](detection-engineering/README.md) · [🤖 Scenario AI Mapping](ai/scenario-02-ai-mapping.md)
 
 ## 🎯 Objective
 
@@ -259,44 +286,69 @@ The held-out benign check also produced `2 / 8` anomalous windows. That limitati
 
 The runtime model file was generated as `/app/dns_iforest_v1.joblib` but is not committed. Reproducible Python, SPL, dependency versions and the artifact policy are preserved under [`ml/`](ml/).
 
-## 🔎 Detection Focus — Next Phase
+## 🚦 Detection Engineering — Complete
 
-The next Detection Engineering phase will use the real resolver dataset and the completed ML signal to develop an explainable DGA rule around evidence such as:
+**Detection Engineer / AI Integrator:** [Lubaba](https://github.com/lubaba1513-pixel)
 
-- NXDOMAIN count **and ratio** over time;
-- unique generated-name count;
-- query rate by client/window;
-- label/domain length and generated-name behavior;
-- repeated client behavior and time pattern;
-- query-type behavior where useful;
-- ML result as a separate supporting signal, not a replacement for SPL.
+Lubaba completed the end-to-end rule-based Detection Engineering path using real Unbound resolver evidence:
 
-No final rule threshold is locked yet. The Detection Engineer must derive it from the actual scenario baseline and controlled Detection Engineering tests.
+```text
+reply-side semantics
+→ ingestion timing
+→ 32-window clean baseline
+→ Dashboard Studio
+→ threshold-free hunting
+→ fresh controlled DGA validation
+→ benign / false-positive challenges
+→ Detection v1.0
+→ validation SPL
+→ Rule ↔ ML comparison
+→ scheduled alert
+→ raw-event drilldown
+→ Scenario 02 AI evidence contract
+→ AI-vs-raw final validation
+```
 
-## 📊 Dashboard — Pending
+### Final rule
 
-The future dashboard should use the validated resolver fields and later detection logic to lead the analyst from summary → behavior → ML context → raw evidence.
+```text
+1 minute / client_ip / event_type="reply"
 
-Likely analyst questions include:
+query_count >= 20
+AND unique_qnames >= 15
+AND nxdomain_ratio >= 0.75
+```
 
-- how many DNS queries occurred;
-- how high was the NXDOMAIN ratio;
-- how many unique names were generated;
-- which client produced the behavior;
-- what did the rule-based detection conclude;
-- what did Isolation Forest score for the same window;
-- what changed after approved containment.
+The clean baseline reached maximums of `14` queries, `10` unique qnames and `0.50` NXDOMAIN ratio. Fresh controlled DGA crossed the candidate in **6/6** one-minute windows. A legitimate-name burst reached **23 queries / 23 unique names / 0.0 NXDOMAIN ratio** and stayed below the full rule.
 
-No final Scenario 02 dashboard artifact exists yet. See [`dashboard/README.md`](dashboard/README.md).
+[📖 Lubaba's Detection Engineering Story](detection-engineering/DETECTION-ENGINEERING.md) · [✅ Validation Record](detection-engineering/detection-engineering-validation.md) · [🔎 SPL Workspace](spl/README.md)
+
+## 📊 Dashboard Studio — Complete
+
+**Scenario 02 — DGA + High NXDOMAIN Investigation** is implemented and validated in Splunk Dashboard Studio.
+
+```text
+5 global inputs
+13 visualizations
+16 data sources/searches
+```
+
+The dashboard brings together resolver volume, NXDOMAIN behavior, unique names, qname-length context, raw DNS evidence and ML supporting context without treating ML as a verdict.
+
+![Scenario 02 DGA Investigation Dashboard](screenshots/detection-engineering/04-dga-investigation-dashboard.png)
+
+The actual deployed JSON is preserved at [`dashboard/scenario-02-dga-investigation-dashboard.json`](dashboard/scenario-02-dga-investigation-dashboard.json).
+
+[📊 Dashboard Workspace](dashboard/README.md)
 
 ## 👥 Team
 
 | Role | Member | Current Scenario 02 contribution |
 |---|---|---|
-| **Project Lead / Adversary Operator** | [Musfira](https://github.com/MUSFIRA-ZAFAR) | Scenario lead; also completed the Scenario 02 ML Engineering implementation |
-| **SOC Analyst / Threat Hunter** | [Sonia](https://github.com/sonia11mansha415) | Official Scenario 02 analyst work pending |
-| **Detection Engineer / AI Integrator** | [Lubaba](https://github.com/lubaba1513-pixel) | **Next phase:** baseline, dashboard, SPL detection, validation, alert and Scenario 02 AI mapping |
-| **IR / Defender** | [Abdul-Rehman](https://github.com/abdul4rehman215) | Official response / containment decision pending |
+| **Project Lead / Adversary Operator** | [Musfira](https://github.com/MUSFIRA-ZAFAR) | Scenario lead; completed the Scenario 02 ML Engineering implementation; official adversary execution is next |
+| **SOC Analyst / Threat Hunter** | [Sonia](https://github.com/sonia11mansha415) | Official independent Scenario 02 SOC investigation pending |
+| **Detection Engineer / AI Integrator** | [Lubaba](https://github.com/lubaba1513-pixel) | **Completed:** resolver analytics, clean baseline, Dashboard Studio, hunting, Detection v1.0, benign validation, scheduled alert, Rule↔ML comparison and Scenario 02 AI evidence integration |
+| **IR / Defender** | [Abdul-Rehman](https://github.com/abdul4rehman215) | Official independent IR / containment decision pending |
 
 ## 🧭 Current Execution Order
 
@@ -305,26 +357,30 @@ Defender DNS infrastructure                         ✅ Complete
       ↓
 Machine Learning Engineering                       ✅ Complete — Musfira
       ↓
-Detection Engineering                              ← NEXT — Lubaba
+Detection Engineering + Dashboard + Alert          ✅ Complete — Lubaba
       ↓
-Official normal baseline / hunting / detection
+Scenario 02 AI evidence integration                ✅ Complete — Lubaba
       ↓
-Controlled information-separated Scenario 02 run
+────────────────────────────────────────────────────────────
+OFFICIAL INFORMATION-SEPARATED SCENARIO EXECUTION  ← NEXT
+────────────────────────────────────────────────────────────
       ↓
-Benign / false-positive validation + alert
+Fresh adversary ground truth                       Musfira
       ↓
-Scenario 02 profile through shared AI bridge
+Frozen Detection v1.0 + ML + AI assistance
       ↓
-Human SOC investigation
+Independent SOC investigation                      Sonia
       ↓
-Human-approved RPZ containment
+Independent IR decision                            Abdul-Rehman
       ↓
-Sinkhole before/after verification
+Human-approved RPZ / sinkhole if warranted
       ↓
-Reset + lessons learned + final scenario record
+Before/after verification + safe reset
+      ↓
+Ground-truth reveal + final scenario record
 ```
 
-The ML controlled-DGA run is not reused as the official adversary exercise ground truth. It remains engineering evidence for the model.
+Engineering validation traffic is not reused as the official attacker ground truth.
 
 ## 🗂️ Repository Navigation
 
@@ -332,32 +388,20 @@ The ML controlled-DGA run is not reused as the official adversary exercise groun
 .
 ├── README.md
 ├── SCENARIO-RUNBOOK.md
-├── dashboard/                # future Scenario 02 dashboard engineering
-├── spl/                      # future Detection Engineering SPL lifecycle
-├── ml/                       # completed Isolation Forest implementation
-│   ├── README.md
-│   ├── ML-ENGINEERING.md
-│   ├── model/
-│   ├── generators/
-│   ├── docker/
-│   ├── scripts/
-│   ├── spl/
-│   └── artifacts/
-├── ai/                       # Scenario 02 profile after stable detection fields
-├── ir/                       # official human response/verification later
-├── evidence/                 # ML validation now; official scenario evidence later
+├── detection-engineering/      # Lubaba's completed flagship engineering story
+├── dashboard/                  # validated Dashboard Studio JSON + analyst guide
+├── spl/                        # baseline, hunts, Detection v1.0, validation, alert
+│   └── engineering-validation/ # exact supporting test/correlation SPL
+├── ml/                         # Musfira's completed Isolation Forest implementation
+├── ai/                         # validated dga_nxdomain_v1 evidence mapping
+├── ir/                         # official human response/verification still pending
+├── evidence/                   # ML + Detection Engineering acceptance records
 └── screenshots/
-    └── ml/                   # curated ML core/setup/troubleshooting evidence
+    ├── ml/                     # curated ML evidence
+    └── detection-engineering/  # curated DE evidence + selected troubleshooting
 ```
 
-The ML-specific SPL under `ml/spl/` supports data inventory, feature engineering and ML-result validation. The root `spl/` directory remains reserved for later Detection Engineering:
-
-```text
-baseline.spl
-hunting.spl
-detection.spl
-validation.spl
-```
+The repository keeps ML and rule-based Detection Engineering as separate workspaces so their responsibilities and evidence remain easy to audit.
 
 ## 🔗 Shared Project References
 
@@ -368,55 +412,51 @@ validation.spl
 
 ## ✅ Completion Condition
 
-**Machine Learning Engineering is complete. The Scenario 02 case is not.**
+**Engineering readiness is complete. The full Scenario 02 case is not.**
 
-The full scenario closes only when the team can reproduce and defend:
+Completed engineering chain:
 
-**Official Simulation → Telemetry → Rule-Based Detection → Alert → ML Comparison → AI Assistance → Human Investigation → Response → Verification → Lessons Learned.**
+```text
+Infrastructure
+→ ML Engineering
+→ Detection Engineering
+→ Dashboard
+→ Scheduled Alert
+→ Rule ↔ ML Context
+→ Scenario AI Evidence Path
+```
 
-The completed ML engineering phase is now one input to that future chain, not a substitute for it.
+The full scenario closes only after the team can defend:
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+**Official Simulation → Telemetry → Frozen Detection → Alert → ML Comparison → AI Assistance → Independent Human Investigation → Human-Approved Response → Verification → Ground-Truth Comparison → Lessons Learned.**
 
 ## 🧠 Security Engineering Skills Demonstrated / In Scope
 
 | Skill area | Scenario evidence / state |
 |---|---|
-| **DNS Analysis** | Real Unbound resolver telemetry, NXDOMAIN behavior and DGA-style qname patterns |
-| **ML Data Engineering** | Known-benign ground truth, one-minute aggregation and nine explainable DNS features |
-| **Machine Learning** | Isolation Forest training, holdout evaluation, controlled DGA scoring and result persistence |
-| **Splunk Integration** | Restricted REST read path, field-visibility troubleshooting, dedicated HEC result path and `dns_soc_ml` |
-| **Docker / Linux Troubleshooting** | Safe Compose validation and dependency/platform diagnosis without destroying working services |
-| **Detection Engineering** | ⏳ Next — evidence-based baseline, hunting, detection, validation and alert logic |
-| **SOC / IR** | ⏳ Future — human validation, RPZ approval and official before/after containment evidence |
-| **AI-Assisted SOC** | ⏳ Future Scenario 02 profile; LLM remains separate from ML and advisory |
-
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+| **DNS Analysis** | Real Unbound resolver telemetry, reply-side transaction semantics, NXDOMAIN behavior and DGA-style qname patterns |
+| **ML Data Engineering** | Known-benign ground truth, one-minute aggregation and nine explainable ML features — Musfira |
+| **Machine Learning** | Isolation Forest training, holdout evaluation, controlled DGA scoring and HEC result persistence — Musfira |
+| **Detection Engineering** | Clean rule baseline, hunting, evidence-based thresholds, v1.0 production SPL and reusable validation — Lubaba |
+| **Dashboard Engineering** | 5-input / 13-visualization Dashboard Studio investigation surface — Lubaba |
+| **False-Positive Engineering** | Ordinary DNS, limited NXDOMAIN, cache-aware burst analysis and high-volume/high-unique legitimate-name validation — Lubaba |
+| **Detection + ML Correlation** | Historical Rule DETECT ↔ ML ANOMALY comparison with corrected `window_time` semantics — Lubaba |
+| **Operational Alerting** | Measured-latency scheduler design, real trigger history and analyst-ready evidence row — Lubaba |
+| **AI-Assisted SOC Integration** | `dga_nxdomain_v1`, generic shared bridge reuse, schema troubleshooting, `dns_soc_ai` return and AI-vs-raw verification — Lubaba |
+| **SOC / IR** | ⏳ Official independent investigation, RPZ approval and before/after containment evidence still pending |
 
 ## 📚 Documentation Model
 
-This scenario repository is a **case/execution layer** built on the shared [DNS Lab Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure). It intentionally separates:
+This scenario repository is the **case/execution layer** built on the shared [DNS Lab Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure). It now separates:
 
-- **Infrastructure** — reusable resolver, victim, sinkhole and Splunk data paths;
-- **ML Engineering** — controlled training/evaluation work documented here;
-- **Official simulation / ground truth** — future information-separated adversary run;
-- **Detection Engineering** — future baseline, dashboard, hunting, tuned detection and validation;
-- **SOC investigation** — future defender-visible evidence and human disposition;
+- **Infrastructure** — reusable resolver, victim, sinkhole, Splunk and shared AI paths;
+- **ML Engineering** — Musfira's completed Isolation Forest implementation and controlled evaluation;
+- **Detection Engineering** — Lubaba's completed baseline, dashboard, hunting, rule, validation, alert and AI evidence integration;
+- **Official simulation / ground truth** — next information-separated adversary run;
+- **SOC investigation** — future defender-visible evidence and Sonia's independent disposition;
 - **IR / containment** — future independently justified response and verification;
-- **Evidence** — screenshots and structured artifacts that prove only completed claims.
+- **Evidence** — curated screenshots and structured artifacts that prove only completed claims.
 
 > [!NOTE]
-> Planned work stays labelled as planned. This repository does not create fake screenshots, fake Detection Engineering SPL, fake ML metrics, fake AI output or fake incident outcomes to make the full scenario look complete.
+> Planned is planned; implemented is implemented. The repository does not convert engineering validation traffic into official attack evidence, ML/AI output into a verdict, or future response work into a completed claim.
 
-<div align="center">
-
-### DNSentinel Lab
-**Build the telemetry. Learn the baseline. Prove the detection. Investigate the evidence. Verify the response.**
-
-[🏗️ Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [🔎 Scenario 01](https://github.com/DNSentinel-Lab/Scenario-01-DNS-Recon) · [**🧬 Scenario 02**](https://github.com/DNSentinel-Lab/Scenario-02-DGA) · [🔄 Scenario 03](https://github.com/DNSentinel-Lab/Scenario-03-Fast-Flux) · [🛰️ Scenario 04](https://github.com/DNSentinel-Lab/Scenario-04-DNS-Tunneling)
-
-[⬆ Back to top](#top)
-
-</div>
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,19,24,30&height=120&section=footer" width="100%" alt="footer" />

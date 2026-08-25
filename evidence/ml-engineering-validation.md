@@ -10,7 +10,7 @@
 **Implementation owner:** [Musfira Zafar](https://github.com/MUSFIRA-ZAFAR)  
 **Model:** Isolation Forest v1  
 **Engineering result:** **PASS**  
-**Scenario result:** **Not complete — Detection Engineering / SOC / IR remain pending**
+**Scenario result:** **Engineering ready — Detection Engineering is now complete; official adversary / SOC / IR exercise remains pending**
 
 This record summarizes the evidence used to declare the Scenario 02 Machine Learning Engineering phase complete.
 

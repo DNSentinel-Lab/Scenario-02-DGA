@@ -1,0 +1,130 @@
+# Scenario 02 — Resolver Validation and Clean Baseline Reference
+# Read-only field, timing, contamination-review and baseline searches used during Detection Engineering.
+# These are NOT hunting.spl or detection.spl and contain no final alert thresholds.
+
+# -----------------------------------------------------------------------------
+# STEP 1 — Live resolver field / query-reply validation
+# Time picker used: Last 24 hours after Last 60 minutes returned no events.
+# -----------------------------------------------------------------------------
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns
+| sort 0 - _time
+| head 20
+| table _time event_type client_ip qname qtype rcode response_time cache_flag response_size _raw
+
+# -----------------------------------------------------------------------------
+# STEP 2 — Ingestion latency measurement
+# Time picker used: Last 15 minutes after fresh benign resolver activity.
+# -----------------------------------------------------------------------------
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply"
+| eval ingest_delay_sec=round(_indextime-_time,3)
+| stats count as replies
+        min(ingest_delay_sec) as minimum_sec
+        median(ingest_delay_sec) as median_sec
+        avg(ingest_delay_sec) as average_sec
+        perc95(ingest_delay_sec) as p95_sec
+        max(ingest_delay_sec) as maximum_sec
+| eval minimum_sec=round(minimum_sec,3),
+       median_sec=round(median_sec,3),
+       average_sec=round(average_sec,3),
+       p95_sec=round(p95_sec,3),
+       maximum_sec=round(maximum_sec,3)
+
+# -----------------------------------------------------------------------------
+# STEP 3 — 5-minute history inspection for baseline contamination
+# -----------------------------------------------------------------------------
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply"
+| bin _time span=5m
+| stats count as reply_count
+        dc(qname) as unique_qnames
+        count(eval(rcode="NXDOMAIN")) as nxdomain_count
+        values(client_ip) as clients
+    by _time
+| eval nxdomain_ratio=round((nxdomain_count/reply_count)*100,2)
+| sort _time
+
+# -----------------------------------------------------------------------------
+# STEP 3A — 20 busiest 5-minute windows
+# -----------------------------------------------------------------------------
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply"
+| bin _time span=5m
+| stats count as reply_count
+        dc(qname) as unique_qnames
+        count(eval(rcode="NXDOMAIN")) as nxdomain_count
+    by _time
+| eval nxdomain_ratio=round((nxdomain_count/reply_count)*100,2)
+| sort 0 - reply_count
+| head 20
+
+# -----------------------------------------------------------------------------
+# STEP 3B — Clean Detection Engineering 1-minute/client baseline rows
+# Known-clean benign raw-DNS periods from the completed ML engineering runs.
+# -----------------------------------------------------------------------------
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply" client_ip="10.50.30.20"
+| where (_time>=1787557606 AND _time<=1787558509)
+     OR (_time>=1787559382 AND _time<=1787560288)
+| eval qname_norm=lower(rtrim(qname,"."))
+| eval qname_length=len(qname_norm)
+| bin _time span=1m
+| stats count as query_count
+        dc(qname_norm) as unique_qnames
+        count(eval(rcode="NXDOMAIN")) as nxdomain_count
+        avg(qname_length) as avg_qname_length
+        max(qname_length) as max_qname_length
+        dc(qtype) as distinct_qtypes
+        values(qtype) as qtypes
+        avg(response_time) as avg_response_time
+    by _time client_ip
+| eval nxdomain_ratio=round(nxdomain_count/query_count,4)
+| eval unique_qname_ratio=round(unique_qnames/query_count,4)
+| eval avg_qname_length=round(avg_qname_length,2)
+| eval avg_response_time=round(avg_response_time,6)
+| table _time client_ip query_count unique_qnames unique_qname_ratio nxdomain_count nxdomain_ratio avg_qname_length max_qname_length distinct_qtypes qtypes avg_response_time
+| sort _time
+
+# -----------------------------------------------------------------------------
+# STEP 3C — Clean baseline median / p95 / maximum summary
+# -----------------------------------------------------------------------------
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply" client_ip="10.50.30.20"
+| where (_time>=1787557606 AND _time<=1787558509)
+     OR (_time>=1787559382 AND _time<=1787560288)
+| eval qname_norm=lower(rtrim(qname,"."))
+| eval qname_length=len(qname_norm)
+| bin _time span=1m
+| stats count as query_count
+        dc(qname_norm) as unique_qnames
+        count(eval(rcode="NXDOMAIN")) as nxdomain_count
+        avg(qname_length) as avg_qname_length
+        max(qname_length) as max_qname_length
+        dc(qtype) as distinct_qtypes
+        avg(response_time) as avg_response_time
+    by _time client_ip
+| eval nxdomain_ratio=nxdomain_count/query_count
+| eval unique_qname_ratio=unique_qnames/query_count
+| eval metric_value=mvappend(
+        "query_count=".query_count,
+        "unique_qnames=".unique_qnames,
+        "unique_qname_ratio=".unique_qname_ratio,
+        "nxdomain_count=".nxdomain_count,
+        "nxdomain_ratio=".nxdomain_ratio,
+        "avg_qname_length=".avg_qname_length,
+        "max_qname_length=".max_qname_length,
+        "distinct_qtypes=".distinct_qtypes,
+        "avg_response_time=".avg_response_time)
+| mvexpand metric_value
+| rex field=metric_value "^(?<metric>[^=]+)=(?<value>.+)$"
+| eval value=tonumber(value)
+| stats count(value) as baseline_windows
+        median(value) as median
+        perc95(value) as p95
+        max(value) as maximum
+    by metric
+| eval median=round(median,4),
+       p95=round(p95,4),
+       maximum=round(maximum,4)
+| sort metric
+
+# -----------------------------------------------------------------------------
+# STEP 34 — Deployed Splunk version verification
+# -----------------------------------------------------------------------------
+| rest /services/server/info
+| table serverName version build product_type

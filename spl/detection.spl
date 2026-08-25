@@ -1,0 +1,71 @@
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply"
+| eval qname_norm=lower(rtrim(qname,"."))
+| eval qname_length=len(qname_norm)
+| eval event_epoch=_time
+| bin _time span=1m
+| stats min(event_epoch) as first_event_epoch
+        max(event_epoch) as last_event_epoch
+        count as query_count
+        dc(qname_norm) as unique_qnames
+        count(eval(rcode="NXDOMAIN")) as nxdomain_count
+        avg(qname_length) as avg_qname_length
+        max(qname_length) as max_qname_length
+        dc(qtype) as distinct_qtypes
+        values(qtype) as qtypes
+        values(rcode) as response_codes
+        values(qname_norm) as qname_samples
+    by _time client_ip
+| eval unique_qname_ratio=round(unique_qnames/query_count,4)
+| eval nxdomain_ratio=round(nxdomain_count/query_count,4)
+| eval avg_qname_length=round(avg_qname_length,2)
+| where query_count>=20
+    AND unique_qnames>=15
+    AND nxdomain_ratio>=0.75
+| eval first_event=strftime(first_event_epoch,"%Y-%m-%dT%H:%M:%S.%3NZ")
+| eval last_event=strftime(last_event_epoch,"%Y-%m-%dT%H:%M:%S.%3NZ")
+| eval detection_name="Scenario 02 - Possible DGA / High NXDOMAIN"
+| eval detection_version="1.0"
+| eval severity="medium"
+| eval mitre_technique="T1568.002 - Dynamic Resolution: Domain Generation Algorithms"
+| eval scenario_id="scenario-02-dga"
+| eval scenario="DGA + High NXDOMAIN"
+| eval ai_profile="dga_nxdomain_v1"
+| eval rationale="High DNS transaction volume, many unique qnames, and a high NXDOMAIN ratio were observed for the same client within one minute."
+| eval alert_id="scenario-02-dga-".replace(client_ip,".","-")."-".strftime(_time,"%Y%m%dT%H%M%SZ")
+| eval alert_name=detection_name
+| eval event_time=first_event
+| eval source=client_ip
+| eval qtypes_text=mvjoin(qtypes,", ")
+| eval response_codes_text=mvjoin(response_codes,", ")
+| eval qname_samples_ai=mvindex(qname_samples,0,19)
+| eval qname_samples_text=mvjoin(qname_samples_ai,", ")
+| eval evidence_json=json_object(
+    "scenario_id",scenario_id,
+    "ai_profile",ai_profile,
+    "detection_name",detection_name,
+    "detection_version",detection_version,
+    "first_event",first_event,
+    "last_event",last_event,
+    "client_ip",client_ip,
+    "query_count",query_count,
+    "unique_qnames",unique_qnames,
+    "unique_qname_ratio",unique_qname_ratio,
+    "nxdomain_count",nxdomain_count,
+    "nxdomain_ratio",nxdomain_ratio,
+    "avg_qname_length",avg_qname_length,
+    "max_qname_length",max_qname_length,
+    "qtypes",qtypes_text,
+    "response_codes",response_codes_text,
+    "qname_samples",qname_samples_text,
+    "mitre_technique",mitre_technique,
+    "rationale",rationale
+  )
+| table _time first_event last_event client_ip
+        query_count unique_qnames unique_qname_ratio
+        nxdomain_count nxdomain_ratio
+        avg_qname_length max_qname_length
+        distinct_qtypes qtypes response_codes qname_samples
+        detection_name detection_version severity mitre_technique
+        scenario_id scenario ai_profile rationale
+        alert_id alert_name event_time source evidence_json
+| sort 0 - _time

@@ -550,7 +550,7 @@ The problem was traced below the ML code. Splunk showed repeated KV Store/Mongo 
 
 ![KV Store 8191 failures](../screenshots/ml/troubleshooting/T02_kvstore-8191-connection-errors.png)
 
-The implementation chat then recovered the shared Splunk platform through a controlled kernel compatibility path. The important repository lesson is not every boot command; it is the diagnostic discipline:
+The engineering process then recovered the shared Splunk platform through a controlled kernel compatibility path. The important repository lesson is not every boot command; it is the diagnostic discipline:
 
 ```text
 ML credential task fails
@@ -656,7 +656,7 @@ These values are **not production performance claims**. They show two useful fac
 
 ## 19. What this ML work contributes to Scenario 02
 
-The next Detection Engineering phase can now compare two different kinds of evidence:
+The completed Detection Engineering phase now compares two different kinds of evidence:
 
 ```text
                  dns_soc_dns
@@ -664,7 +664,7 @@ The next Detection Engineering phase can now compare two different kinds of evid
           +----------+----------+
           |                     |
           v                     v
-Future rule-based SPL      dns_soc_ml
+Detection v1.0            dns_soc_ml
 explainable behavior       Isolation Forest signal
           |                     |
           +----------+----------+
@@ -690,7 +690,7 @@ The analyst still proves why by checking the client, qnames, NXDOMAIN ratio, que
 
 - It does not prove malware exists.
 - It does not prove every anomalous DNS window is malicious.
-- It does not replace the later rule-based detection.
+- It does not replace the rule-based Detection v1.0.
 - It does not replace raw resolver evidence.
 - It does not replace the SOC Analyst.
 - It does not authorize RPZ or sinkhole containment.
@@ -736,9 +736,9 @@ The analyst still proves why by checking the client, qnames, NXDOMAIN ratio, que
 
 ### Boundary that remains
 
-**Scenario 02 Machine Learning Engineering is complete. Scenario 02 itself is not complete.**
+**Scenario 02 Machine Learning Engineering is complete. Detection Engineering is also now complete. Scenario 02 itself is not complete.**
 
-The next project phase is Detection Engineering. It still has to build the rule-based baseline/hunting/detection/validation path, then later connect the stable alert to the shared AI bridge and the official human SOC/IR exercise.
+The completed rule-based phase now uses this model as a supporting second opinion beside Detection v1.0 and the shared AI evidence path. The remaining project phase is the official information-separated adversary → SOC → IR → human-approved response/verification exercise.
 
 ---
 
