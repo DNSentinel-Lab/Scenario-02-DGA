@@ -41,18 +41,44 @@ Lubaba owned the Scenario 02 Detection Engineering lifecycle from trusted Unboun
 ## 🔁 Engineering path
 
 ```mermaid
-flowchart LR
-    A["Unbound Telemetry"] --> B["Reply-Side Semantics"]
-    B --> C["Ingestion Timing"]
-    C --> D["Clean Baseline"]
-    D --> E["Dashboard + Hunts"]
-    E --> F["Detection v1.0"]
-    F --> G["Positive + Benign Validation"]
-    G --> H["Rule ↔ ML Comparison"]
-    H --> I["Scheduled Alert"]
-    I --> J["Raw Evidence + Contract"]
-    J --> K["Shared AI Bridge"]
-    K --> L["SOC-Ready"]
+flowchart TB
+
+    subgraph ROW1[" "]
+        direction LR
+        A["📡 Unbound<br/>Telemetry"]
+        B["🔎 Reply-Side<br/>Semantics"]
+        C["⏱️ Ingestion<br/>Timing"]
+        D["📊 Clean<br/>Baseline"]
+        E["🖥️ Dashboard<br/>+ Hunts"]
+        F["🛡️ Detection<br/>v1.0"]
+
+        A --> B --> C --> D --> E --> F
+    end
+
+    subgraph ROW2[" "]
+        direction RL
+        G["✅ Positive + Benign<br/>Validation"]
+        H["🧠 Rule ↔ ML<br/>Comparison"]
+        I["🚨 Scheduled<br/>Alert"]
+        J["📦 Raw Evidence<br/>+ Contract"]
+        K["🤖 Shared AI<br/>Bridge"]
+        L["🎯 SOC-Ready"]
+
+        G --> H --> I --> J --> K --> L
+    end
+
+    F --> G
+
+    style ROW1 fill:none,stroke:none
+    style ROW2 fill:none,stroke:none
+
+    classDef engineering fill:#161b22,stroke:#58a6ff,stroke-width:1.5px,color:#f0f6fc,font-size:16px;
+    classDef validation fill:#161b22,stroke:#a371f7,stroke-width:1.5px,color:#f0f6fc,font-size:16px;
+    classDef final fill:#161b22,stroke:#3fb950,stroke-width:2px,color:#f0f6fc,font-size:16px;
+
+    class A,B,C,D,E,F engineering;
+    class G,H,I,J,K validation;
+    class L final;
 ```
 
 The finish line was not simply **"the SPL returned a result."** The rule had to survive both sides of validation, run automatically, preserve a raw-event path, correlate cleanly with ML, and send structured evidence to the existing AI bridge without giving Detection, ML or AI containment authority.
