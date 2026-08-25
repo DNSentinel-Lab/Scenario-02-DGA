@@ -15,12 +15,12 @@
 
 **Status:** ✅ Machine Learning Engineering complete  
 **Implementation owner:** [Musfira Zafar](https://github.com/MUSFIRA-ZAFAR) — Scenario 02 Project Lead / Adversary Operator + ML implementation  
-**Scenario boundary:** Detection Engineering, dashboard/alert work and the official SOC/IR exercise remain pending.
+**Scenario boundary:** Detection Engineering, Dashboard Studio, scheduled alerting and Scenario 02 AI integration are now complete. The official information-separated adversary/SOC/IR exercise remains pending.
 
 Scenario 02 now has a working anomaly-detection layer built from real defender DNS telemetry. The implementation teaches an Isolation Forest model the shape of controlled normal DNS behavior, scores controlled DGA-style windows, and returns the model result to Splunk as a separate analyst signal.
 
 > [!IMPORTANT]
-> ML is **not** the final Scenario 02 detection and it is **not** an automatic incident verdict. Later Detection Engineering will compare explainable SPL behavior with this ML signal before a human analyst makes a security decision.
+> ML is **not** the final Scenario 02 detection and it is **not** an automatic incident verdict. The completed Detection Engineering phase now compares explainable SPL behavior with this independent ML signal; the official human analyst still makes the security decision.
 
 ## What was built
 
@@ -174,7 +174,7 @@ The current v1 scripts use HTTPS with `verify=False` only on the private `dns-so
 
 The searches under `ml/spl/` support the ML engineering workflow: data inventory, feature construction, DGA evaluation and ML-result validation.
 
-The root [`../spl/`](../spl/) directory remains reserved for the later Scenario 02 Detection Engineering lifecycle:
+The root [`../spl/`](../spl/) directory now contains the completed Scenario 02 Detection Engineering lifecycle:
 
 ```text
 baseline.spl
@@ -195,7 +195,7 @@ It does **not** answer:
 
 > Is this host definitely infected?
 
-A future analyst should compare:
+The official analyst will compare:
 
 ```text
 raw resolver evidence
@@ -212,7 +212,7 @@ human SOC judgement
 
 The field named `anomaly_score` currently preserves scikit-learn's `decision_function()` output from the implemented code.
 
-For the controlled DGA windows, anomalous values were negative. Therefore the current field must **not** be documented as “higher = more suspicious.” A later dashboard/detection phase may add a separate normalized analyst-facing score if it is useful.
+For the controlled DGA windows, anomalous values were negative. Therefore the current field must **not** be documented as “higher = more suspicious.” The completed Detection Engineering/dashboard work preserved the raw score semantics instead of silently normalizing it.
 
 ## What the small evaluation showed
 
@@ -234,19 +234,18 @@ Controlled DGA data showed clear separation in this lab run:
 
 That is exactly why the model remains a second opinion. Anomaly means **unusual**, not automatically malicious.
 
-## What this phase does not complete
+## What this ML phase did not complete by itself
 
-The following remain future Scenario 02 work:
+ML Engineering stopped at the anomaly-signal boundary. The later Detection Engineering phase has now completed the explainable rule, Dashboard Studio, alerting, Rule ↔ ML comparison and Scenario 02 AI evidence mapping.
 
-- rule-based Detection Engineering;
-- dashboard engineering;
-- final detection thresholds and alert scheduling;
-- Scenario 02 AI profile/payload;
-- official information-separated adversary run;
-- SOC Analyst disposition;
+The remaining future Scenario 02 work is the **official information-separated exercise**:
+
+- fresh adversary execution / private ground truth;
+- SOC Analyst independent disposition;
 - Incident Response decision;
-- human-approved RPZ/sinkhole action;
-- official before/after containment verification.
+- human-approved RPZ/sinkhole action if warranted;
+- official before/after containment verification;
+- ground-truth comparison and final scenario record.
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
