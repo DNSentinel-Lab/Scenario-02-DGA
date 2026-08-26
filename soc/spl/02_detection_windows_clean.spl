@@ -1,0 +1,13 @@
+index=dns_soc_dns
+host="dns-soc-resolver01"
+sourcetype="unbound:dns"
+event_type="reply"
+| bin _time span=1m
+| stats count as query_count
+        dc(qname) as unique_qnames
+        count(eval(rcode="NXDOMAIN")) as nxdomain_count
+        by _time client_ip
+| eval nxdomain_ratio=round(nxdomain_count/query_count,3)
+| where query_count>=20 AND unique_qnames>=15 AND nxdomain_ratio>=0.75
+| table _time client_ip query_count unique_qnames nxdomain_count nxdomain_ratio
+| sort _time

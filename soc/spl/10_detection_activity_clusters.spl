@@ -1,0 +1,18 @@
+index=dns_soc_dns
+host="dns-soc-resolver01"
+sourcetype="unbound:dns"
+event_type="reply"
+earliest=-24h latest=now
+| bin _time span=1m
+| stats count as query_count dc(qname) as unique_qnames count(eval(rcode="NXDOMAIN")) as nxdomain_count by _time client_ip
+| eval nxdomain_ratio=nxdomain_count/query_count
+| where query_count>=20 AND unique_qnames>=15 AND nxdomain_ratio>=0.75
+| sort 0 client_ip _time
+| streamstats current=f last(_time) as previous_time by client_ip
+| eval new_cluster=if(isnull(previous_time) OR (_time-previous_time)>120,1,0)
+| streamstats sum(new_cluster) as cluster_id by client_ip
+| stats min(_time) as first_seen max(_time) as last_seen count as matching_minutes max(query_count) as peak_queries max(unique_qnames) as peak_unique_qnames max(nxdomain_ratio) as peak_nxdomain_ratio by client_ip cluster_id
+| convert ctime(first_seen) ctime(last_seen)
+| eval peak_nxdomain_ratio=round(peak_nxdomain_ratio,3)
+| table client_ip cluster_id first_seen last_seen matching_minutes peak_queries peak_unique_qnames peak_nxdomain_ratio
+| sort first_seen

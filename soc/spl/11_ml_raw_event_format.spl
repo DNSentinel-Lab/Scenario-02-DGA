@@ -1,0 +1,5 @@
+index=dns_soc_ml
+earliest="08/26/2026:06:37:00"
+latest="08/26/2026:06:42:00"
+| table _time _raw
+| sort 0 _time

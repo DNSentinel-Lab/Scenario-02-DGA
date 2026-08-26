@@ -1,0 +1,23 @@
+index=dns_soc_dns
+host="dns-soc-resolver01"
+sourcetype="unbound:dns"
+event_type="reply"
+client_ip="10.50.30.20"
+earliest="08/26/2026:06:37:00"
+latest="08/26/2026:06:42:00"
+| eval clean_qname=rtrim(qname,".")
+| eval first_label=mvindex(split(clean_qname,"."),0)
+| eval label_length=len(first_label)
+| bin _time span=1m
+| stats count as replies
+        dc(qname) as unique_qnames
+        avg(label_length) as avg_label_length
+        min(label_length) as min_label_length
+        max(label_length) as max_label_length
+        values(qtype) as qtypes
+        count(eval(rcode="NXDOMAIN")) as nxdomain_count
+        by _time client_ip
+| eval avg_label_length=round(avg_label_length,1)
+| eval nxdomain_ratio=round(nxdomain_count/replies,3)
+| table _time client_ip replies unique_qnames avg_label_length min_label_length max_label_length qtypes nxdomain_count nxdomain_ratio
+| sort _time

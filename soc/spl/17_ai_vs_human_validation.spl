@@ -1,0 +1,6 @@
+index=dns_soc_ai
+earliest="08/26/2026:06:37:00"
+latest="08/26/2026:07:00:00"
+| eval client_ip=mvindex('alert.evidence.client_ip',0), suspicion=mvindex('ai.suspicion_reasons',0), network_context=mvindex('ai.network_context.explanation',0), summary=mvindex('ai.summary',0)
+| table _time client_ip suspicion network_context summary
+| sort 0 _time
