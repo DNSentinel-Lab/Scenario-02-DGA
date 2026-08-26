@@ -1,0 +1,12 @@
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply"
+client_ip="10.50.30.20" earliest=-60m
+| eval qname_norm=lower(rtrim(qname,"."))
+| eval is_s02_namespace=if(like(qname_norm,"%.dga-test.soclab.abdul4rehman215.tech"),"YES","NO")
+| stats count as replies
+        dc(qname_norm) as unique_qnames
+        count(eval(rcode="NXDOMAIN")) as nxdomain_count
+        count(eval(is_s02_namespace="YES")) as s02_namespace_replies
+        min(_time) as first_seen
+        max(_time) as last_seen
+| eval nxdomain_ratio=if(replies>0,round(nxdomain_count/replies,4),0)
+| convert ctime(first_seen) ctime(last_seen)

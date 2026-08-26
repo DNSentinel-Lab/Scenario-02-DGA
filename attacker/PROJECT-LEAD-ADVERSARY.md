@@ -16,7 +16,7 @@
 
 This document records the Project Lead / Adversary Operator side of Scenario 02: how the official DGA run was isolated from defender knowledge, what the controlled generator did, what evidence was preserved, and where the adversary role intentionally stopped.
 
-The official run used **real DNS traffic through the lab's normal resolver path**, but it did not execute malware or contact an external C2 system.
+The official run used **real DNS traffic through the lab's normal resolver path** and remained scoped to controlled DGA/high-NXDOMAIN behavior.
 
 ## 1. Role objective
 
@@ -35,7 +35,7 @@ flowchart LR
     V -. operator does not inspect defender results .-> S
 ```
 
-Unlike Scenario 01, there was no requirement for an external Kali attacker. Scenario 02 represents **post-compromise-style dynamic resolution behavior** on an internal endpoint, not initial access.
+Unlike Scenario 01, there was no requirement for an external Kali attacker. Scenario 02 represents **DGA-style dynamic DNS behavior on an internal endpoint** rather than initial-access activity.
 
 ## 2. Information separation
 
@@ -55,6 +55,12 @@ attacker-side screenshots
 The SOC Analyst and Incident Responder were not given these facts in advance.
 
 The operator also did **not** use Splunk, the DGA dashboard, `dns_soc_ml`, scheduled-alert history or `dga_nxdomain_v1` AI output to decide whether to extend, repeat or modify the run.
+
+## 3. Pre-flight — freeze the environment before traffic
+
+Before the official run, Musfira verified the victim was healthy, UTC/time was ready, the host still used `dns-soc-resolver01` through its normal system DNS path, the pre-deployed generator was present, RPZ remained safe/non-enforcing, and private ground-truth capture was ready.
+
+The pre-flight deliberately changed none of the production logic: Detection v1.0, ML, AI, and RPZ policy stayed frozen.
 
 ## 3. Controlled generator
 
@@ -78,7 +84,7 @@ inter-query sleep: random 0.4–1.0 seconds
 
 The script intentionally suppresses normal `resolvectl` output. It prints only its own UTC run-start and run-end markers.
 
-This matters for evidence interpretation: the attacker-side terminal proves **what generator ran and when**, while exact DNS event counts and individual generated labels are defender/resolver-side evidence and were not inspected during the blind operator phase.
+This matters for evidence interpretation: the attacker-side terminal proves **what generator ran and when**, while exact DNS event counts and individual generated labels are defender/resolver-side evidence and were not inspected during the information-separated operator phase.
 
 ## 4. Official execution
 
@@ -150,7 +156,6 @@ Not part of this adversary phase:
 - changing the Isolation Forest model;
 - changing RPZ or sinkhole policy;
 - checking defender alerts or dashboards;
-- external C2 infrastructure;
 - malware execution;
 - exploitation or credential attacks;
 - persistence;
@@ -203,6 +208,8 @@ Because the generator suppresses per-query output, individual generated labels w
 - [`ground-truth-template.md`](ground-truth-template.md) — completed private operator record
 - [`../SCENARIO-RUNBOOK.md`](../SCENARIO-RUNBOOK.md) — complete Scenario 02 engineering/exercise runbook
 - [`../ml/generators/dga_dns.py`](../ml/generators/dga_dns.py) — generator source used by the scenario
+- [`scripts/official-dga-run-wrapper.sh`](scripts/official-dga-run-wrapper.sh) — wrapper used to preserve host/hash/timing/exit evidence
+- [`../exercise/final-comparison.md`](../exercise/final-comparison.md) — defender results added only after the reveal gate
 
 ---
 

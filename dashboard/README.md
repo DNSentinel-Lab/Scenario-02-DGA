@@ -93,3 +93,8 @@ The dashboard supports investigation; it does not make the final SOC disposition
 [🏠 Scenario Home](../README.md) · [📖 Detection Story](../detection-engineering/DETECTION-ENGINEERING.md) · [⬆ Back to top](#top)
 
 </div>
+
+
+## Official exercise closeout
+
+The same analyst surface was later used during Sonia's completed Scenario 02 investigation. It supported the exact 06:37–06:41 UTC window after Detection v1.0 surfaced five consecutive matches. The final SOC narrative and exact-window dashboard evidence are preserved in [`../soc/SOC-ANALYST-INVESTIGATION.md`](../soc/SOC-ANALYST-INVESTIGATION.md).

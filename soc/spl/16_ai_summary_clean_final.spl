@@ -1,0 +1,6 @@
+index=dns_soc_ai
+earliest="08/26/2026:06:37:00"
+latest="08/26/2026:07:00:00"
+| eval alert_id=mvindex('alert.alert_id',0), alert_name=mvindex('alert.alert_name',0), severity=mvindex('alert.severity',0), client_ip=mvindex('alert.evidence.client_ip',0), query_count=mvindex('alert.evidence.query_count',0), unique_qnames=mvindex('alert.evidence.unique_qnames',0), nxdomain_count=mvindex('alert.evidence.nxdomain_count',0), nxdomain_ratio=mvindex('alert.evidence.nxdomain_ratio',0), mitre=mvindex('alert.mitre_technique',0), ai_summary=mvindex('ai.summary',0)
+| table _time alert_id alert_name severity client_ip query_count unique_qnames nxdomain_count nxdomain_ratio mitre ai_summary
+| sort 0 _time

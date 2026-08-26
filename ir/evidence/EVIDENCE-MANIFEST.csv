@@ -1,0 +1,22 @@
+evidence_id,filename,category,what_it_proves,original_screenshot
+E01,S02-IR-E01-Raw-DNS-Window-Presence.png,Primary validation,Shows 836 raw Unbound events in the exact 06:37–06:42 UTC window; supports 418 query/reply pairs.,ff17f4a6-825e-4c5d-8831-2ee0250d605e.png
+E02,S02-IR-E02-Core-DNS-Metrics.png,Primary validation,"IR independently reproduced 418 replies, 409 unique qnames, 408 NXDOMAIN, 97.61%, client 10.50.30.20.",be91e279-c005-4ff9-9e3d-0843be1fe1c0.png
+E03,S02-IR-E03-One-Minute-Validation.png,Primary validation,Five consecutive 1-minute windows all meet the detection-like thresholds.,0776d31f-5036-44eb-b458-904feedfe5d1.png
+E04,S02-IR-E04-Raw-Qname-Examples.png,Primary validation,Shows highly variable alphanumeric first labels under the observed dga-test namespace and NXDOMAIN responses.,2e31601b-43e1-4a44-afed-e151b4d0491b.png
+E05,S02-IR-E05-Client-Scope.png,Primary validation,Shows only resolver-visible client 10.50.30.20 in the investigated window.,ffd8deca-db37-4176-9b34-c7eb08257a20.png
+E06,S02-IR-E06-Non-NXDOMAIN-Review.png,Primary validation,Shows the 10 successful replies were normal AWS service names and not the generated-looking namespace.,64811c9d-756a-42df-84ed-ea311095b1ab.png
+E07,S02-IR-E07-Endpoint-Telemetry-Availability.png,Attribution limits,Shows available DNS/ML/AWS telemetry but no endpoint/process telemetry proving process identity.,26d5e462-3a08-4c89-9581-9bd942fc4906.png
+E08,S02-IR-E08-Historical-Recurrence.png,Risk assessment,Shows 15 matching 1-minute windows across multiple separate clusters in the previous 24 hours.,cc4f675f-0566-4d80-bc9f-30d29da26866.png
+E09,S02-IR-E09-Current-Activity-Check.png,Risk assessment,Latest 60-minute check shows zero Scenario 02 namespace replies; activity was not active at that moment.,83aa990b-7c7f-463c-8d20-bc6fa40fc63d.png
+E10,S02-IR-E10-PreContainment-NXDOMAIN.png,Containment before,Same defensible observed qname returns NXDOMAIN before containment.,bdc14338-c300-45ed-a9bd-ea0789f78d1b.png
+E11,S02-IR-E11-PreChange-RPZ-Safe-State.png,Change control,"Shows RPZ loaded with enforcement disabled, reusable test record only, and valid Unbound configuration.",7553a6ec-021a-4a4c-aacd-b49463686783.png
+E12,S02-IR-E12-RPZ-Scenario02-Rule-Staged.png,Change control,Shows narrow wildcard for dga-test namespace added and configuration check passes.,d7b16fd6-3791-4e2d-a600-b08096e63e23.png
+E13,S02-IR-E13-RPZ-Runtime-Activated.png,Change control,"Shows backup moved out of Unbound include directory, clean config, service active, and cache flush.",4b7e645e-8b74-45b6-8764-24299a94f540.png
+E14,S02-IR-E14-PostContainment-RPZ-Redirect.png,Containment after,Exact same qname now returns NOERROR with A 10.50.30.30.,2f934619-3a91-499c-87ff-dcf2f3b2b897.png
+E15,S02-IR-E15-Sinkhole-Service-Health.png,Sinkhole validation,Shows dns-soc-sinkhole01 at 10.50.30.30 with nginx active and TCP/80 listening.,ae0714a9-49b5-455b-8a77-9506be0117f1.png
+E16,S02-IR-E16-Sinkhole-Local-HTTP200.png,Sinkhole validation,Shows local HTTP 200 and the controlled sinkhole page.,ae6263db-daa1-4c93-b1f4-99cfa5d21d0f.png
+E17,S02-IR-E17-End-to-End-Sinkhole-Reachable.png,Sinkhole validation,Victim reaches 10.50.30.30 and receives the controlled sinkhole page.,64385084-bfed-491f-a3a5-14788a0cd6dd.png
+E18,S02-IR-E18-Normal-DNS-Unaffected.png,Safety validation,Normal AWS DNS still returns a normal public A record instead of 10.50.30.30.,19e86860-0623-430c-bb1f-2db200614907.png
+E19,S02-IR-E19-Splunk-Before-After-RPZ.png,Containment telemetry,Same qname appears as NXDOMAIN before containment and NOERROR after RPZ activation.,bbeefcba-9001-4c45-b3c2-cd23da809bc1.png
+E20,S02-IR-E20-RPZ-Safe-State-Restored.png,Reset,"Shows original safe/non-enforcing RPZ state restored, config valid, Unbound active.",06183e2b-2068-46f8-bd58-97ae7b4c4368.png
+E21,S02-IR-E21-PostReset-DNS-Validation.png,Reset,After reset the test qname is NXDOMAIN again and unrelated AWS DNS resolves normally.,fd7ea9d0-4d53-421c-878d-a47859283be4.png

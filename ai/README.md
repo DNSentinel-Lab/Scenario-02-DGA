@@ -115,3 +115,8 @@ AI does **not** enable RPZ, sinkhole domains, isolate hosts or authorize Inciden
 [🏠 Scenario Home](../README.md) · [📖 AI Mapping](scenario-02-ai-mapping.md) · [⬆ Back to top](#top)
 
 </div>
+
+
+## Official exercise closeout
+
+During the completed official investigation, Sonia reviewed Scenario 02 AI output only after understanding the raw DNS behavior. AI claims were checked against Splunk and were not used as containment authority. See [`../soc/AI-ML-VALIDATION.md`](../soc/AI-ML-VALIDATION.md) and [`../soc/SOC-ANALYST-INVESTIGATION.md`](../soc/SOC-ANALYST-INVESTIGATION.md).

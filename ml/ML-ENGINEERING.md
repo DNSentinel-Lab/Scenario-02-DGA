@@ -734,11 +734,11 @@ The analyst still proves why by checking the client, qnames, NXDOMAIN ratio, que
 | Automatic containment | ✅ Not allowed / not implemented |
 | Repository source-code preservation | ✅ Complete |
 
-### Boundary that remains
+### Final responsibility boundary
 
-**Scenario 02 Machine Learning Engineering is complete. Detection Engineering is also now complete. Scenario 02 itself is not complete.**
+**Scenario 02 Machine Learning Engineering is complete, and the later operational exercise is also complete.**
 
-The completed rule-based phase now uses this model as a supporting second opinion beside Detection v1.0 and the shared AI evidence path. The remaining project phase is the official information-separated adversary → SOC → IR → human-approved response/verification exercise.
+ML remained intentionally narrow throughout the final case: it supplied anomaly context beside Detection v1.0 and the shared AI evidence path, but it did not determine the SOC disposition or authorize containment. During the official information-separated exercise, the five latest Detection v1.0 windows had five corresponding ML `ANOMALY` windows; Sonia validated them against raw DNS, and IR independently completed the human-approved response and verification cycle.
 
 ---
 
@@ -749,3 +749,16 @@ The completed rule-based phase now uses this model as a supporting second opinio
 <sub>DNSentinel Lab · Evidence-first DNS security engineering</sub>
 
 </div>
+
+
+---
+
+## 21. Operational closeout — fresh minute scoring
+
+The validated historical scorer originally used a fixed engineering time range. The model and feature schema were left unchanged, while a separate live wrapper was added to score the previous completed DNS minute automatically.
+
+The closeout work also isolated four operational issues: persistent root-only credentials, the systemd writable state directory, Splunk `_time` string conversion to a numeric `window_epoch`, and a one-character `event` variable typo. After those boundaries were corrected, fresh current-time results were written successfully to `dns_soc_ml` with `HEC_HTTP=200`.
+
+A benign validation still produced `ANOMALY` results in some windows. Rather than tuning that away, the team preserved it as evidence of the model's intended limitation: unusual does not automatically mean malicious.
+
+See [`operations/README.md`](operations/README.md).

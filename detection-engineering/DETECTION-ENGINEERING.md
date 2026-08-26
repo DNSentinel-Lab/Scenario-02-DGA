@@ -198,7 +198,7 @@ The reproducible baseline searches are preserved in [`../spl/baseline.spl`](../s
 
 ## 5. Engineer the investigation surface
 
-Before freezing the final rule, Lubaba built the analyst-facing view that Sonia will later use during the official exercise.
+Before freezing the final rule, Lubaba built the analyst-facing view that Sonia later used during the official exercise.
 
 ### Final dashboard
 
@@ -852,10 +852,10 @@ flowchart TB
     OAI --> HEC["Internal HEC"]
     HEC --> AI["index=dns_soc_ai"]
 
-    RAW --> SOC["Future Sonia SOC investigation"]
+    RAW --> SOC["Sonia SOC investigation"]
     AI --> SOC
     CMP --> SOC
-    SOC --> IR["Future human IR decision"]
+    SOC --> IR["Human IR decision"]
 ```
 
 Detection, ML and AI are deliberately separate signals/layers. Human investigation remains the security decision point.
@@ -955,21 +955,20 @@ That is the troubleshooting story worth preserving—not every failed command.
 
 ---
 
-## 25. What this work does not claim
+## 25. What this Detection Engineering phase does not claim
 
-Detection Engineering completion does **not** mean the full Scenario 02 exercise is complete.
+Detection Engineering and the later operational exercise are both complete, but their responsibilities remain separate.
 
-This work does not claim:
+This engineering phase does not claim that:
 
-- official adversary execution;
-- Sonia's final SOC disposition;
-- Abdul-Rehman's IR decision;
-- official RPZ/sinkhole containment;
-- official post-response verification;
-- that ML or AI proves malware;
-- that 6/6 controlled DGA results represent production accuracy.
+- the controlled validation traffic was the official adversary run;
+- Lubaba made Sonia's SOC disposition;
+- Lubaba made Abdul-Rehman's IR decision;
+- ML or AI proves malware;
+- 6/6 controlled DGA results represent production accuracy;
+- Detection v1.0 itself authorized RPZ/sinkhole containment.
 
-The next phase is the synchronized information-separated exercise using the frozen engineering built here.
+The official SOC disposition is documented in [`../soc/SOC-ANALYST-INVESTIGATION.md`](../soc/SOC-ANALYST-INVESTIGATION.md), and the independent IR decision/containment verification is documented in [`../ir/INCIDENT-RESPONSE.md`](../ir/INCIDENT-RESPONSE.md). The operational closeout below records how the frozen engineering performed when those later roles used it.
 
 ---
 
@@ -980,3 +979,28 @@ The next phase is the synchronized information-separated exercise using the froz
 <sub>DNSentinel Lab · Telemetry before theory · Evidence before verdict · Humans before automation</sub>
 
 </div>
+
+
+---
+
+## Operational closeout — what happened after Detection Engineering
+
+Detection Engineering ended before the official traffic was generated. The later exercise then tested the frozen work without live tuning:
+
+```text
+Detection v1.0 frozen
+→ official DGA run begins 06:37:10.787620 UTC
+→ five consecutive live Detection v1.0 windows (06:37–06:41)
+→ SOC reconstructs raw DNS and baseline
+→ five corresponding ML ANOMALY windows
+→ AI reviewed after raw evidence
+→ SOC: INCONCLUSIVE — escalation warranted
+→ IR independently validates
+→ human-approved RPZ containment
+→ sinkhole + normal-DNS + Splunk verification
+→ safe reset
+```
+
+This operational result closes the engineering loop: Lubaba's explainable detection and investigation surface were not only validated with controlled engineering traffic; they were later used in the information-separated official scenario exactly as intended.
+
+No threshold change was required during the official run.

@@ -87,13 +87,12 @@ echo "===== OFFICIAL DGA RUN COMPLETE ====="
 - **Detection v1.0 modification:** none.
 - **RPZ modification during adversary execution:** none.
 - **Defender-result inspection during adversary execution:** none.
-- **External C2/beacon:** not part of the official run.
 
 ## Query samples / counts
 
 The generator intentionally redirects `resolvectl` stdout/stderr to `/dev/null`, so individual generated qnames were not printed in the attacker terminal.
 
-During the blind operator phase, the attacker did **not** inspect resolver/Splunk telemetry to recover:
+During the information-separated operator phase, the attacker did **not** inspect resolver/Splunk telemetry to recover:
 
 ```text
 exact query count
@@ -159,14 +158,14 @@ The correct deployed path was verified as:
 
 Use this section when the final defender comparison is completed:
 
-- [ ] SOC disposition recorded before ground-truth reveal
-- [ ] AI output validated by the SOC before ground-truth reveal
-- [ ] IR handoff/decision recorded if escalation occurred
+- [x] SOC disposition recorded before ground-truth reveal
+- [x] AI output validated by the SOC before ground-truth reveal
+- [x] IR handoff/decision recorded if escalation occurred
 - [x] Detection v1.0 was not modified during the official adversary run
 - [x] ML was not modified during the official adversary run
 - [x] RPZ was not changed by the adversary/operator
 - [x] Operator did not inspect defender results during the run
-- [ ] Final attacker ↔ telemetry ↔ SOC ↔ IR comparison completed after reveal
+- [x] Final attacker ↔ telemetry ↔ SOC ↔ IR comparison completed after reveal
 
 ## Related evidence / files
 
@@ -184,3 +183,8 @@ Use this section when the final defender comparison is completed:
 <sub>DNSentinel Lab · Evidence-first DNS security engineering</sub>
 
 </div>
+
+
+## Final reveal artifact
+
+The completed cross-role comparison is preserved in [`../exercise/final-comparison.md`](../exercise/final-comparison.md).

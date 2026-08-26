@@ -1,0 +1,8 @@
+index=dns_soc_dns
+host="dns-soc-resolver01"
+sourcetype="unbound:dns"
+event_type="reply"
+| stats count as reply_events
+        min(_time) as first_event
+        max(_time) as latest_event
+| convert ctime(first_event) ctime(latest_event)

@@ -1,58 +1,47 @@
 <a id="top"></a>
-<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=6,12,19,24,30&height=135&section=header&text=%F0%9F%9B%A1%EF%B8%8F%20Incident%20Response%20Workspace&fontSize=28&fontColor=ffffff&animation=fadeIn&desc=Scenario%2002%20%E2%80%94%20DGA%20%2B%20High%20NXDOMAIN&descSize=14&descAlignY=68&descColor=D966FF" width="100%" alt="🛡️ Incident Response Workspace" />
 
-<div align="center">
+> 🧭 [Scenario 02](../README.md) › **Incident Response**
 
-![Scenario](https://img.shields.io/badge/Scenario_02-ML_Engineering_Complete-2EA44F?style=flat-square)
-![Workspace](https://img.shields.io/badge/Workspace-Incident_Response_Workspace-E5534B?style=flat-square)
+# Incident Response / Defender Workspace — Scenario 02
 
-[🏠 Scenario Home](../README.md) · [🏗️ Shared Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [🗂️ All Scenario Repositories](https://github.com/orgs/DNSentinel-Lab/repositories)
+**Incident Responder / Defender:** Abdul-Rehman  
+**Final IR status:** **CLOSED — controlled containment validated and safe reset completed**
 
-</div>
+This folder preserves the completed Incident Response phase that began from Sonia's formal SOC handoff. IR independently reproduced the critical DNS evidence before deciding whether the prepared RPZ/sinkhole response was justified.
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+## Start here
 
-**Status:** Reusable RPZ/sinkhole control is infrastructure-ready and ML Engineering is complete; the Scenario 02 IR exercise has not been performed.
+- [`INCIDENT-RESPONSE.md`](INCIDENT-RESPONSE.md) — flagship IR story
+- [`IR-FINAL-REPORT.md`](IR-FINAL-REPORT.md) — concise final incident report
+- [`IR-COMMAND-LEDGER.md`](IR-COMMAND-LEDGER.md) — exact investigation/response command ledger
+- [`LESSONS-LEARNED.md`](LESSONS-LEARNED.md) — reusable operational lessons
+- [`AI-AND-AUTOMATION-NOTE.md`](AI-AND-AUTOMATION-NOTE.md) — automation boundary
+- [`spl/`](spl/) — exact IR Splunk searches
+- [`shell/`](shell/) — resolver, victim, sinkhole, and reset commands
+- [`evidence/`](evidence/) — curated E01–E21 response evidence
 
-The shared Infrastructure repository already proved that Unbound can log an RPZ match, redirect one controlled hostname to `10.50.30.30`, produce sinkhole Nginx evidence, and return to disabled enforcement afterward.
-
-That technical validation is **not** the human Scenario 02 response record.
-
-## Future response rule
+## IR at a glance
 
 ```text
-Finding
-→ human SOC investigation
-→ approved containment decision
-→ enable approved RPZ response
-→ expected DNS change
-→ sinkhole/network evidence
-→ verification
-→ reset to safe state
+SOC handoff
+→ independently reproduce DNS metrics
+→ verify qname structure and client scope
+→ check endpoint/process visibility
+→ confirm recurrence
+→ classify what is / is not proven
+→ explicit human approval
+→ preserve pre-containment NXDOMAIN
+→ enforce narrow RPZ
+→ same qname → 10.50.30.30
+→ verify sinkhole HTTP 200
+→ prove unrelated DNS still works
+→ prove Splunk before/after
+→ restore safe RPZ state
+→ same qname → NXDOMAIN
 ```
 
-Do not treat a rule-based detection, the implemented ML anomaly result, or a future AI summary as automatic authorization.
+IR confirmed recurrent abnormal DGA-like/high-NXDOMAIN behavior. It did **not** claim malware, process identity, endpoint compromise, user identity, intent, or authorization when those facts were not present in defender telemetry.
 
-## Expected evidence later
+---
 
-- analyst-confirmed finding;
-- who approved/performed containment;
-- exact RPZ rule/pattern used for the scenario;
-- pre-response DNS result;
-- post-response `10.50.30.30` result;
-- sinkhole access evidence;
-- final reset and verification.
-
-No Scenario 02 IR artifact exists here yet.
-
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
-
-<div align="center">
-
-**DNSentinel Scenario 02 · DGA + High NXDOMAIN**
-
-[🏠 Scenario Home](../README.md) · [🏗️ Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [⬆ Back to top](#top)
-
-</div>
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,19,24,30&height=75&section=footer" width="100%" alt="footer" />
+[🏠 Scenario Home](../README.md) · [⬆ Back to top](#top)

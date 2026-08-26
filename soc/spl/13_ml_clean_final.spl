@@ -1,0 +1,5 @@
+index=dns_soc_ml
+earliest="08/26/2026:06:37:00"
+latest="08/26/2026:06:42:00"
+| table _time client_ip model prediction prediction_value anomaly_score query_count unique_qnames nxdomain_count nxdomain_ratio avg_qname_length max_qname_length unique_tlds a_count aaaa_count
+| sort 0 _time

@@ -1,0 +1,23 @@
+index=dns_soc_dns
+host="dns-soc-resolver01"
+sourcetype="unbound:dns"
+event_type="reply"
+client_ip="10.50.30.20"
+earliest=-24h latest=now
+| where _time < strptime("08/26/2026 06:37:00","%m/%d/%Y %H:%M:%S") OR _time >= strptime("08/26/2026 06:42:00","%m/%d/%Y %H:%M:%S")
+| bin _time span=1m
+| stats count as query_count dc(qname) as unique_qnames count(eval(rcode="NXDOMAIN")) as nxdomain_count by _time client_ip
+| eval nxdomain_ratio=round(nxdomain_count/query_count,3)
+| stats count as baseline_minutes
+        round(avg(query_count),2) as avg_queries
+        perc95(query_count) as p95_queries
+        max(query_count) as max_queries
+        round(avg(unique_qnames),2) as avg_unique_qnames
+        perc95(unique_qnames) as p95_unique_qnames
+        max(unique_qnames) as max_unique_qnames
+        round(avg(nxdomain_ratio),3) as avg_nxdomain_ratio
+        perc95(nxdomain_ratio) as p95_nxdomain_ratio
+        max(nxdomain_ratio) as max_nxdomain_ratio
+
+# Original failed test preserved for troubleshooting history.
+# Splunk rejected round(avg(...),2) inside stats. See query 07.

@@ -1,0 +1,13 @@
+index=dns_soc_dns
+host="dns-soc-resolver01"
+sourcetype="unbound:dns"
+event_type="reply"
+earliest="08/26/2026:06:37:00"
+latest="08/26/2026:06:42:00"
+| bin _time span=1m
+| stats count as query_count dc(qname) as unique_qnames count(eval(rcode="NXDOMAIN")) as nxdomain_count by _time client_ip
+| eval nxdomain_ratio=round(nxdomain_count/query_count,3)
+| where query_count>=20 AND unique_qnames>=15 AND nxdomain_ratio>=0.75
+| stats count as matching_windows min(_time) as first_seen max(_time) as last_seen max(query_count) as peak_queries max(unique_qnames) as peak_unique_qnames max(nxdomain_ratio) as peak_nxdomain_ratio by client_ip
+| convert ctime(first_seen) ctime(last_seen)
+| sort - matching_windows

@@ -54,7 +54,7 @@ AND nxdomain_ratio >= 0.75
 | AI advisory boundary | No automatic verdict/containment | `human_validation_required=true`; uncertainty preserved | ✅ PASS |
 | AI vs raw evidence | Core AI facts must be defensible | `55 / 54 / 0.9818 / 53 / 0.9636` matched raw DNS exactly | ✅ PASS |
 | Automatic response | Must remain disabled | No RPZ, isolation or IR action authorized by rule/ML/AI | ✅ PASS |
-| Official scenario execution | Must remain separate | Adversary/SOC/IR/containment exercise still pending | ⏳ PENDING |
+| Official scenario execution | Must remain separate from engineering validation | Later completed with five live rule matches, SOC investigation, IR containment verification and safe reset | ✅ COMPLETE |
 
 ## Threshold rationale
 
@@ -147,6 +147,6 @@ A separate raw resolver aggregation returned the exact same values.
 ## Completion boundary
 
 **Detection Engineering:** ✅ complete  
-**Official Scenario 02 adversary/SOC/IR exercise:** ⏳ pending
+**Official Scenario 02 adversary/SOC/IR exercise:** ✅ completed after the engineering validation recorded here
 
-The next phase must use the frozen detection and preserve information separation. A miss, disagreement or false positive during the official run is an exercise result to investigate—not a reason to tune the rule live.
+The later official exercise followed that boundary: Detection v1.0 remained frozen and information separation was preserved. The fresh run produced five consecutive matching windows without live threshold changes; any disagreement or miss would have been treated as an exercise result rather than a reason to tune the rule during execution.

@@ -67,3 +67,8 @@ No malware, credential attack, persistence, denial of service, unrelated Interne
 </div>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="footer" />
+
+
+## Final reveal complete
+
+SOC and IR decisions are now locked and the response/reset evidence has been preserved. The operator ground truth can therefore be compared safely with defender observations in [`../exercise/final-comparison.md`](../exercise/final-comparison.md).

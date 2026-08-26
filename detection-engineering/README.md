@@ -26,7 +26,7 @@
 Lubaba owned the Scenario 02 Detection Engineering lifecycle from trusted Unbound resolver telemetry to SOC-ready alerting. She validated the DNS transaction model, measured ingestion behavior, established the rule baseline, engineered the analyst dashboard, built the hunting and production SPL, challenged the rule with controlled DGA and benign traffic, compared the explainable rule with the existing Isolation Forest model, operationalized Detection v1.0 as a scheduled alert, and integrated the final evidence contract with the shared AI bridge.
 
 > [!IMPORTANT]
-> Detection Engineering validation traffic is **not** the official Scenario 02 adversary exercise. The synchronized adversary → SOC → IR exercise remains the next phase, and the frozen v1.0 rule is not tuned during that future live run.
+> Detection Engineering validation traffic is **not** the official Scenario 02 adversary exercise. During the later official run, the frozen v1.0 rule was left unchanged and independently matched five consecutive fresh windows before SOC and IR completed the operational exercise.
 
 ## 🚦 Start here
 
@@ -173,7 +173,7 @@ human-approved RPZ / sinkhole response if warranted
 before/after verification + ground-truth comparison
 ```
 
-No official SOC disposition, IR decision or containment result is claimed in this workspace.
+The detailed SOC and IR conclusions live in their own role workspaces. This folder preserves the Detection Engineering lifecycle and the fact that its frozen rule later operated successfully during the official run.
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
