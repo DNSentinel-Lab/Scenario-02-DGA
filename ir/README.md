@@ -43,16 +43,90 @@ This folder preserves the completed Incident Response phase that began from Soni
 ## 🧭 Response Lifecycle
 
 ```mermaid
-flowchart LR
-    A["📨 SOC Handoff"] --> B["🔎 Independent Validation"]
-    B --> C["🧭 Classification"]
-    C --> D["👤 Human Approval"]
-    D --> E["📸 Preserve Before-State"]
-    E --> F["🛡 RPZ Enforcement"]
-    F --> G["🎯 Sinkhole Redirect"]
-    G --> H["✅ DNS / HTTP / Splunk Verification"]
-    H --> I["🌐 Normal DNS Safety"]
-    I --> J["♻️ Safe Reset"]
+flowchart TB
+
+    %% ==========================================
+    %% 1 — VALIDATE & DECIDE
+    %% ==========================================
+    subgraph VALIDATE["🔎 1 · Validate & Decide"]
+        direction LR
+
+        A["📨 SOC<br/>Handoff"]
+        B["🔎 Independent<br/>Validation"]
+        C["🧭 Classification"]
+        D["👤 Human<br/>Approval"]
+
+        A --> B --> C --> D
+    end
+
+
+    %% ==========================================
+    %% 2 — CONTAIN
+    %% ==========================================
+    subgraph CONTAIN["🛡️ 2 · Preserve & Contain"]
+        direction LR
+
+        E["📸 Preserve<br/>Before-State"]
+        F["🛡️ RPZ<br/>Enforcement"]
+        G["🎯 Sinkhole<br/>Redirect"]
+
+        E --> F --> G
+    end
+
+
+    %% ==========================================
+    %% 3 — VERIFY & RECOVER
+    %% ==========================================
+    subgraph VERIFY["✅ 3 · Verify & Recover"]
+        direction LR
+
+        H["✅ DNS + HTTP + Splunk<br/>Verification"]
+        I["🌐 Normal DNS<br/>Safety"]
+        J["♻️ Safe<br/>Reset"]
+
+        H --> I --> J
+    end
+
+
+    D --> E
+    G --> H
+
+
+    %% ==========================================
+    %% STYLING
+    %% ==========================================
+
+    classDef handoff fill:#172554,stroke:#60a5fa,stroke-width:2px,color:#ffffff;
+    classDef validate fill:#083344,stroke:#22d3ee,stroke-width:2px,color:#ffffff;
+    classDef decision fill:#3b0764,stroke:#c084fc,stroke-width:2px,color:#ffffff;
+    classDef approval fill:#422006,stroke:#fbbf24,stroke-width:2px,color:#ffffff;
+
+    classDef preserve fill:#312e81,stroke:#818cf8,stroke-width:2px,color:#ffffff;
+    classDef enforce fill:#450a0a,stroke:#f87171,stroke-width:2px,color:#ffffff;
+    classDef sinkhole fill:#7c2d12,stroke:#fb923c,stroke-width:2px,color:#ffffff;
+
+    classDef verifyok fill:#052e16,stroke:#4ade80,stroke-width:2px,color:#ffffff;
+    classDef safety fill:#134e4a,stroke:#2dd4bf,stroke-width:2px,color:#ffffff;
+    classDef reset fill:#1f2937,stroke:#94a3b8,stroke-width:2px,color:#ffffff;
+
+    class A handoff;
+    class B validate;
+    class C decision;
+    class D approval;
+
+    class E preserve;
+    class F enforce;
+    class G sinkhole;
+
+    class H verifyok;
+    class I safety;
+    class J reset;
+
+    style VALIDATE fill:#0d1117,stroke:#60a5fa,stroke-width:1px
+    style CONTAIN fill:#0d1117,stroke:#f87171,stroke-width:1px
+    style VERIFY fill:#0d1117,stroke:#4ade80,stroke-width:1px
+
+    linkStyle default stroke:#94a3b8,stroke-width:2px
 ```
 
 ## 📚 Start Here
