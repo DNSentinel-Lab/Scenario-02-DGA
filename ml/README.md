@@ -15,7 +15,7 @@
 
 **Status:** ✅ Machine Learning Engineering complete  
 **Implementation owner:** [Musfira Zafar](https://github.com/MUSFIRA-ZAFAR) — Scenario 02 Project Lead / Adversary Operator + ML implementation  
-**Scenario boundary:** Detection Engineering, Dashboard Studio, scheduled alerting and Scenario 02 AI integration are now complete. The official information-separated adversary/SOC/IR exercise remains pending.
+**Scenario boundary:** ML Engineering, Detection Engineering, Dashboard Studio, alerting, AI integration, the information-separated SOC/IR exercise, RPZ containment, verification, and safe reset are now complete. ML remains documented as a supporting second opinion rather than the incident verdict.
 
 Scenario 02 now has a working anomaly-detection layer built from real defender DNS telemetry. The implementation teaches an Isolation Forest model the shape of controlled normal DNS behavior, scores controlled DGA-style windows, and returns the model result to Splunk as a separate analyst signal.
 
@@ -236,16 +236,11 @@ That is exactly why the model remains a second opinion. Anomaly means **unusual*
 
 ## What this ML phase did not complete by itself
 
-ML Engineering stopped at the anomaly-signal boundary. The later Detection Engineering phase has now completed the explainable rule, Dashboard Studio, alerting, Rule ↔ ML comparison and Scenario 02 AI evidence mapping.
+ML Engineering stopped at the anomaly-signal boundary. It did not own the explainable detection, the SOC disposition, the response decision, or containment. Those later phases are now complete and are documented in their dedicated workspaces.
 
-The remaining future Scenario 02 work is the **official information-separated exercise**:
+During the official information-separated exercise, the frozen Detection v1.0 rule produced five consecutive live windows and the ML service produced five corresponding `ANOMALY` windows. Sonia used those ML results only as supporting context beside raw DNS evidence, and Abdul-Rehman made the later response decision independently.
 
-- fresh adversary execution / private ground truth;
-- SOC Analyst independent disposition;
-- Incident Response decision;
-- human-approved RPZ/sinkhole action if warranted;
-- official before/after containment verification;
-- ground-truth comparison and final scenario record.
+This closes the operational loop without changing the original ML responsibility boundary.
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
@@ -258,3 +253,14 @@ The remaining future Scenario 02 work is the **official information-separated ex
 </div>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,19,24,30&height=75&section=footer" width="100%" alt="footer" />
+
+
+---
+
+## Live scoring closeout
+
+Before the official exercise, the existing Isolation Forest model was operationalized for fresh DNS windows without retraining it. The final runtime uses a root-only token file, a previous-completed-minute scorer, HEC write-back to `dns_soc_ml`, and a systemd timer at `:45` seconds after each minute.
+
+The implementation and safe placeholder configuration are preserved in [`operations/`](operations/).
+
+During the official latest cluster, all five corresponding ML windows were available to Sonia as `ANOMALY` second-opinion evidence. The model did not determine Sonia's disposition or Abdul-Rehman's response decision.

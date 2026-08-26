@@ -1,0 +1,10 @@
+[Unit]
+Description=Run DNS SOC ML scoring every minute
+
+[Timer]
+OnCalendar=*-*-* *:*:45
+AccuracySec=1s
+Unit=dns-soc-ml-live-score.service
+
+[Install]
+WantedBy=timers.target
