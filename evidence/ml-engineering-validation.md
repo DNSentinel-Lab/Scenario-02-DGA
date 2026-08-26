@@ -1,11 +1,16 @@
 <a id="top"></a>
 
-> 🧾 [Scenario 02](../README.md) › [ML](../ml/README.md) › **ML Engineering Validation Record**
+> 🧭 [Scenario 02](../README.md) › [Evidence](README.md) › **ML Engineering Validation Record — Scenario 02**
 
-![Status](https://img.shields.io/badge/ML_Engineering-PASS-2EA44F?style=flat-square)
-![Model](https://img.shields.io/badge/Model-dns__iforest__v1-F7931E?style=flat-square)
+<div align="center">
 
-# ML Engineering Validation Record — Scenario 02
+![Scenario](https://img.shields.io/badge/Scenario_02-COMPLETE-2EA44F?style=flat-square) ![Workspace](https://img.shields.io/badge/Workspace-Evidence-22D3EE?style=flat-square) ![Document](https://img.shields.io/badge/Document-Evidence_Backed-D966FF?style=flat-square)
+
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🧠 ML Engineering Validation Record — Scenario 02
 
 **Implementation owner:** [Musfira Zafar](https://github.com/MUSFIRA-ZAFAR)  
 **Model:** Isolation Forest v1  
@@ -14,7 +19,7 @@
 
 This record summarizes the evidence used to declare the Scenario 02 Machine Learning Engineering phase complete.
 
-## Acceptance matrix
+## 🧾 Acceptance matrix
 
 | Gate | Expected | Observed | Result |
 |---|---|---|---|
@@ -38,30 +43,30 @@ This record summarizes the evidence used to declare the Scenario 02 Machine Lear
 | Secret handling | Tokens absent from repo | source uses environment variables; no token values committed | ✅ PASS |
 | Internal TLS | Private Splunk HTTPS uses a self-signed certificate in v1 | working scripts use `verify=False`; production hardening should trust the Splunk CA/certificate | ⚠️ DOCUMENTED |
 
-## Ground-truth windows
+## 🕒 Ground-truth windows
 
-### Controlled benign run 1
+### 🧠 Controlled benign run 1
 
 ```text
 UTC:   2026-08-24 07:46:46 -> 08:01:49
 epoch: 1787557606 -> 1787558509
 ```
 
-### Controlled benign run 2
+### 🧠 Controlled benign run 2
 
 ```text
 UTC:   2026-08-24 08:16:22 -> 08:31:28
 epoch: 1787559382 -> 1787560288
 ```
 
-### Controlled DGA run
+### 🧠 Controlled DGA run
 
 ```text
 UTC:   2026-08-24 08:54:28 -> 08:59:28
 epoch: 1787561668 -> 1787561968
 ```
 
-## Implemented feature vector
+## 🧠 Implemented feature vector
 
 ```text
 query_count
@@ -77,7 +82,7 @@ aaaa_count
 
 The v1 feature record reflects the actual implementation. Earlier planned entropy/digit/interarrival features are not claimed as completed.
 
-## Final model configuration
+## 🧠 Final model configuration
 
 ```python
 IsolationForest(
@@ -98,7 +103,7 @@ holdout_anomalies=2
 model_path=/app/dns_iforest_v1.joblib
 ```
 
-## Controlled evaluation counts
+## 📌 Controlled evaluation counts
 
 | Ground truth | Total windows | Predicted anomaly | Predicted normal |
 |---|---:|---:|---:|
@@ -121,7 +126,7 @@ FPR       = 0.25
 
 These are **lab evaluation metrics**, not production-performance claims.
 
-## Final Splunk identity
+## 🔎 Final Splunk identity
 
 ```text
 index      = dns_soc_ml
@@ -139,13 +144,13 @@ scored_windows = 6
 anomalies      = 6
 ```
 
-## Score-semantics note
+## 🧠 Score-semantics note
 
 The current `anomaly_score` is the value produced by the implemented `decision_function()` call. Controlled anomalous windows had negative values.
 
 Do not interpret the current field as a normalized “higher = more suspicious” score.
 
-## Engineering completion decision
+## ✅ Engineering completion decision
 
 **Scenario 02 Machine Learning Engineering: COMPLETE.**
 
@@ -164,12 +169,14 @@ real DNS evidence
 
 It does **not** mark Scenario 02 Detection Engineering, dashboard/alert work, AI scenario integration, official SOC investigation, IR or containment complete.
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
 
-[🏠 Scenario Home](../README.md) · [🧠 ML Workspace](../ml/README.md) · [📖 ML Engineering Story](../ml/ML-ENGINEERING.md) · [⬆ Back to top](#top)
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
 
-<sub>DNSentinel Lab · Evidence-first DNS security engineering</sub>
+[🏠 Scenario Home](../README.md) · [🧾 Evidence](README.md) · [⬆ Back to top](#top)
 
 </div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

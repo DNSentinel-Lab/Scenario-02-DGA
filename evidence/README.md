@@ -1,8 +1,36 @@
-# Scenario 02 — Master Evidence Index
+<a id="top"></a>
+
+<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=6,12,19,24,30&height=155&section=header&text=%F0%9F%A7%BE%20Scenario%2002%20Evidence%20Center&fontSize=30&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Engineering%20%E2%86%92%20Operator%20%E2%86%92%20SOC%20%E2%86%92%20IR%20%E2%86%92%20Cross-Role%20Closeout&descSize=14&descAlignY=68&descColor=D966FF" width="100%" alt="🧾 Scenario 02 Evidence Center" />
+
+<div align="center">
+
+![Scenario](https://img.shields.io/badge/Scenario_02-Evidence_Complete-2EA44F?style=flat-square)
+![SOC](https://img.shields.io/badge/SOC_Evidence-E01%E2%80%93E13-22D3EE?style=flat-square)
+![IR](https://img.shields.io/badge/IR_Evidence-E01%E2%80%93E21-F59E0B?style=flat-square)
+![Ground Truth](https://img.shields.io/badge/Operator_Ground_Truth-Preserved-A855F7?style=flat-square)
+
+[🏠 Scenario Home](../README.md) · [🧠 ML](../ml/README.md) · [🚦 Detection](../detection-engineering/README.md) · [🧬 Operator](../attacker/README.md) · [🔎 SOC](../soc/README.md) · [🛡️ IR](../ir/README.md)
+
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🧾 Scenario 02 — Master Evidence Index
 
 This folder is the cross-role evidence map for the completed Scenario 02 case. Detailed evidence stays with the role that produced it; this page links the layers into one auditable chain.
 
-## Engineering evidence
+## 🔁 Evidence Chain
+
+```mermaid
+flowchart LR
+    ENG["🧠 Engineering Evidence"] --> OP["🧬 Operator Ground Truth"]
+    ENG --> SOC["🔎 SOC E01–E13"]
+    SOC --> IR["🛡️ IR E01–E21"]
+    OP --> CMP["🎭 Final Comparison"]
+    IR --> CMP
+```
+
+## 🧠 Engineering Evidence
 
 | Area | Evidence |
 |---|---|
@@ -12,7 +40,7 @@ This folder is the cross-role evidence map for the completed Scenario 02 case. D
 | Detection screenshots | [`../screenshots/detection-engineering/`](../screenshots/detection-engineering/) |
 | ML screenshots | [`../screenshots/ml/`](../screenshots/ml/) |
 
-## Official operator ground truth
+## 🧬 Official Operator Ground Truth
 
 | Evidence | Location |
 |---|---|
@@ -21,11 +49,9 @@ This folder is the cross-role evidence map for the completed Scenario 02 case. D
 | Ground-truth summary | [`../screenshots/attacker/03-official-dga-ground-truth-summary.png`](../screenshots/attacker/03-official-dga-ground-truth-summary.png) |
 | Operator record | [`../attacker/ground-truth-template.md`](../attacker/ground-truth-template.md) |
 
-## SOC investigation evidence
+## 🔎 SOC Investigation Evidence
 
 The curated SOC set is indexed in [`../soc/evidence/README.md`](../soc/evidence/README.md).
-
-Flagship evidence chain:
 
 ```text
 E01/E02  Detection hit + five windows
@@ -39,11 +65,9 @@ E12      dashboard
 E13      final resolver-visible scope
 ```
 
-## Incident Response evidence
+## 🛡️ Incident Response Evidence
 
 The curated IR set is indexed in [`../ir/evidence/README.md`](../ir/evidence/README.md).
-
-Flagship containment chain:
 
 ```text
 E02   independent core metrics
@@ -58,10 +82,22 @@ E20   RPZ safe state restored
 E21   post-reset NXDOMAIN
 ```
 
-## Final comparison
+## 🎭 Final Comparison
 
 The cross-role reveal and timing alignment are documented in [`../exercise/final-comparison.md`](../exercise/final-comparison.md).
 
-## Evidence rule
+## 📌 Evidence Rule
 
 A screenshot is included because it proves a claim. Backend chat/progress screenshots, repeated views, wrong-time-range checks, and minor syntax corrections are not part of the public case narrative.
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**Evidence is role-owned, traceable, and promoted only when it proves a technical claim.**
+
+[🏠 Scenario Home](../README.md) · [🔎 SOC Evidence](../soc/evidence/README.md) · [🛡️ IR Evidence](../ir/evidence/README.md) · [🎭 Final Comparison](../exercise/final-comparison.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />
