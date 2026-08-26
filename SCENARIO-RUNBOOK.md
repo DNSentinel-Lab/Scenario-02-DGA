@@ -1,8 +1,18 @@
 <a id="top"></a>
 
-> 🧭 [Scenario 02](README.md) › **Runbook**
+<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=6,12,19,24,30&height=155&section=header&text=%F0%9F%93%98%20Operational%20Scenario%20Runbook&fontSize=30&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Scenario%2002%20%7C%20Reproducible%20Roles%2C%20Telemetry%2C%20Detection%2C%20Investigation%20and%20Response&descSize=14&descAlignY=68&descColor=D966FF" width="100%" alt="📘 Operational Scenario Runbook" />
 
-# Scenario 02 Runbook — DGA + High NXDOMAIN
+<div align="center">
+
+![Scenario](https://img.shields.io/badge/Scenario_02-COMPLETE-2EA44F?style=flat-square) ![MITRE](https://img.shields.io/badge/MITRE-T1568.002-E34F26?style=flat-square) ![Closeout](https://img.shields.io/badge/Closeout-Evidence_Backed-A855F7?style=flat-square)
+
+[🏠 Scenario Home](README.md) · [🔎 SOC](soc/README.md) · [🛡️ IR](ir/README.md) · [🧾 Evidence](evidence/README.md)
+
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🧬 Scenario 02 Runbook — DGA + High NXDOMAIN
 
 **Scenario status:** ✅ Complete  
 **Detection:** Detection v1.0 frozen before the official run  
@@ -13,7 +23,7 @@ This runbook is the final operational record for Scenario 02. Engineering valida
 
 ---
 
-## 1. Scenario objective
+## 🎯 1. Scenario objective
 
 Detect and investigate DNS behavior characterized by:
 
@@ -30,7 +40,7 @@ The scenario is deliberately scoped to DGA/high-NXDOMAIN DNS behavior. It does n
 
 ---
 
-## 2. Roles
+## 👥 2. Roles
 
 | Role | Owner | Responsibility |
 |---|---|---|
@@ -42,7 +52,7 @@ The scenario is deliberately scoped to DGA/high-NXDOMAIN DNS behavior. It does n
 
 ---
 
-## 3. Network and telemetry path
+## 🏗️ 3. Network and telemetry path
 
 ```text
 dns-soc-victim01        10.50.30.20
@@ -83,7 +93,7 @@ index=dns_soc_ai
 
 ---
 
-## 4. Pre-flight gate — completed
+## ✅ 4. Pre-flight gate — completed
 
 Before operator traffic began, the Project Lead verified:
 
@@ -104,7 +114,7 @@ The following were frozen before execution:
 
 ---
 
-## 5. Official adversary/operator execution — completed
+## 🎬 5. Official adversary/operator execution — completed
 
 Generator:
 
@@ -146,7 +156,7 @@ Result: ✅ fresh five-minute DGA-style DNS behavior generated through the norma
 
 ---
 
-## 6. Detection v1.0 — frozen and triggered
+## 🚨 6. Detection v1.0 — frozen and triggered
 
 Detection unit:
 
@@ -178,7 +188,7 @@ Canonical SPL is preserved in [`spl/detection.spl`](spl/detection.spl).
 
 ---
 
-## 7. ML second opinion — completed
+## 🧠 7. ML second opinion — completed
 
 The Isolation Forest was trained from normal DNS behavior before the official exercise. It was not retrained against the official DGA run.
 
@@ -200,7 +210,7 @@ Boundary:
 
 ---
 
-## 8. AI assistance — completed
+## 🤖 8. AI assistance — completed
 
 The `dga_nxdomain_v1` path received structured defender evidence after the detection pipeline was built.
 
@@ -214,7 +224,7 @@ See [`ai/scenario-02-ai-mapping.md`](ai/scenario-02-ai-mapping.md) and [`soc/AI-
 
 ---
 
-## 9. SOC investigation — completed
+## 🔎 9. SOC investigation — completed
 
 Sonia's investigation sequence:
 
@@ -256,7 +266,7 @@ See [`soc/SOC-ANALYST-INVESTIGATION.md`](soc/SOC-ANALYST-INVESTIGATION.md).
 
 ---
 
-## 10. SOC → IR handoff — completed
+## 🔎 10. SOC → IR handoff — completed
 
 The handoff preserved:
 
@@ -279,7 +289,7 @@ See [`soc/SOC-TO-IR-HANDOFF.md`](soc/SOC-TO-IR-HANDOFF.md).
 
 ---
 
-## 11. IR independent validation — completed
+## 🛡️ 11. IR independent validation — completed
 
 Abdul-Rehman independently reproduced the critical SOC evidence rather than copying the handoff conclusion.
 
@@ -304,7 +314,7 @@ Attribution remained limited to resolver-visible behavior.
 
 ---
 
-## 12. Response decision and approval — completed
+## 🛡️ 12. Response decision and approval — completed
 
 Containment was not automatic.
 
@@ -324,7 +334,7 @@ The response targeted the observed namespace, not all DNS from `10.50.30.20`.
 
 ---
 
-## 13. Pre-containment proof — completed
+## 🛡️ 13. Pre-containment proof — completed
 
 Observed qname used as the control:
 
@@ -343,7 +353,7 @@ Evidence: [`ir/evidence/S02-IR-E10-PreContainment-NXDOMAIN.png`](ir/evidence/S02
 
 ---
 
-## 14. RPZ containment — completed
+## 🛡️ 14. RPZ containment — completed
 
 The Scenario 02 wildcard was staged in the existing Unbound RPZ zone and the safe override was changed only after approval.
 
@@ -362,23 +372,23 @@ Evidence: [`ir/evidence/S02-IR-E14-PostContainment-RPZ-Redirect.png`](ir/evidenc
 
 ---
 
-## 15. Response verification — completed
+## 🛡️ 15. Response verification — completed
 
 IR verified all three required layers:
 
-### Redirect
+### 🛡️ Redirect
 
 The selected Scenario 02 qname returned `10.50.30.30` through the normal resolver.
 
-### Sinkhole service
+### 🛡️ Sinkhole service
 
 `dns-soc-sinkhole01` was brought online and Nginx served the controlled sinkhole page. The victim received HTTP `200`.
 
-### Unrelated DNS safety
+### 🗂️ Unrelated DNS safety
 
 Normal AWS DNS, including `ssm.us-east-1.amazonaws.com`, continued to resolve to its normal public AWS address.
 
-### Splunk before/after
+### 🔎 Splunk before/after
 
 Resolver telemetry preserved the same qname changing from:
 
@@ -392,7 +402,7 @@ This proved the response changed observable DNS behavior rather than merely chan
 
 ---
 
-## 16. Safe reset — completed
+## 🛡️ 16. Safe reset — completed
 
 After response evidence was captured:
 
@@ -407,7 +417,7 @@ Reset is part of the response lifecycle, not an optional cleanup step.
 
 ---
 
-## 17. Final ground-truth comparison — completed
+## 🎭 17. Final ground-truth comparison — completed
 
 After SOC and IR decisions were locked, operator ground truth was compared with defender evidence.
 
@@ -419,7 +429,7 @@ See [`exercise/final-comparison.md`](exercise/final-comparison.md).
 
 ---
 
-## 18. Final result
+## ✅ 18. Final result
 
 ```text
 Official DGA execution        ✅
@@ -441,7 +451,7 @@ Scenario closeout             ✅ complete
 
 ---
 
-## 19. Evidence and reproducibility
+## 🧾 19. Evidence and reproducibility
 
 - Detection Engineering SPL: [`spl/`](spl/)
 - ML source/artifacts: [`ml/`](ml/)
@@ -452,7 +462,7 @@ Scenario closeout             ✅ complete
 
 ---
 
-## 20. Final documentation boundary
+## 🔐 20. Final documentation boundary
 
 This repository claims only what the evidence supports.
 
@@ -470,3 +480,14 @@ It does document a complete, realistic defensive workflow from fresh DNS behavio
 ---
 
 [⬆ Back to top](#top)
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

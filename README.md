@@ -1,17 +1,37 @@
 <a id="top"></a>
 
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,19,24,30&height=225&section=header&text=Scenario%2002%20%E2%80%94%20DGA%20%2B%20High%20NXDOMAIN&fontSize=38&fontColor=ffffff&animation=fadeIn&fontAlignY=36&desc=DNSentinel%20Lab%20%7C%20Detection%20%E2%86%92%20SOC%20%E2%86%92%20IR%20%E2%86%92%20Sinkhole%20Verified&descSize=16&descAlignY=58&descColor=D966FF" width="100%" alt="Scenario 02 — DGA + High NXDOMAIN" />
-</p>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,19,24,30&height=230&section=header&text=Scenario%2002%20%E2%80%94%20DGA%20%2B%20High%20NXDOMAIN&fontSize=38&fontColor=ffffff&animation=fadeIn&fontAlignY=36&desc=DNSentinel%20Lab%20%7C%20Detection%20%E2%86%92%20SOC%20%E2%86%92%20IR%20%E2%86%92%20Sinkhole%20%E2%86%92%20Verification%20%E2%86%92%20Safe%20Reset&descSize=16&descAlignY=59&descColor=D966FF" width="100%" alt="Scenario 02 — DGA + High NXDOMAIN" />
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Scenario_02-COMPLETE-2EA44F?style=for-the-badge" alt="Scenario complete" />
-  <img src="https://img.shields.io/badge/MITRE-T1568.002-D966FF?style=for-the-badge" alt="MITRE T1568.002" />
-  <img src="https://img.shields.io/badge/Splunk-Detection_v1.0-FF7A00?style=for-the-badge" alt="Detection v1.0" />
-  <img src="https://img.shields.io/badge/Response-Unbound_RPZ-0078D4?style=for-the-badge" alt="Unbound RPZ" />
-</p>
+<div align="center">
 
-# DNSentinel Scenario 02 — DGA + High NXDOMAIN
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=19&duration=2700&pause=850&color=D966FF&center=true&vCenter=true&repeat=true&width=1100&height=62&lines=Fresh+DGA+%E2%86%92+Frozen+Detection+%E2%86%92+Independent+SOC+%E2%86%92+Human-Approved+IR;418+Replies+%E2%86%92+409+Unique+Qnames+%E2%86%92+408+NXDOMAIN+%E2%86%92+97.61%25+NXDOMAIN;Telemetry+Before+Theory+%E2%86%92+Evidence+Before+Verdict+%E2%86%92+Humans+Before+Automation" alt="Scenario 02 workflow animation" />
+
+![Scenario](https://img.shields.io/badge/Scenario_02-COMPLETE-2EA44F?style=for-the-badge)
+![AWS](https://img.shields.io/badge/AWS-Security_Lab-FF9900?style=for-the-badge&logo=amazonwebservices&logoColor=white)
+![Splunk](https://img.shields.io/badge/Splunk-Enterprise-000000?style=for-the-badge&logo=splunk&logoColor=white)
+![DNS](https://img.shields.io/badge/DNS-Security-00B8D9?style=for-the-badge)
+![MITRE](https://img.shields.io/badge/MITRE-T1568.002-E34F26?style=for-the-badge)
+![ML](https://img.shields.io/badge/ML-Isolation_Forest-2EA44F?style=for-the-badge&logo=scikitlearn&logoColor=white)
+![AI](https://img.shields.io/badge/AI-Analyst_Assistance-7B2CBF?style=for-the-badge)
+![Response](https://img.shields.io/badge/Response-Unbound_RPZ-0078D4?style=for-the-badge)
+
+<br/>
+
+![Stars](https://img.shields.io/github/stars/DNSentinel-Lab/Scenario-02-DGA?style=flat-square)
+![Forks](https://img.shields.io/github/forks/DNSentinel-Lab/Scenario-02-DGA?style=flat-square)
+![Last Commit](https://img.shields.io/github/last-commit/DNSentinel-Lab/Scenario-02-DGA?style=flat-square)
+![Repo Size](https://img.shields.io/github/repo-size/DNSentinel-Lab/Scenario-02-DGA?style=flat-square)
+![Issues](https://img.shields.io/github/issues/DNSentinel-Lab/Scenario-02-DGA?style=flat-square)
+
+**A completed, evidence-driven DNS case file that follows controlled DGA/high-NXDOMAIN behavior from telemetry and Detection v1.0 through SOC investigation, human-approved IR containment, verification, and safe reset.**
+
+[🏗️ Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [🔎 Scenario 01](https://github.com/DNSentinel-Lab/Scenario-01-DNS-Recon) · [**🧬 Scenario 02**](https://github.com/DNSentinel-Lab/Scenario-02-DGA) · [🔄 Scenario 03](https://github.com/DNSentinel-Lab/Scenario-03-Fast-Flux) · [🛰️ Scenario 04](https://github.com/DNSentinel-Lab/Scenario-04-DNS-Tunneling)
+
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🧬 DNSentinel Scenario 02 — DGA + High NXDOMAIN
 
 Scenario 02 is a completed, evidence-backed DNS defense exercise built around **fresh DGA-style name generation, sustained NXDOMAIN behavior, live Splunk detection, Isolation Forest anomaly scoring, AI-assisted triage, independent SOC investigation, and human-approved DNS sinkhole containment**.
 
@@ -21,7 +41,23 @@ The exercise used real DNS requests through the lab's normal resolver path. Oper
 
 ---
 
-## Final status
+## 🏁 Scenario 02 Closeout Snapshot
+
+| 🔎 Detection | 🧠 ML | 🤖 AI | 🕵️ SOC | 🛡️ IR | 🎯 Response |
+|---|---|---|---|---|---|
+| Detection v1.0 fired across five consecutive one-minute windows | Five corresponding windows available as `ANOMALY` second-opinion evidence | Structured summary reviewed against raw DNS | `INCONCLUSIVE — escalation warranted` | Independent validation completed | Narrow RPZ redirect to `10.50.30.30` verified, then safely reset |
+
+<div align="center">
+
+**418 replies · 409 unique qnames · 408 NXDOMAIN · 97.61% NXDOMAIN**
+
+`NXDOMAIN → RPZ → 10.50.30.30 → Safe Reset → NXDOMAIN`
+
+</div>
+
+---
+
+## 🚦 Final Status
 
 | Stage | Status | Owner |
 |---|---|---|
@@ -40,7 +76,7 @@ The exercise used real DNS requests through the lab's normal resolver path. Oper
 
 ---
 
-## Scenario architecture
+## 🏗️ Scenario Architecture
 
 ```mermaid
 flowchart LR
@@ -61,13 +97,13 @@ The response path was deliberately narrow: **the observed Scenario 02 namespace 
 
 ---
 
-## What actually happened
+## 🎬 What Actually Happened
 
-### 1. The environment was frozen before the run
+### 🧊 1. The Environment Was Frozen Before the Run
 
 Musfira completed a compact pre-flight check covering victim health, UTC readiness, the configured resolver path, the deployed DGA generator, RPZ safe state, and private ground-truth readiness. Detection v1.0, ML, and the response policy were not tuned for the live run.
 
-### 2. One fresh official DGA run was executed
+### 🧬 2. One Fresh Official DGA Run Was Executed
 
 The pre-deployed generator ran unchanged on `dns-soc-victim01`:
 
@@ -89,7 +125,7 @@ The controlled namespace was:
 
 The operator did not inspect Splunk, Detection v1.0, ML, AI, or the dashboard to steer the outcome.
 
-### 3. The frozen detection surfaced five consecutive windows
+### 🚨 3. The Frozen Detection Surfaced Five Consecutive Windows
 
 Detection v1.0 remained unchanged:
 
@@ -103,7 +139,7 @@ During the official window, it matched five consecutive one-minute client window
 
 ![Detection windows](soc/evidence/S02-SOC-E02_Detection-Windows.png)
 
-### 4. Sonia rebuilt the case from raw DNS
+### 🔎 4. Sonia Rebuilt the Case from Raw DNS
 
 Sonia did not treat the alert as a verdict. She moved back into raw Unbound replies, measured the qname pattern, compared the same client with its historical baseline, checked recurrence, scoped the affected client, reviewed ML only as a second opinion, and challenged the AI summary against Splunk evidence.
 
@@ -127,7 +163,7 @@ Her final disposition was deliberately cautious:
 
 The DNS behavior was real and highly abnormal, but DNS did not prove a process, malware identity, endpoint compromise, user identity, malicious intent, or authorization status.
 
-### 5. Incident Response independently reproduced the evidence
+### 🛡️ 5. Incident Response Independently Reproduced the Evidence
 
 Abdul-Rehman did not simply accept the SOC handoff. IR independently reproduced the core counts, the five one-minute windows, the generated-looking qname structure, the one-client resolver-visible scope, historical recurrence, and the absence of useful process-attribution telemetry.
 
@@ -137,7 +173,7 @@ This produced an IR classification of:
 
 The attribution limits remained intact.
 
-### 6. Human-approved RPZ containment changed the DNS outcome
+### 🎯 6. Human-Approved RPZ Containment Changed the DNS Outcome
 
 IR selected one defensible qname already observed in resolver telemetry:
 
@@ -160,7 +196,7 @@ A 10.50.30.30
 
 The sinkhole returned HTTP `200`, unrelated AWS DNS continued resolving normally, and Splunk preserved the before/after `NXDOMAIN → NOERROR` change.
 
-### 7. The resolver was returned to its safe state
+### ♻️ 7. The Resolver Was Returned to Its Safe State
 
 Containment was not considered complete until RPZ was restored to the documented safe/non-enforcing state. The selected qname returned to `NXDOMAIN`, Unbound remained healthy, and normal DNS continued to resolve.
 
@@ -168,7 +204,7 @@ Containment was not considered complete until RPZ was restored to the documented
 
 ---
 
-## Detection, ML, AI, and human judgement
+## 🧠 Detection, ML, AI & Human Judgement
 
 Scenario 02 deliberately uses different evidence layers for different jobs:
 
@@ -184,7 +220,7 @@ The live ML scorer also demonstrated an important limitation: benign bursts can 
 
 ---
 
-## MITRE ATT&CK and network context
+## 🧭 MITRE ATT&CK & Network Context
 
 | Framework | Mapping |
 |---|---|
@@ -196,7 +232,7 @@ The mapping describes the **DGA behavior under study**. The repository does not 
 
 ---
 
-## Team contributions
+## 👥 Team Contributions
 
 | Role | Contributor | Scenario 02 contribution |
 |---|---|---|
@@ -207,7 +243,7 @@ The mapping describes the **DGA behavior under study**. The repository does not 
 
 ---
 
-## Repository guide
+## 🗂️ Repository Guide
 
 | Area | Start here |
 |---|---|
@@ -226,7 +262,7 @@ The mapping describes the **DGA behavior under study**. The repository does not 
 
 ---
 
-## Completion gate
+## ✅ Completion Gate
 
 Scenario 02 is complete because the repository now preserves the full chain:
 
@@ -247,12 +283,17 @@ Fresh operator activity
 
 The strongest outcome is not simply that an alert fired. It is that **each role reached its conclusion from the evidence available to that role, and the final response was technically verified before the environment was restored.**
 
----
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
 
-[⬆ Back to top](#top)
+**Build the telemetry. Detect the behavior. Investigate the evidence. Verify the response.**
 
-<sub>DNSentinel Lab · Evidence-first DNS security engineering</sub>
+[🏗️ Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [🔎 SOC Workspace](soc/README.md) · [🛡️ IR Workspace](ir/README.md) · [🧾 Evidence Center](evidence/README.md) · [🎭 Final Comparison](exercise/final-comparison.md) · [⬆ Back to top](#top)
+
+<sub>DNSentinel Lab · Scenario 02 · Evidence-first DNS security engineering</sub>
 
 </div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />
