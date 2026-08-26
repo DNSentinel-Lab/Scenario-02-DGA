@@ -156,9 +156,6 @@ For the deeper role stories, continue to:
 - [Incident Response](ir/INCIDENT-RESPONSE.md)
 - [Final Comparison](exercise/final-comparison.md)
 
----
-
-[⬆ Back to top](#top)
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
