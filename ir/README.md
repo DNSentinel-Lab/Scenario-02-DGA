@@ -21,7 +21,7 @@
 
 # 🛡️ Incident Response / Defender Workspace — Scenario 02
 
-**Incident Responder / Defender:** Abdul-Rehman  
+**Incident Responder / Defender:** [_Abdul-Rehman_](https://github.com/abdul4rehman215)  
 **Final IR status:** **CLOSED — controlled containment validated and safe reset completed**
 
 This folder preserves the completed Incident Response phase that began from Sonia's formal SOC handoff. IR independently reproduced the critical DNS evidence before deciding whether the prepared RPZ/sinkhole response was justified.
