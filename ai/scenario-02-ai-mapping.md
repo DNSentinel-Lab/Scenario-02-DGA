@@ -1,6 +1,16 @@
 <a id="top"></a>
 
-# Scenario 02 AI Evidence Mapping — `dga_nxdomain_v1`
+> 🧭 [Scenario 02](../README.md) › [AI Integration](README.md) › **Scenario 02 AI Evidence Mapping — `dga_nxdomain_v1`**
+
+<div align="center">
+
+![Scenario](https://img.shields.io/badge/Scenario_02-COMPLETE-2EA44F?style=flat-square) ![Workspace](https://img.shields.io/badge/Workspace-AI_Integration-7B2CBF?style=flat-square) ![Document](https://img.shields.io/badge/Document-Evidence_Backed-D966FF?style=flat-square)
+
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🤖 Scenario 02 AI Evidence Mapping — `dga_nxdomain_v1`
 
 **Detection Engineer / AI Integrator:** Lubaba  
 **Status:** ✅ Validated end-to-end  
@@ -9,7 +19,7 @@
 
 This document records the Scenario 02-specific evidence contract used with the existing shared AI bridge. It does **not** duplicate or redesign the shared Flask/OpenAI infrastructure.
 
-## Identity
+## 🪪 Identity
 
 ```text
 scenario_id   = scenario-02-dga
@@ -17,7 +27,7 @@ scenario_name = DGA + High NXDOMAIN
 ai_profile    = dga_nxdomain_v1
 ```
 
-## Architecture decision
+## 🏗️ Architecture decision
 
 No new Flask route, AI container, OpenAI integration, AI index, HEC path or public port was created.
 
@@ -39,7 +49,7 @@ index=dns_soc_ai
 
 The deployed bridge is generic. `dga_nxdomain_v1` is carried inside `evidence_json`; it is not a separate runtime module.
 
-## Common webhook contract
+## 📌 Common webhook contract
 
 The bridge normalizes Splunk's first result row and requires:
 
@@ -64,7 +74,7 @@ Scenario 02 also sends:
 source = client_ip
 ```
 
-## Scenario 02 evidence inside `evidence_json`
+## 🧾 Scenario 02 evidence inside `evidence_json`
 
 ```text
 scenario_id
@@ -90,7 +100,7 @@ rationale
 
 The final production search limits the AI copy of qname samples to the first **20** values while keeping the analyst-facing `qname_samples` field intact.
 
-## Why the result contract changed
+## 💡 Why the result contract changed
 
 The first scheduled AI test reached the bridge but returned HTTP 400. Live schema inspection showed that the detection result did not yet expose the common webhook fields required by the generic bridge.
 
@@ -108,7 +118,7 @@ No DGA threshold, ML model or AI infrastructure component was changed.
 
 ![Validated AI evidence contract](../screenshots/detection-engineering/12-ai-alert-evidence-contract.png)
 
-## Live AI output schema
+## 🤖 Live AI output schema
 
 Structured fields observed from the shared bridge include:
 
@@ -138,7 +148,7 @@ and wraps the result with:
 human_validation_required = true
 ```
 
-## Final end-to-end validation
+## 🧾 Final end-to-end validation
 
 The corrected retest proved:
 
@@ -165,7 +175,7 @@ The returned event carried the expected Scenario 02 context, including:
 - Command and Control context;
 - `human_validation_required=true`.
 
-## AI vs raw DNS evidence
+## 🤖 AI vs raw DNS evidence
 
 The AI summarized:
 
@@ -183,7 +193,7 @@ A separate raw resolver search for the same minute returned the exact same value
 
 That is the final acceptance condition: the LLM may explain evidence, but its core factual claims must remain defensible from raw Splunk telemetry.
 
-## Advisory boundaries
+## 📌 Advisory boundaries
 
 AI may:
 
@@ -204,7 +214,7 @@ AI must not:
 - replace Sonia's later independent SOC judgement;
 - replace Abdul-Rehman's later independent IR decision.
 
-## Related artifacts
+## 🗂️ Related artifacts
 
 - [Production detection](../spl/detection.spl)
 - [Scheduled alert](../spl/scheduled-alert.md)
@@ -212,3 +222,14 @@ AI must not:
 - [AI index validation SPL](../spl/engineering-validation/ai-index-validation.spl)
 - [AI-vs-raw validation SPL](../spl/engineering-validation/ai-vs-raw-final-validation.spl)
 - [Detection Engineering story](../detection-engineering/DETECTION-ENGINEERING.md)
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../README.md) · [🤖 AI Integration](README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

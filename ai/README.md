@@ -17,7 +17,7 @@
 
 The shared Flask/OpenAI bridge remains common Infrastructure. Scenario 02 adds only the evidence identity and mapping required by the frozen Detection v1.0 result.
 
-## Scenario identity
+## 🪪 Scenario identity
 
 ```text
 scenario_id   = scenario-02-dga
@@ -27,7 +27,7 @@ ai_profile    = dga_nxdomain_v1
 
 Full mapping: [`scenario-02-ai-mapping.md`](scenario-02-ai-mapping.md)
 
-## Reused shared architecture
+## 🏗️ Reused shared architecture
 
 ```text
 Scenario 02 scheduled alert
@@ -47,7 +47,7 @@ human validation against raw DNS
 
 No new Flask route, AI container, AI index, HEC architecture or public port was created.
 
-## Common alert contract
+## 🚨 Common alert contract
 
 The final detection emits:
 
@@ -63,7 +63,7 @@ evidence_json
 
 `evidence_json` carries Scenario 02-specific DNS evidence such as client identity, query/unique/NXDOMAIN metrics, qname length context, qtypes, representative names, MITRE and rationale.
 
-## AI output
+## 🤖 AI output
 
 The live shared bridge returned structured fields including:
 
@@ -80,7 +80,7 @@ The live shared bridge returned structured fields including:
 
 ![Scenario 02 AI triage indexed](../screenshots/detection-engineering/13-ai-triage-indexed.png)
 
-## Final evidence check
+## 🧾 Final evidence check
 
 The final AI result summarized:
 
@@ -98,7 +98,7 @@ A separate raw `dns_soc_dns` search returned the same core values exactly.
 
 This validation is the reason the AI path is documented as **evidence-grounded analyst assistance**, not simply “the API returned HTTP 200.”
 
-## Authority boundary
+## 🔐 Authority boundary
 
 - Isolation Forest = anomaly signal.
 - Detection v1.0 = rule-based security lead.
@@ -117,6 +117,17 @@ AI does **not** enable RPZ, sinkhole domains, isolate hosts or authorize Inciden
 </div>
 
 
-## Official exercise closeout
+## ✅ Official exercise closeout
 
 During the completed official investigation, Sonia reviewed Scenario 02 AI output only after understanding the raw DNS behavior. AI claims were checked against Splunk and were not used as containment authority. See [`../soc/AI-ML-VALIDATION.md`](../soc/AI-ML-VALIDATION.md) and [`../soc/SOC-ANALYST-INVESTIGATION.md`](../soc/SOC-ANALYST-INVESTIGATION.md).
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

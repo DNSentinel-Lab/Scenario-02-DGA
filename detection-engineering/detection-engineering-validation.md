@@ -1,4 +1,16 @@
-# Scenario 02 — Detection Engineering Validation Record
+<a id="top"></a>
+
+> 🧭 [Scenario 02](../README.md) › [Detection Engineering](README.md) › **Scenario 02 — Detection Engineering Validation Record**
+
+<div align="center">
+
+![Scenario](https://img.shields.io/badge/Scenario_02-COMPLETE-2EA44F?style=flat-square) ![Workspace](https://img.shields.io/badge/Workspace-Detection_Engineering-AD1457?style=flat-square) ![Document](https://img.shields.io/badge/Document-Evidence_Backed-D966FF?style=flat-square)
+
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🚨 Scenario 02 — Detection Engineering Validation Record
 
 **Detection Engineer / AI Integrator:** Lubaba  
 **Scenario:** DGA + High NXDOMAIN  
@@ -9,7 +21,7 @@
 
 This record summarizes the acceptance evidence used to close the engineering phase. It does not represent the later official adversary/SOC/IR exercise.
 
-## Final detection boundary
+## 🚨 Final detection boundary
 
 ```text
 Primary source:  index=dns_soc_dns
@@ -22,7 +34,7 @@ AND unique_qnames >= 15
 AND nxdomain_ratio >= 0.75
 ```
 
-## Acceptance matrix
+## 🧾 Acceptance matrix
 
 | Gate | Expected | Observed | Result |
 |---|---|---|---|
@@ -56,7 +68,7 @@ AND nxdomain_ratio >= 0.75
 | Automatic response | Must remain disabled | No RPZ, isolation or IR action authorized by rule/ML/AI | ✅ PASS |
 | Official scenario execution | Must remain separate from engineering validation | Later completed with five live rule matches, SOC investigation, IR containment verification and safe reset | ✅ COMPLETE |
 
-## Threshold rationale
+## 🚨 Threshold rationale
 
 The clean baseline reached:
 
@@ -85,7 +97,7 @@ nxdomain_ratio    = 0.0
 
 and remained below the full detection. No test demonstrated a need to change the candidate threshold, so it was frozen as v1.0.
 
-## Scheduled-alert validation
+## 🚨 Scheduled-alert validation
 
 ```text
 Name:         Scenario 02 - Possible DGA / High NXDOMAIN
@@ -109,7 +121,7 @@ nxdomain_count     = 36
 nxdomain_ratio     = 0.8780
 ```
 
-## AI final validation
+## 🤖 AI final validation
 
 The corrected end-to-end AI path returned structured Scenario 02 triage into:
 
@@ -130,7 +142,7 @@ nxdomain_ratio     = 0.9636
 
 A separate raw resolver aggregation returned the exact same values.
 
-## Evidence links
+## 🧾 Evidence links
 
 - [Flagship engineering story](DETECTION-ENGINEERING.md)
 - [Baseline SPL](../spl/baseline.spl)
@@ -144,9 +156,20 @@ A separate raw resolver aggregation returned the exact same values.
 - [Full Detection v1 validation output](../evidence/detection-v1-validation-output.csv)
 - [Curated Detection Engineering screenshots](../screenshots/detection-engineering/)
 
-## Completion boundary
+## 🔐 Completion boundary
 
 **Detection Engineering:** ✅ complete  
 **Official Scenario 02 adversary/SOC/IR exercise:** ✅ completed after the engineering validation recorded here
 
 The later official exercise followed that boundary: Detection v1.0 remained frozen and information separation was preserved. The fresh run produced five consecutive matching windows without live threshold changes; any disagreement or miss would have been treated as an exercise result rather than a reason to tune the rule during execution.
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../README.md) · [🚦 Detection Engineering](README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />
