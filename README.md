@@ -242,8 +242,6 @@ nxdomain_ratio >= 0.75
 
 During the official window, it matched five consecutive one-minute client windows from `06:37` through `06:41 UTC`.
 
-![Detection windows](soc/evidence/S02-SOC-E02_Detection-Windows.png)
-
 ### 🔎 4. Sonia Rebuilt the Case from Raw DNS
 
 Sonia did not treat the alert as a verdict. She moved back into raw Unbound replies, measured the qname pattern, compared the same client with its historical baseline, checked recurrence, scoped the affected client, reviewed ML only as a second opinion, and challenged the AI summary against Splunk evidence.
@@ -259,8 +257,6 @@ The exact investigated five-minute window contained:
 | Resolver-visible client | **10.50.30.20** |
 | Detection windows | **5 consecutive minutes** |
 | ML result | **5 / 5 ANOMALY** |
-
-![Scenario 02 investigation dashboard](soc/evidence/S02-SOC-E12_Scenario02-Dashboard.png)
 
 Her final disposition was deliberately cautious:
 
@@ -312,6 +308,177 @@ Containment was not considered complete until RPZ was restored to the documented
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 </div>
+
+## 📸 Scenario 02 Evidence Highlights
+
+> **Engineering → Execution → Investigation → Response → Verification**
+
+The repository preserves the complete evidence chain from **ML and Detection Engineering**, through a **fresh controlled exercise**, into **independent SOC investigation**, **human-approved IR containment**, **verification**, and the final **safe reset**.
+
+<div align="center">
+
+**🧠 Engineer → 🛠️ Detect → 🎯 Execute → 🔎 Investigate → 🛡️ Respond → ✅ Verify**
+
+</div>
+
+### 🧠 ML Engineering Evidence Highlights
+
+<table>
+<tr>
+<td width="33%" valign="top">
+<img src="screenshots/ml/core/09_feature-engineering-32-one-minute-windows.png" width="100%" alt="Scenario 02 ML feature engineering evidence" />
+<br/><br/>
+<strong>Feature engineering:</strong> 32 controlled benign one-minute windows were transformed into the feature matrix used by Isolation Forest.
+</td>
+<td width="33%" valign="top">
+<img src="screenshots/ml/core/14_isolation-forest-dga-scoring-6-of-6.png" width="100%" alt="Scenario 02 controlled DGA ML validation" />
+<br/><br/>
+<strong>Engineering validation:</strong> all <strong>6 / 6</strong> controlled DGA validation windows scored as <code>ANOMALY</code>.
+</td>
+<td width="33%" valign="top">
+<img src="screenshots/ml/core/16_final-splunk-ml-results-summary.png" width="100%" alt="Scenario 02 ML results returned to Splunk" />
+<br/><br/>
+<strong>Closed ML loop:</strong> Isolation Forest results were written back into Splunk under the Scenario 02 ML evidence path.
+</td>
+</tr>
+</table>
+
+> **ML evidence note:** the <strong>6 / 6</strong> result above belongs to the engineering-validation run. During the official exercise, the SOC reviewed <strong>5 / 5</strong> corresponding one-minute windows as <code>ANOMALY</code>. These are separate validation contexts.
+
+**Explore:** [📈 ML Engineering](ml/ML-ENGINEERING.md) · [🧠 ML Workspace](ml/README.md) · [⚙️ Live ML Operations](ml/operations/README.md)
+
+---
+
+### 🛠️ Detection Engineering & AI Evidence Highlights
+
+<table>
+<tr>
+<td width="33%" valign="top">
+<img src="screenshots/detection-engineering/04-dga-investigation-dashboard.png" width="100%" alt="Scenario 02 DGA investigation dashboard" />
+<br/><br/>
+<strong>Investigation surface:</strong> Dashboard Studio turns DGA/high-NXDOMAIN behavior into analyst-facing DNS metrics and trends.
+</td>
+<td width="33%" valign="top">
+<img src="screenshots/detection-engineering/08-final-detection-v1-validation.png" width="100%" alt="Scenario 02 Detection v1.0 final validation" />
+<br/><br/>
+<strong>Frozen rule validation:</strong> Detection v1.0 successfully separated the controlled DGA pattern using the final production thresholds.
+</td>
+<td width="33%" valign="top">
+<img src="screenshots/detection-engineering/12-ai-alert-evidence-contract.png" width="100%" alt="Scenario 02 AI alert evidence contract" />
+<br/><br/>
+<strong>AI evidence contract:</strong> structured DNS evidence was passed into the AI path without giving AI decision or containment authority.
+</td>
+</tr>
+</table>
+
+**Explore:** [🛠️ Detection Engineering](detection-engineering/DETECTION-ENGINEERING.md) · [📊 Dashboard](dashboard/README.md) · [🤖 AI Mapping](ai/scenario-02-ai-mapping.md)
+
+---
+
+### 🎯 Official Exercise & Operator Ground Truth
+
+<table>
+<tr>
+<td width="33%" valign="top">
+<img src="screenshots/attacker/01-official-dga-execution-command.png" width="100%" alt="Scenario 02 official DGA execution command" />
+<br/><br/>
+<strong>Official execution:</strong> the pre-deployed DGA generator was started without defender-side feedback.
+</td>
+<td width="33%" valign="top">
+<img src="screenshots/attacker/02-official-dga-generator-complete.png" width="100%" alt="Scenario 02 official DGA generator completed" />
+<br/><br/>
+<strong>Fresh run completed:</strong> the unchanged generator finished successfully inside the frozen Scenario 02 boundary.
+</td>
+<td width="33%" valign="top">
+<img src="screenshots/attacker/03-official-dga-ground-truth-summary.png" width="100%" alt="Scenario 02 official operator ground truth" />
+<br/><br/>
+<strong>Private ground truth:</strong> exact execution facts and timing were preserved separately for the final reveal and cross-role comparison.
+</td>
+</tr>
+</table>
+
+**Explore:** [🎯 Adversary Workspace](attacker/README.md) · [📘 Operator Story](attacker/PROJECT-LEAD-ADVERSARY.md) · [🎭 Exercise Protocol](exercise/REALISTIC-EXERCISE-PROTOCOL.md)
+
+---
+
+### 🔎 SOC Investigation Evidence Highlights
+
+<table>
+<tr>
+<td width="33%" valign="top">
+<img src="soc/evidence/S02-SOC-E04_Qname-Pattern-Metrics.png" width="100%" alt="Scenario 02 SOC qname pattern metrics" />
+<br/><br/>
+<strong>Behavior quantified:</strong> 418 replies, 409 unique qnames, 408 NXDOMAIN responses, and a <strong>97.61%</strong> NXDOMAIN ratio in the investigated five-minute window.
+</td>
+<td width="33%" valign="top">
+<img src="soc/evidence/S02-SOC-E10_AI-vs-Human-Validation.png" width="100%" alt="Scenario 02 SOC AI versus human evidence validation" />
+<br/><br/>
+<strong>AI challenged by evidence:</strong> the analyst compared the generated summary with raw Splunk evidence instead of accepting AI wording as a verdict.
+</td>
+<td width="33%" valign="top">
+<img src="soc/evidence/S02-SOC-E13_Final-Client-Scope.png" width="100%" alt="Scenario 02 SOC final resolver-visible client scope" />
+<br/><br/>
+<strong>Scope preserved:</strong> resolver-visible activity was narrowed to client <code>10.50.30.20</code> without inventing process, malware, user, intent, or authorization attribution.
+</td>
+</tr>
+</table>
+
+**Explore:** [🔎 SOC Workspace](soc/README.md) · [🧾 SOC Evidence E01–E13](soc/evidence/README.md) · [📘 Full Investigation](soc/SOC-ANALYST-INVESTIGATION.md)
+
+---
+
+### 🛡️ IR, Containment & Verification Evidence Highlights
+
+#### 🔄 The network outcome changed
+
+<table>
+<tr>
+<td width="50%" valign="top">
+<img src="ir/evidence/S02-IR-E10-PreContainment-NXDOMAIN.png" width="100%" alt="Scenario 02 pre-containment NXDOMAIN" />
+<br/><br/>
+<strong>Before containment:</strong> the selected observed qname returned <code>NXDOMAIN</code>.
+</td>
+<td width="50%" valign="top">
+<img src="ir/evidence/S02-IR-E14-PostContainment-RPZ-Redirect.png" width="100%" alt="Scenario 02 post-containment RPZ redirect" />
+<br/><br/>
+<strong>After human approval:</strong> the same qname returned <code>NOERROR</code> and was redirected to <code>10.50.30.30</code>.
+</td>
+</tr>
+</table>
+
+#### ✅ Safety and SIEM verification
+
+<table>
+<tr>
+<td width="50%" valign="top">
+<img src="ir/evidence/S02-IR-E18-Normal-DNS-Unaffected.png" width="100%" alt="Scenario 02 normal DNS unaffected after containment" />
+<br/><br/>
+<strong>Safety check:</strong> unrelated DNS resolution continued normally while the narrow Scenario 02 RPZ policy was active.
+</td>
+<td width="50%" valign="top">
+<img src="ir/evidence/S02-IR-E19-Splunk-Before-After-RPZ.png" width="100%" alt="Scenario 02 Splunk before and after RPZ" />
+<br/><br/>
+<strong>SIEM verification:</strong> Splunk preserved the change from pre-containment NXDOMAIN behavior to the RPZ-controlled response.
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top">
+<img src="ir/evidence/S02-IR-E21-PostReset-DNS-Validation.png" width="100%" alt="Scenario 02 safe reset DNS validation" />
+<br/><br/>
+<strong>Safe reset proven:</strong> after RPZ returned to its documented safe state, the selected qname returned to <code>NXDOMAIN</code> while normal DNS remained healthy.
+</td>
+</tr>
+</table>
+
+**Explore:** [🛡️ IR Workspace](ir/README.md) · [🧾 IR Evidence E01–E21](ir/evidence/README.md) · [📋 Final IR Report](ir/IR-FINAL-REPORT.md)
+
+<div align="center">
+
+### **Detection was only the beginning. The scenario closed when containment was proven, normal DNS remained safe, and the resolver returned to its documented safe state.**
+
+</div>
+
+<div align="center">\n\n<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />\n\n</div>
 
 ## 🧠 Detection, ML, AI & Human Judgement
 
