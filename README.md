@@ -345,6 +345,8 @@ The repository preserves the complete evidence chain from **ML and Detection Eng
 
 > **ML evidence note:** the <strong>6 / 6</strong> result above belongs to the engineering-validation run. During the official exercise, the SOC reviewed <strong>5 / 5</strong> corresponding one-minute windows as <code>ANOMALY</code>. These are separate validation contexts.
 
+<div align="center">
+
 **Explore:** [📈 ML Engineering](ml/ML-ENGINEERING.md) · [🧠 ML Workspace](ml/README.md) · [⚙️ Live ML Operations](ml/operations/README.md)
 
 </div>
@@ -494,7 +496,7 @@ The repository preserves the complete evidence chain from **ML and Detection Eng
 
 </div>
 
-<div align="center">\n\n<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />\n\n</div>
+<div align="center"> <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" /> </div>
 
 ## 🧠 Detection, ML, AI & Human Judgement
 
