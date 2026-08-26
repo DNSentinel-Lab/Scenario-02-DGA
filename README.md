@@ -79,18 +79,107 @@ The exercise used real DNS requests through the lab's normal resolver path. Oper
 ## 🏗️ Scenario Architecture
 
 ```mermaid
-flowchart LR
-    V["dns-soc-victim01<br/>10.50.30.20"] -->|system DNS| R["dns-soc-resolver01<br/>10.50.30.10<br/>Unbound"]
-    R -->|query + reply telemetry| S["Splunk<br/>dns_soc_dns"]
-    S --> D["Detection v1.0"]
-    S --> M["Isolation Forest<br/>dns_soc_ml"]
-    D --> A["AI assist<br/>dns_soc_ai"]
-    D --> SOC["SOC Analyst<br/>Sonia"]
-    M --> SOC
-    A --> SOC
-    SOC -->|evidence-backed handoff| IR["Incident Response<br/>Abdul-Rehman"]
-    IR -->|human-approved RPZ| R
-    R -->|controlled namespace| H["dns-soc-sinkhole01<br/>10.50.30.30"]
+flowchart TB
+
+    %% ==========================================
+    %% LAYER 1 — DNS ACTIVITY + TELEMETRY
+    %% ==========================================
+    subgraph DNS["🌐 1 · DNS Activity & Telemetry"]
+        direction LR
+
+        V["💻 Victim<br/>dns-soc-victim01<br/>10.50.30.20"]
+
+        R["🌐 Defender Resolver<br/>dns-soc-resolver01<br/>10.50.30.10<br/>Unbound"]
+
+        S["🟢 Splunk Enterprise<br/>index: dns_soc_dns"]
+
+        V -->|"System DNS"| R
+        R -->|"Query + Reply Telemetry"| S
+    end
+
+
+    %% ==========================================
+    %% LAYER 2 — DETECTION + ANALYSIS
+    %% ==========================================
+    subgraph ANALYTICS["🧠 2 · Detection & Analysis"]
+        direction LR
+
+        D["🛡️ Detection<br/>v1.0"]
+
+        M["📈 Isolation Forest<br/>dns_soc_ml"]
+
+        A["🤖 AI Assist<br/>dns_soc_ai"]
+
+        SOC["🔍 SOC Analyst<br/>Sonia"]
+
+        D --> SOC
+        D --> A
+        A --> SOC
+        M --> SOC
+    end
+
+    S --> D
+    S --> M
+
+
+    %% ==========================================
+    %% LAYER 3 — RESPONSE + VERIFICATION
+    %% ==========================================
+    subgraph RESPONSE["🛡️ 3 · Response & DNS Control"]
+        direction LR
+
+        IR["🚨 Incident Response<br/>Abdul-Rehman"]
+
+        RPZ["📋 Human-Approved<br/>RPZ Rule"]
+
+        H["🎯 DNS Sinkhole<br/>dns-soc-sinkhole01<br/>10.50.30.30"]
+
+        IR --> RPZ
+        RPZ --> H
+    end
+
+    SOC -->|"Evidence-Backed Handoff"| IR
+
+    %% Defender-controlled response path
+    RPZ -. "Policy Applied" .-> R
+    R -->|"Controlled Namespace"| H
+
+
+    %% ==========================================
+    %% STYLING
+    %% ==========================================
+
+    classDef endpoint fill:#172554,stroke:#60a5fa,stroke-width:2px,color:#ffffff;
+    classDef dnsnode fill:#083344,stroke:#22d3ee,stroke-width:2px,color:#ffffff;
+    classDef splunk fill:#052e16,stroke:#4ade80,stroke-width:2px,color:#ffffff;
+
+    classDef detection fill:#3b0764,stroke:#c084fc,stroke-width:2px,color:#ffffff;
+    classDef ml fill:#312e81,stroke:#818cf8,stroke-width:2px,color:#ffffff;
+    classDef ai fill:#581c87,stroke:#e879f9,stroke-width:2px,color:#ffffff;
+    classDef analyst fill:#422006,stroke:#fbbf24,stroke-width:2px,color:#ffffff;
+
+    classDef ir fill:#450a0a,stroke:#f87171,stroke-width:2px,color:#ffffff;
+    classDef policy fill:#3f2a0a,stroke:#f59e0b,stroke-width:2px,color:#ffffff;
+    classDef sinkhole fill:#052e16,stroke:#22c55e,stroke-width:3px,color:#ffffff;
+
+    class V endpoint;
+    class R dnsnode;
+    class S splunk;
+
+    class D detection;
+    class M ml;
+    class A ai;
+    class SOC analyst;
+
+    class IR ir;
+    class RPZ policy;
+    class H sinkhole;
+
+    style DNS fill:#0d1117,stroke:#22d3ee,stroke-width:1px
+    style ANALYTICS fill:#0d1117,stroke:#a78bfa,stroke-width:1px
+    style RESPONSE fill:#0d1117,stroke:#22c55e,stroke-width:1px
+
+    linkStyle default stroke:#94a3b8,stroke-width:2px
 ```
 
 The response path was deliberately narrow: **the observed Scenario 02 namespace was redirected; the victim IP was not globally blocked.**
