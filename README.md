@@ -347,7 +347,11 @@ The repository preserves the complete evidence chain from **ML and Detection Eng
 
 **Explore:** [📈 ML Engineering](ml/ML-ENGINEERING.md) · [🧠 ML Workspace](ml/README.md) · [⚙️ Live ML Operations](ml/operations/README.md)
 
----
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ### 🛠️ Detection Engineering & AI Evidence Highlights
 
@@ -373,7 +377,11 @@ The repository preserves the complete evidence chain from **ML and Detection Eng
 
 **Explore:** [🛠️ Detection Engineering](detection-engineering/DETECTION-ENGINEERING.md) · [📊 Dashboard](dashboard/README.md) · [🤖 AI Mapping](ai/scenario-02-ai-mapping.md)
 
----
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ### 🎯 Official Exercise & Operator Ground Truth
 
@@ -399,7 +407,11 @@ The repository preserves the complete evidence chain from **ML and Detection Eng
 
 **Explore:** [🎯 Adversary Workspace](attacker/README.md) · [📘 Operator Story](attacker/PROJECT-LEAD-ADVERSARY.md) · [🎭 Exercise Protocol](exercise/REALISTIC-EXERCISE-PROTOCOL.md)
 
----
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ### 🔎 SOC Investigation Evidence Highlights
 
@@ -425,7 +437,11 @@ The repository preserves the complete evidence chain from **ML and Detection Eng
 
 **Explore:** [🔎 SOC Workspace](soc/README.md) · [🧾 SOC Evidence E01–E13](soc/evidence/README.md) · [📘 Full Investigation](soc/SOC-ANALYST-INVESTIGATION.md)
 
----
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ### 🛡️ IR, Containment & Verification Evidence Highlights
 
@@ -574,7 +590,6 @@ Fresh operator activity
 ```
 
 The strongest outcome is not simply that an alert fired. It is that **each role reached its conclusion from the evidence available to that role, and the final response was technically verified before the environment was restored.**
-
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
