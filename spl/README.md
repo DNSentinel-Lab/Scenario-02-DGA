@@ -17,7 +17,7 @@
 
 This workspace preserves the four canonical Detection Engineering stages required by the project standard. Supporting test searches are kept separately so the main path stays easy to review.
 
-## Canonical lifecycle
+## 🗂️ Canonical lifecycle
 
 ```text
 baseline.spl
@@ -37,7 +37,7 @@ validation.spl
 | [`validation.spl`](validation.spl) | Apply the same frozen v1.0 boundary while keeping both `WOULD DETECT` and `BELOW THRESHOLD` rows visible. |
 | [`scheduled-alert.md`](scheduled-alert.md) | Final cadence, lookback, trigger actions, real trigger evidence and webhook result-contract note. |
 
-## Final Detection v1.0
+## 🚨 Final Detection v1.0
 
 ```text
 Primary source:  dns_soc_dns / Unbound reply events
@@ -51,7 +51,7 @@ AND nxdomain_ratio >= 0.75
 
 The threshold is lab-derived, not copied from a generic DGA guide. See the full reasoning in [`../detection-engineering/DETECTION-ENGINEERING.md`](../detection-engineering/DETECTION-ENGINEERING.md).
 
-## Engineering validation searches
+## 🧾 Engineering validation searches
 
 Folder: [`engineering-validation/`](engineering-validation/)
 
@@ -73,13 +73,13 @@ The read-only resolver field/timing/contamination/baseline work is preserved as 
 | `ai-index-validation.spl` | Did structured AI triage return to `dns_soc_ai`? |
 | `ai-vs-raw-final-validation.spl` | Do the AI's core DNS numbers match raw resolver telemetry? |
 
-## Separation from ML SPL
+## 🧠 Separation from ML SPL
 
 [`../ml/spl/`](../ml/spl/) remains Musfira's ML Engineering workspace. Those searches were used for ML data inventory, feature engineering, training/evaluation support and ML result validation.
 
 Root `spl/` belongs to Lubaba's explainable rule-based Detection Engineering lifecycle.
 
-## Detection boundary
+## 🚨 Detection boundary
 
 - `NXDOMAIN` is central to this scenario but **not sufficient by itself**.
 - `unique_qname_ratio` and qname length remain useful investigation context even though they are not mandatory v1.0 conditions.
@@ -93,3 +93,14 @@ Root `spl/` belongs to Lubaba's explainable rule-based Detection Engineering lif
 [🏠 Scenario Home](../README.md) · [🚦 Detection Story](../detection-engineering/DETECTION-ENGINEERING.md) · [⬆ Back to top](#top)
 
 </div>
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />
