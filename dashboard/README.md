@@ -19,7 +19,7 @@
 **Platform:** Splunk Enterprise 10.4.2 / Dashboard Studio  
 **Artifact:** [`scenario-02-dga-investigation-dashboard.json`](scenario-02-dga-investigation-dashboard.json)
 
-The dashboard was engineered as an **investigation surface**, not decoration. Its job is to help a SOC analyst move from high-level DNS behavior to the exact resolver evidence behind a suspicious client/minute.
+The dashboard was engineered as an **investigation surface**. Its job is to help a SOC analyst move from high-level DNS behavior to the exact resolver evidence behind a suspicious client/minute.
 
 ![Final Scenario 02 dashboard](../screenshots/detection-engineering/04-dga-investigation-dashboard.png)
 
