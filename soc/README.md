@@ -20,7 +20,7 @@
 
 # 🔎 SOC Analyst Workspace — Scenario 02
 
-**SOC Analyst:** Sonia  
+**SOC Analyst:** [_Sonia_](https://github.com/sonia11mansha415)  
 **Scenario:** DGA + High NXDOMAIN  
 **Final disposition:** **INCONCLUSIVE — escalation warranted**
 
