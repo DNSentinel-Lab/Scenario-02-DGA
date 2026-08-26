@@ -1,8 +1,20 @@
-# Scenario 02 IR/Defender Command Ledger
+<a id="top"></a>
+
+> 🧭 [Scenario 02](../README.md) › [Incident Response](README.md) › **Scenario 02 IR/Defender Command Ledger**
+
+<div align="center">
+
+![Scenario](https://img.shields.io/badge/Scenario_02-COMPLETE-2EA44F?style=flat-square) ![Workspace](https://img.shields.io/badge/Workspace-Incident_Response-E5534B?style=flat-square) ![Document](https://img.shields.io/badge/Document-Evidence_Backed-D966FF?style=flat-square)
+
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🛡️ Scenario 02 IR/Defender Command Ledger
 
 This file records the commands/searches used during the Incident Responder / Defender phase. It deliberately includes successful checks, failed diagnostic attempts, and the fix that made RPZ enforcement work.
 
-## Splunk validation sequence
+## 🧾 Splunk validation sequence
 
 1. Raw event presence — `spl/01_raw_dns_window_presence.spl`
 2. Core DNS metrics — `spl/02_core_dns_metrics.spl`
@@ -17,7 +29,7 @@ This file records the commands/searches used during the Incident Responder / Def
 11. Substring before/after search — `spl/11_before_after_substring_match.spl` (successful)
 12. Broad namespace fallback — `spl/12_namespace_broad_fallback.spl` (provided as fallback; not required once #11 succeeded)
 
-## Resolver / victim / sinkhole sequence
+## 🛡️ Resolver / victim / sinkhole sequence
 
 - Preserve pre-containment NXDOMAIN with `dig`.
 - Inspect RPZ safe state and validate `unbound-checkconf`.
@@ -31,3 +43,14 @@ This file records the commands/searches used during the Incident Responder / Def
 - Restore the backed-up safe RPZ state and prove the qname returns NXDOMAIN again.
 
 See `shell/` for command files.
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../README.md) · [🛡️ Incident Response](README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

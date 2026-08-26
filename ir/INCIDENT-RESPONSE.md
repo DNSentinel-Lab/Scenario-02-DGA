@@ -1,11 +1,20 @@
 <a id="top"></a>
 
-> 🧭 [Scenario 02](../README.md) › [IR](README.md) › **Incident Response**
+<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=6,12,19,24,30&height=170&section=header&text=%F0%9F%9B%A1%EF%B8%8F%20Incident%20Response%20%E2%80%94%20Abdul-Rehman&fontSize=30&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Scenario%2002%20%7C%20Handoff%20%E2%86%92%20Independent%20Validation%20%E2%86%92%20Approval%20%E2%86%92%20RPZ%20%E2%86%92%20Verification%20%E2%86%92%20Safe%20Reset&descSize=14&descAlignY=68&descColor=F59E0B" width="100%" alt="🛡️ Incident Response — Abdul-Rehman" />
 
-![IR](https://img.shields.io/badge/Role-Incident_Response-0078D4?style=flat-square)
-![Status](https://img.shields.io/badge/Status-CLOSED-2EA44F?style=flat-square)
+<div align="center">
 
-# Incident Response — Abdul-Rehman
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=17&duration=2700&pause=850&color=F59E0B&center=true&vCenter=true&repeat=true&width=1050&height=62&lines=Scenario+02+%7C+Handoff+%E2%86%92+Independent+Validation+%E2%86%92+Approval+%E2%86%92+RPZ+%E2%86%92+Verification+%E2%86%92+Safe+Reset;Evidence+%E2%86%92+Human+Judgement+%E2%86%92+Reproducible+Decision" alt="Scenario 02 workflow animation" />
+
+![Role](https://img.shields.io/badge/Role-Incident_Response-E5534B?style=flat-square) ![Status](https://img.shields.io/badge/Status-CLOSED-2EA44F?style=flat-square) ![Control](https://img.shields.io/badge/Control-Unbound_RPZ-14B8A6?style=flat-square) ![Evidence](https://img.shields.io/badge/Evidence-E01%E2%80%93E21-F59E0B?style=flat-square)
+
+[🏠 Scenario Home](../README.md) · [🛡️ IR Workspace](README.md) · [🧾 Evidence](evidence/README.md) · [🔎 IR SPL](spl/README.md) · [🧰 IR Shell](shell/README.md)
+
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🛡️ Incident Response — Abdul-Rehman
 
 Sonia's SOC handoff arrived with a strong DNS anomaly and an intentionally limited conclusion: the behavior looked DGA-like and deserved response review, but the available defender evidence did not prove process identity, malware, endpoint compromise, user identity, intent, or authorization.
 
@@ -15,7 +24,7 @@ Abdul-Rehman's IR task was therefore not “activate the sinkhole.” It was:
 
 ---
 
-## 1. Reproduce the evidence before trusting the handoff
+## 🧾 1. Reproduce the evidence before trusting the handoff
 
 IR began with the exact SOC-reported UTC window and raw Unbound events.
 
@@ -39,7 +48,7 @@ This matched the SOC handoff exactly.
 
 ---
 
-## 2. Verify that the behavior persisted across the reported timeline
+## 🕒 2. Verify that the behavior persisted across the reported timeline
 
 IR then rebuilt the one-minute windows.
 
@@ -51,7 +60,7 @@ That matters because a five-minute total can hide one short spike. The one-minut
 
 ---
 
-## 3. Inspect the actual names
+## 📌 3. Inspect the actual names
 
 Counts alone do not establish DGA-like structure. IR pulled raw NXDOMAIN qnames and calculated the first-label view.
 
@@ -67,7 +76,7 @@ That independently supported the generated-looking description. It still did not
 
 ---
 
-## 4. Confirm resolver-visible scope
+## 🔎 4. Confirm resolver-visible scope
 
 ![Client scope](evidence/S02-IR-E05-Client-Scope.png)
 
@@ -81,7 +90,7 @@ IR preserved the same attribution boundary as SOC: this identifies the client se
 
 ---
 
-## 5. Check what resolved and whether process attribution was available
+## 🌐 5. Check what resolved and whether process attribution was available
 
 IR reviewed non-NXDOMAIN replies from the same period.
 
@@ -103,7 +112,7 @@ That prevented the DNS evidence from being overstated.
 
 ---
 
-## 6. Establish recurrence and current state
+## 🕒 6. Establish recurrence and current state
 
 ![Historical recurrence](evidence/S02-IR-E08-Historical-Recurrence.png)
 
@@ -115,7 +124,7 @@ At the time of IR response review, the Scenario 02 generated namespace was not a
 
 ---
 
-## 7. Lock the IR classification before containment
+## 🛡️ 7. Lock the IR classification before containment
 
 IR could responsibly state:
 
@@ -136,7 +145,7 @@ This is the decision point that separated incident response from automatic block
 
 ---
 
-## 8. Choose a proportionate control and obtain human approval
+## 📌 8. Choose a proportionate control and obtain human approval
 
 The response targeted the observed namespace rather than blocking the entire victim:
 
@@ -152,7 +161,7 @@ The exact separate wall-clock approval timestamp was not preserved in command/Sp
 
 ---
 
-## 9. Preserve the before-state
+## 🛡️ 9. Preserve the before-state
 
 A qname already observed in defender DNS telemetry was chosen as a reproducible control:
 
@@ -174,7 +183,7 @@ That image is the baseline against which the response was measured.
 
 ---
 
-## 10. Stage the existing RPZ control
+## 🛡️ 10. Stage the existing RPZ control
 
 IR first confirmed the documented safe/non-enforcing state.
 
@@ -184,7 +193,7 @@ The Scenario 02 wildcard was then staged.
 
 ![RPZ rule staged](evidence/S02-IR-E12-RPZ-Scenario02-Rule-Staged.png)
 
-### Reusable troubleshooting lesson — a backup file was still live configuration
+### 💡 Reusable troubleshooting lesson — a backup file was still live configuration
 
 The first enforcement attempt looked correct in the primary file, but Unbound runtime logs still reported `rpz-disabled`.
 
@@ -210,7 +219,7 @@ The reusable lesson is simple:
 
 ---
 
-## 11. Prove the same qname is redirected
+## 🔎 11. Prove the same qname is redirected
 
 IR repeated the original DNS test after approved enforcement.
 
@@ -227,7 +236,7 @@ This is the strongest direct DNS containment proof in the scenario because the t
 
 ---
 
-## 12. Verify the sinkhole itself
+## 🛡️ 12. Verify the sinkhole itself
 
 A DNS redirect is incomplete if the destination service is unavailable.
 
@@ -253,7 +262,7 @@ victim DNS
 
 ---
 
-## 13. Prove unrelated DNS was not broken
+## 🗂️ 13. Prove unrelated DNS was not broken
 
 A defensive control is not successful if it disrupts unrelated name resolution.
 
@@ -263,7 +272,7 @@ Normal AWS DNS continued resolving correctly while the Scenario 02 namespace was
 
 ---
 
-## 14. Preserve Splunk before/after evidence
+## 🧾 14. Preserve Splunk before/after evidence
 
 ![Splunk before/after RPZ](evidence/S02-IR-E19-Splunk-Before-After-RPZ.png)
 
@@ -279,7 +288,7 @@ That confirmed the network behavior change in the same telemetry source used by 
 
 ---
 
-## 15. Reset the resolver safely
+## 🛡️ 15. Reset the resolver safely
 
 Containment was temporary. After evidence was preserved, IR restored the documented safe/non-enforcing RPZ state.
 
@@ -295,11 +304,11 @@ The reset completed the response lifecycle.
 
 ---
 
-## 16. Final IR status
+## 🚦 16. Final IR status
 
 > ## **CLOSED — controlled containment validated and safe reset completed.**
 
-### What IR confirmed
+### 🛡️ What IR confirmed
 
 - recurrent abnormal DGA-like/high-NXDOMAIN DNS behavior;
 - exact resolver-visible scope for the latest cluster;
@@ -309,7 +318,7 @@ The reset completed the response lifecycle.
 - Splunk-visible response change;
 - safe restoration.
 
-### What remained unproven
+### 📌 What remained unproven
 
 - process identity;
 - malware identity;
@@ -320,7 +329,7 @@ The reset completed the response lifecycle.
 
 ---
 
-## IR reflection
+## 🛡️ IR reflection
 
 The most valuable part of this phase was not editing an RPZ file. It was proving each boundary in order:
 
@@ -340,7 +349,7 @@ That sequence turns a containment command into an auditable incident-response de
 
 ---
 
-## Reproducibility
+## 🗂️ Reproducibility
 
 - [IR final report](IR-FINAL-REPORT.md)
 - [IR command ledger](IR-COMMAND-LEDGER.md)
@@ -349,10 +358,14 @@ That sequence turns a containment command into an auditable incident-response de
 - [IR shell commands](shell/)
 - [Curated evidence](evidence/)
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
 
-[🏠 Scenario Home](../README.md) · [📁 IR](README.md) · [⬆ Back to top](#top)
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../README.md) · [⬆ Back to top](#top)
 
 </div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

@@ -1,4 +1,16 @@
-# Scenario 02 IR — Lessons Learned
+<a id="top"></a>
+
+> 🧭 [Scenario 02](../README.md) › [Incident Response](README.md) › **Scenario 02 IR — Lessons Learned**
+
+<div align="center">
+
+![Scenario](https://img.shields.io/badge/Scenario_02-COMPLETE-2EA44F?style=flat-square) ![Workspace](https://img.shields.io/badge/Workspace-Incident_Response-E5534B?style=flat-square) ![Document](https://img.shields.io/badge/Document-Evidence_Backed-D966FF?style=flat-square)
+
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🛡️ Scenario 02 IR — Lessons Learned
 
 1. **Raw DNS evidence must be independently reproduced.** The 836 raw Unbound events represented query/reply logging; counting only `event_type="reply"` reproduced the 418-reply SOC metric.
 2. **Do not over-attribute DNS.** Resolver logs proved abnormal DNS behavior and client scope, not process identity or malware.
@@ -10,3 +22,14 @@
 8. **Prove unrelated DNS still works.** `ssm.us-east-1.amazonaws.com` continued to resolve normally during and after containment.
 9. **Splunk field formatting can break exact equality searches.** The exact qname filter returned zero, while a distinctive substring search found the before/after events and showed NXDOMAIN → NOERROR.
 10. **Reset is part of containment.** The exercise ended only after the safe/non-enforcing RPZ state was restored and normal resolver behavior was re-proven.
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../README.md) · [🛡️ Incident Response](README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />
