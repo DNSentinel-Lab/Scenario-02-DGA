@@ -1,6 +1,6 @@
 <a id="top"></a>
 
-<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=6,12,19,24,30&height=155&section=header&text=%F0%9F%8E%AD%20Exercise%20Control%20%26%20Ground%20Truth&fontSize=30&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Scenario%2002%20%E2%80%94%20Realistic%20Information%20Separation%20%E2%86%92%20Decision%20Lock%20%E2%86%92%20Final%20Reveal&descSize=14&descAlignY=68&descColor=D966FF" width="100%" alt="🎭 Exercise Control & Ground Truth" />
+<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&height=155&section=header&text=Exercise%20Control%20and%20Ground%20Truth&fontSize=30&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Scenario%2002%20-%20Realistic%20Information%20Separation%20to%20Decision%20Lock%20to%20Final%20Reveal&descSize=14&descAlignY=68" width="100%" alt="🎭 Exercise Control & Ground Truth" />
 
 <div align="center">
 
