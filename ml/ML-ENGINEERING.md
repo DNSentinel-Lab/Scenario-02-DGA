@@ -16,7 +16,7 @@
 
 ---
 
-# Scenario 02 Machine Learning Engineering
+# 🧠 Scenario 02 Machine Learning Engineering
 
 This was Musfira's first end-to-end hands-on ML implementation. The work did not begin with a model or a prepared CSV. It began with a harder engineering question:
 
@@ -42,7 +42,7 @@ question
 
 ---
 
-## 1. Start with the data, not the model
+## 🧠 1. Start with the data, not the model
 
 Scenario 02 already had a real defender-controlled DNS path:
 
@@ -65,7 +65,7 @@ That mattered because the model would be only as trustworthy as the data feeding
 
 *The victim remained on the real lab DNS path through `10.50.30.10` before controlled baseline generation began.*
 
-### Engineering decision
+### 🧩 Engineering decision
 
 The ML dataset was derived from resolver events that had the required DNS fields available, including:
 
@@ -80,7 +80,7 @@ This also avoided treating both query-side and reply-side log lines as two indep
 
 ---
 
-## 2. Keep ML separate from the LLM
+## 🧠 2. Keep ML separate from the LLM
 
 The existing shared AI bridge and the new ML component solve different problems.
 
@@ -108,7 +108,7 @@ This keeps the architecture small while preserving a clear trust boundary.
 
 ---
 
-## 3. Build a private read path and a separate write path
+## 🔐 3. Build a private read path and a separate write path
 
 The model needed two different capabilities:
 
@@ -159,13 +159,13 @@ A small test event was written before the model path relied on HEC.
 
 *The result index was proven independently before model scoring was connected to it.*
 
-### Internal TLS note
+### 💡 Internal TLS note
 
 The implemented v1 Python scripts communicate with Splunk over HTTPS inside the private `dns-soc-internal` Docker network. The current Splunk internal certificate is self-signed, so the working lab scripts use `verify=False` and suppress the resulting request warning.
 
 That is documented as a **lab implementation limitation**, not a production recommendation. A hardened deployment should trust the Splunk CA/certificate and enable normal certificate verification rather than carrying `verify=False` forward.
 
-### Security lesson
+### 💡 Security lesson
 
 **A model service does not need administrator credentials just because it talks to the SIEM. Read and write privileges should be separated by purpose.**
 
@@ -173,7 +173,7 @@ Real token values are not present in this repository.
 
 ---
 
-## 4. Establish known-benign DNS ground truth
+## 🎭 4. Establish known-benign DNS ground truth
 
 Isolation Forest was used as an anomaly detector. That means the most important training material was not DGA traffic. It was normal traffic.
 
@@ -187,7 +187,7 @@ Musfira created two controlled benign DNS periods from the victim. The generator
 
 That last point was important. A baseline containing no benign DNS failures could accidentally teach the project that every NXDOMAIN event was suspicious.
 
-### Benign run 1
+### 🧠 Benign run 1
 
 ```text
 2026-08-24 07:46:46 UTC
@@ -197,7 +197,7 @@ That last point was important. A baseline containing no benign DNS failures coul
 
 ![Benign run 1 ground truth](../screenshots/ml/core/06_benign-run-01-ground-truth.png)
 
-### Benign run 2
+### 🧠 Benign run 2
 
 ```text
 2026-08-24 08:16:22 UTC
@@ -217,7 +217,7 @@ Splunk was then checked to confirm that those runs actually reached the resolver
 
 ---
 
-## 5. Convert raw DNS events into behavior windows
+## 🔎 5. Convert raw DNS events into behavior windows
 
 The model does not make a decision from one DNS name.
 
@@ -247,7 +247,7 @@ The original planning stage considered more features such as entropy and interar
 
 *The two benign periods produced 32 one-minute rows used by the training script.*
 
-### Why SPL was useful here
+### 💡 Why SPL was useful here
 
 Much of the feature shaping happened in Splunk before Python saw the data:
 
@@ -265,7 +265,7 @@ That keeps the features easy to inspect and compare with the original DNS eviden
 
 ---
 
-## 6. Freeze the Python runtime before training
+## 🧠 6. Freeze the Python runtime before training
 
 The ML service used a small pinned Python environment:
 
@@ -284,7 +284,7 @@ The v1 implementation does not require a notebook, Flask API or deep-learning fr
 
 ---
 
-## 7. Train Isolation Forest on normal behavior
+## 🧠 7. Train Isolation Forest on normal behavior
 
 The trainer pulled the same feature rows through the restricted Splunk REST path and kept their order fixed.
 
@@ -319,7 +319,7 @@ Isolation Forest training: OK
 
 ![Isolation Forest training](../screenshots/ml/core/11_isolation-forest-training-success.png)
 
-### What the benign anomalies mean
+### 📌 What the benign anomalies mean
 
 The presence of anomalous benign windows is not hidden.
 
@@ -335,7 +335,7 @@ Anomaly detection tells the analyst that a behavior window differs from the lear
 
 ---
 
-## 8. Preserve the runtime model without turning it into a repository secret
+## 🧠 8. Preserve the runtime model without turning it into a repository secret
 
 The successful trainer generated:
 
@@ -351,7 +351,7 @@ This is safer and more transparent than publishing an opaque serialized Python o
 
 ---
 
-## 9. Challenge the baseline with controlled DGA behavior
+## 🔎 9. Challenge the baseline with controlled DGA behavior
 
 After normal training was complete, a separate five-minute controlled DGA run was generated from the victim.
 
@@ -382,7 +382,7 @@ This was **ML engineering ground truth**, not the later official information-sep
 
 ---
 
-## 10. Observe the feature shift before asking the model
+## 🧠 10. Observe the feature shift before asking the model
 
 The controlled DGA period produced six one-minute feature windows.
 
@@ -397,7 +397,7 @@ The feature rows showed the intended behavior clearly:
 
 This is important because the model result is not presented as magic. The underlying DNS behavior already explains why these windows differ from the benign baseline.
 
-### Simple comparison
+### 🎭 Simple comparison
 
 | Behavior | Controlled benign | Controlled DGA |
 |---|---|---|
@@ -409,7 +409,7 @@ This is important because the model result is not presented as magic. The underl
 
 ---
 
-## 11. Score the DGA windows
+## 🧠 11. Score the DGA windows
 
 The trained model was reloaded and the six DGA feature rows were scored.
 
@@ -429,7 +429,7 @@ That is a strong validation result for the controlled test, but it is deliberate
 
 ---
 
-## 12. Understand the score before using it in a dashboard
+## 📊 12. Understand the score before using it in a dashboard
 
 The current field named `anomaly_score` preserves the value returned by scikit-learn's `decision_function()`.
 
@@ -445,7 +445,7 @@ A later Detection Engineering/dashboard phase can create a separate normalized a
 
 ---
 
-## 13. Close the loop by writing ML results back to Splunk
+## 🧠 13. Close the loop by writing ML results back to Splunk
 
 A security model is much less useful if its result exists only in a terminal.
 
@@ -495,7 +495,7 @@ ML HEC write-back: OK
 
 ---
 
-## 14. Validate the model result where the analyst will use it
+## 🧠 14. Validate the model result where the analyst will use it
 
 The final acceptance check happened in Splunk, not only in Python.
 
@@ -534,17 +534,17 @@ Splunk dns_soc_ml
 
 ---
 
-## 15. Troubleshooting case study 1 — token creation exposed a shared platform failure
+## 💡 15. Troubleshooting case study 1 — token creation exposed a shared platform failure
 
 The first major ML blocker appeared while creating the restricted REST token.
 
-### Symptom
+### 💡 Symptom
 
 Splunk token creation failed because KV Store was not ready.
 
 ![KV Store not ready](../screenshots/ml/troubleshooting/T01_kvstore-not-ready-token-creation-failed.png)
 
-### Investigation
+### 🔎 Investigation
 
 The problem was traced below the ML code. Splunk showed repeated KV Store/Mongo connection failures against `127.0.0.1:8191`.
 
@@ -564,7 +564,7 @@ recover platform safely
 return to ML work
 ```
 
-### Engineering lesson
+### 💡 Engineering lesson
 
 **Do not rewrite application code when the shared platform dependency is unhealthy. Trace the failure to the lowest proven layer first.**
 
@@ -572,7 +572,7 @@ The shared Infrastructure repository keeps the platform-level state; this scenar
 
 ---
 
-## 16. Troubleshooting case study 2 — validate Compose before changing the running stack
+## 💡 16. Troubleshooting case study 2 — validate Compose before changing the running stack
 
 Adding `dns-soc-ml` initially produced a Compose YAML parser error.
 
@@ -582,7 +582,7 @@ Instead of applying a broken service definition to the live Splunk stack, the Co
 
 ![Compose config valid](../screenshots/ml/troubleshooting/T09_compose-config-valid-after-fix.png)
 
-### Engineering lesson
+### 💡 Engineering lesson
 
 **`docker compose config` is a change-control gate, not an optional cosmetic check.**
 
@@ -590,11 +590,11 @@ The working Splunk volumes and existing AI bridge were preserved while ML was ad
 
 ---
 
-## 17. Troubleshooting case study 3 — the REST identity could search, but could not see DNS fields
+## 💡 17. Troubleshooting case study 3 — the REST identity could search, but could not see DNS fields
 
 A subtler problem appeared after the restricted reader existed.
 
-### Symptom
+### 💡 Symptom
 
 The REST search could reach Splunk, but the expected DNS fields were missing.
 
@@ -606,7 +606,7 @@ The restricted namespace therefore returned no matching model fields.
 
 ![REST search missing fields](../screenshots/ml/troubleshooting/T07_rest-search-no-matching-fields.png)
 
-### Diagnosis and fix
+### 💡 Diagnosis and fix
 
 The issue was not the resolver, the token transport or the model. It was knowledge-object visibility.
 
@@ -614,13 +614,13 @@ The required Unbound field extractions were made available to the application/se
 
 Supporting evidence is preserved under [`../screenshots/ml/setup/`](../screenshots/ml/setup/).
 
-### Engineering lesson
+### 💡 Engineering lesson
 
 **Machine-to-machine analytics depends on the permissions of Splunk knowledge objects, not only index permissions. A service account can read events and still lack the fields an analyst sees.**
 
 ---
 
-## 18. Evaluation — what worked and what did not
+## 📌 18. Evaluation — what worked and what did not
 
 The small controlled evaluation is intentionally reported as counts rather than a marketing-style “accuracy” headline.
 
@@ -654,7 +654,7 @@ These values are **not production performance claims**. They show two useful fac
 
 ---
 
-## 19. What this ML work contributes to Scenario 02
+## 🧠 19. What this ML work contributes to Scenario 02
 
 The completed Detection Engineering phase now compares two different kinds of evidence:
 
@@ -684,9 +684,9 @@ The analyst still proves why by checking the client, qnames, NXDOMAIN ratio, que
 
 ---
 
-## 20. Boundaries and lessons worth carrying forward
+## 💡 20. Boundaries and lessons worth carrying forward
 
-### What the model does not prove
+### 🧠 What the model does not prove
 
 - It does not prove malware exists.
 - It does not prove every anomalous DNS window is malicious.
@@ -698,7 +698,7 @@ The analyst still proves why by checking the client, qnames, NXDOMAIN ratio, que
 - It currently uses one-minute windows only.
 - Its current `anomaly_score` is the raw decision-function style score, not a 0–100 threat score.
 
-### ML engineering lessons
+### 🧠 ML engineering lessons
 
 - Validate real telemetry before training.
 - Keep the feature set small enough to explain.
@@ -713,7 +713,7 @@ The analyst still proves why by checking the client, qnames, NXDOMAIN ratio, que
 
 ---
 
-## ML Engineering completion record
+## 🧠 ML Engineering completion record
 
 | Completion gate | Result |
 |---|---|
@@ -734,7 +734,7 @@ The analyst still proves why by checking the client, qnames, NXDOMAIN ratio, que
 | Automatic containment | ✅ Not allowed / not implemented |
 | Repository source-code preservation | ✅ Complete |
 
-### Final responsibility boundary
+### 🔐 Final responsibility boundary
 
 **Scenario 02 Machine Learning Engineering is complete, and the later operational exercise is also complete.**
 
@@ -753,7 +753,7 @@ ML remained intentionally narrow throughout the final case: it supplied anomaly 
 
 ---
 
-## 21. Operational closeout — fresh minute scoring
+## ✅ 21. Operational closeout — fresh minute scoring
 
 The validated historical scorer originally used a fixed engineering time range. The model and feature schema were left unchanged, while a separate live wrapper was added to score the previous completed DNS minute automatically.
 
@@ -762,3 +762,14 @@ The closeout work also isolated four operational issues: persistent root-only cr
 A benign validation still produced `ANOMALY` results in some windows. Rather than tuning that away, the team preserved it as evidence of the model's intended limitation: unusual does not automatically mean malicious.
 
 See [`operations/README.md`](operations/README.md).
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />
