@@ -39,7 +39,11 @@ The exercise used real DNS requests through the lab's normal resolver path. Oper
 
 > **Core question:** can the defender detect and investigate generated-looking DNS behavior, preserve attribution limits, choose a proportionate response, and prove that the response changed the network outcome?
 
----
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+</div>
 
 ## 🏁 Scenario 02 Closeout Snapshot
 
@@ -55,7 +59,11 @@ The exercise used real DNS requests through the lab's normal resolver path. Oper
 
 </div>
 
----
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+</div>
 
 ## 🚦 Final Status
 
@@ -74,7 +82,11 @@ The exercise used real DNS requests through the lab's normal resolver path. Oper
 | Safe RPZ reset | ✅ Complete | Abdul-Rehman |
 | Ground-truth comparison | ✅ Complete | Team closeout |
 
----
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+</div>
 
 ## 🏗️ Scenario Architecture
 
@@ -184,7 +196,11 @@ flowchart TB
 
 The response path was deliberately narrow: **the observed Scenario 02 namespace was redirected; the victim IP was not globally blocked.**
 
----
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+</div>
 
 ## 🎬 What Actually Happened
 
@@ -291,7 +307,11 @@ Containment was not considered complete until RPZ was restored to the documented
 
 **Final IR status:** **CLOSED — controlled containment validated and safe reset completed.**
 
----
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+</div>
 
 ## 🧠 Detection, ML, AI & Human Judgement
 
@@ -307,7 +327,11 @@ Scenario 02 deliberately uses different evidence layers for different jobs:
 
 The live ML scorer also demonstrated an important limitation: benign bursts can be anomalous. That is why ML remains supporting evidence rather than the primary verdict.
 
----
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+</div>
 
 ## 🧭 MITRE ATT&CK & Network Context
 
@@ -319,7 +343,11 @@ The live ML scorer also demonstrated an important limitation: benign bursts can 
 
 The mapping describes the **DGA behavior under study**. The repository does not extend that mapping into unsupported endpoint or malware attribution.
 
----
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+</div>
 
 ## 👥 Team Contributions
 
@@ -330,7 +358,11 @@ The mapping describes the **DGA behavior under study**. The repository does not 
 | SOC Analyst | **Sonia** | Reconstructed the alert from raw DNS, measured and baselined the behavior, scoped recurrence, validated ML/AI, documented 5W1H, and produced the IR handoff |
 | Incident Responder / Defender | **Abdul-Rehman** | Independently reproduced the evidence, preserved attribution limits, executed approved RPZ containment, verified the sinkhole and normal DNS, and restored the resolver safely |
 
----
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+</div>
 
 ## 🗂️ Repository Guide
 
@@ -349,7 +381,11 @@ The mapping describes the **DGA behavior under study**. The repository does not 
 | Final ground-truth comparison | [`exercise/final-comparison.md`](exercise/final-comparison.md) |
 | Master evidence map | [`evidence/README.md`](evidence/README.md) |
 
----
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+</div>
 
 ## ✅ Completion Gate
 
