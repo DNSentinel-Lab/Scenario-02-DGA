@@ -1,0 +1,6 @@
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns
+client_ip="10.50.30.20"
+"ywvuacnec7gmul193uc"
+earliest=-3h
+| table _time event_type client_ip qname qtype rcode answer _raw
+| sort _time

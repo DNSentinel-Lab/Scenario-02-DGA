@@ -1,0 +1,13 @@
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply"
+client_ip="10.50.30.20"
+earliest=1787639820 latest=1787726520
+| eval qname_norm=lower(rtrim(qname,"."))
+| bin _time span=1m
+| stats count as replies
+        dc(qname_norm) as unique_qnames
+        count(eval(rcode="NXDOMAIN")) as nxdomain_count
+    by _time client_ip
+| eval nxdomain_ratio=round(nxdomain_count/replies,4)
+| where replies>=20 AND unique_qnames>=15 AND nxdomain_ratio>=0.75
+| table _time client_ip replies unique_qnames nxdomain_count nxdomain_ratio
+| sort _time

@@ -1,0 +1,6 @@
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply" client_ip="10.50.30.20" earliest=1787726220 latest=1787726520
+| eval qname_norm=lower(rtrim(qname,"."))
+| eval is_dga_namespace=if(like(qname_norm,"%.dga-test.soclab.abdul4rehman215.tech"),"YES","NO")
+| where rcode!="NXDOMAIN"
+| table _time client_ip qname_norm rcode is_dga_namespace
+| sort _time

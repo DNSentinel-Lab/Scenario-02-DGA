@@ -1,0 +1,7 @@
+index=dns_soc_dns host=dns-soc-resolver01 sourcetype=unbound:dns event_type="reply" client_ip="10.50.30.20" rcode="NXDOMAIN" earliest=1787726220 latest=1787726520
+| eval qname_norm=lower(rtrim(qname,"."))
+| eval first_label=mvindex(split(qname_norm,"."),0)
+| eval label_length=len(first_label)
+| table _time client_ip qname_norm first_label label_length rcode
+| sort _time
+| head 25
