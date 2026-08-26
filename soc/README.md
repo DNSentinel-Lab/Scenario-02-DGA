@@ -1,6 +1,6 @@
 <a id="top"></a>
 
-<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=6,12,19,24,30&height=185&section=header&text=%F0%9F%94%8E%20SOC%20Analyst%20%26%20Threat%20Hunting%20Workspace&fontSize=30&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Scenario%2002%20%E2%80%94%20DGA%20%2B%20High%20NXDOMAIN%20%7C%20Sonia%20%7C%20Defender-Only%20Investigation&descSize=14&descAlignY=68&descColor=D966FF" width="100%" alt="🔎 SOC Analyst & Threat Hunting Workspace" />
+<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&height=185&section=header&text=SOC%20Analyst%20and%20Threat%20Hunting%20Workspace&fontSize=30&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Scenario%2002%20-%20DGA%20plus%20High%20NXDOMAIN%20-%20Sonia%20-%20Defender-Only%20Investigation&descSize=14&descAlignY=68" width="100%" alt="🔎 SOC Analyst & Threat Hunting Workspace" />
 
 <div align="center">
 
