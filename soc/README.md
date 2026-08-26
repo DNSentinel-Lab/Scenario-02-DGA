@@ -45,15 +45,87 @@ This folder preserves the completed defender-side investigation. Sonia received 
 ## 🧭 Investigation Workflow
 
 ```mermaid
-flowchart LR
-    A["🚨 Detection v1.0"] --> B["📡 Raw Unbound DNS"]
-    B --> C["🧬 Qname Metrics"]
-    C --> D["📊 Same-Client Baseline"]
-    D --> E["🕒 Recurrence / Scope"]
-    E --> F["🧠 ML Second Opinion"]
-    F --> G["🤖 AI Claim Validation"]
-    G --> H["🧭 5W1H"]
-    H --> I["📨 IR Handoff"]
+flowchart TB
+
+    %% ==========================================
+    %% 1 — EVIDENCE COLLECTION
+    %% ==========================================
+    subgraph EVIDENCE["📡 1 · Evidence Collection"]
+        direction LR
+
+        A["🚨 Detection<br/>v1.0"]
+        B["📡 Raw Unbound<br/>DNS"]
+        C["🧬 Qname<br/>Metrics"]
+
+        A --> B --> C
+    end
+
+
+    %% ==========================================
+    %% 2 — BEHAVIOR ANALYSIS
+    %% ==========================================
+    subgraph ANALYSIS["🔍 2 · Behavior Analysis"]
+        direction LR
+
+        D["📊 Same-Client<br/>Baseline"]
+        E["🕒 Recurrence<br/>+ Scope"]
+        F["🧠 ML<br/>Second Opinion"]
+
+        D --> E --> F
+    end
+
+
+    %% ==========================================
+    %% 3 — ANALYST DECISION
+    %% ==========================================
+    subgraph DECISION["🧭 3 · Analyst Decision"]
+        direction LR
+
+        G["🤖 AI Claim<br/>Validation"]
+        H["🧭 5W1H<br/>Assessment"]
+        I["📨 IR<br/>Handoff"]
+
+        G --> H --> I
+    end
+
+
+    C --> D
+    F --> G
+
+
+    %% ==========================================
+    %% STYLING
+    %% ==========================================
+
+    classDef detection fill:#450a0a,stroke:#f87171,stroke-width:2px,color:#ffffff;
+    classDef telemetry fill:#083344,stroke:#22d3ee,stroke-width:2px,color:#ffffff;
+    classDef metrics fill:#172554,stroke:#60a5fa,stroke-width:2px,color:#ffffff;
+
+    classDef baseline fill:#134e4a,stroke:#2dd4bf,stroke-width:2px,color:#ffffff;
+    classDef scope fill:#422006,stroke:#fbbf24,stroke-width:2px,color:#ffffff;
+    classDef ml fill:#312e81,stroke:#818cf8,stroke-width:2px,color:#ffffff;
+
+    classDef ai fill:#581c87,stroke:#e879f9,stroke-width:2px,color:#ffffff;
+    classDef analyst fill:#3b0764,stroke:#c084fc,stroke-width:2px,color:#ffffff;
+    classDef handoff fill:#052e16,stroke:#4ade80,stroke-width:3px,color:#ffffff;
+
+    class A detection;
+    class B telemetry;
+    class C metrics;
+
+    class D baseline;
+    class E scope;
+    class F ml;
+
+    class G ai;
+    class H analyst;
+    class I handoff;
+
+    style EVIDENCE fill:#0d1117,stroke:#22d3ee,stroke-width:1px
+    style ANALYSIS fill:#0d1117,stroke:#818cf8,stroke-width:1px
+    style DECISION fill:#0d1117,stroke:#4ade80,stroke-width:1px
+
+    linkStyle default stroke:#94a3b8,stroke-width:2px
 ```
 
 ## 📚 Start Here
