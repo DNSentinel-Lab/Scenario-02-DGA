@@ -21,14 +21,77 @@ This folder explains how the completed Scenario 02 exercise preserved realistic 
 ## 🧭 Information-Separation Model
 
 ```mermaid
-flowchart LR
-    O["🧬 Operator Ground Truth"] -. "hidden during investigation" .-> X["🔒 Reveal Gate"]
-    D["🚨 Frozen Detection"] --> S["🔎 SOC Investigation"]
-    S --> I["🛡️ IR Validation / Decision"]
-    I --> L["✅ Decisions Locked"]
-    O --> X
+flowchart TB
+
+    %% ==========================================
+    %% 1 — INVESTIGATION PATH
+    %% ==========================================
+    subgraph INVEST["🔎 1 · Investigation Path"]
+        direction LR
+
+        D["🚨 Frozen<br/>Detection"]
+        S["🔎 SOC<br/>Investigation"]
+        I["🛡️ IR Validation<br/>+ Decision"]
+        L["✅ Decisions<br/>Locked"]
+
+        D --> S --> I --> L
+    end
+
+
+    %% ==========================================
+    %% 2 — HIDDEN GROUND TRUTH
+    %% ==========================================
+    subgraph TRUTH["🧬 2 · Ground Truth Control"]
+        direction LR
+
+        O["🧬 Operator<br/>Ground Truth"]
+        X["🔒 Reveal<br/>Gate"]
+
+        O -. "Hidden During Investigation" .-> X
+    end
+
+
+    %% ==========================================
+    %% 3 — FINAL REVEAL
+    %% ==========================================
+    subgraph FINAL["🎭 3 · Final Reveal"]
+        direction LR
+
+        C["🎭 Final<br/>Comparison"]
+    end
+
     L --> X
-    X --> C["🎭 Final Comparison"]
+    O --> X
+    X --> C
+
+
+    %% ==========================================
+    %% STYLING
+    %% ==========================================
+
+    classDef detect fill:#450a0a,stroke:#f87171,stroke-width:2px,color:#ffffff;
+    classDef soc fill:#172554,stroke:#60a5fa,stroke-width:2px,color:#ffffff;
+    classDef ir fill:#3b0764,stroke:#c084fc,stroke-width:2px,color:#ffffff;
+    classDef locked fill:#052e16,stroke:#4ade80,stroke-width:2px,color:#ffffff;
+
+    classDef truth fill:#3f2a0a,stroke:#f59e0b,stroke-width:2px,color:#ffffff;
+    classDef gate fill:#1f2937,stroke:#fbbf24,stroke-width:2px,color:#ffffff;
+    classDef compare fill:#083344,stroke:#22d3ee,stroke-width:3px,color:#ffffff;
+
+    class D detect;
+    class S soc;
+    class I ir;
+    class L locked;
+
+    class O truth;
+    class X gate;
+    class C compare;
+
+    style INVEST fill:#0d1117,stroke:#60a5fa,stroke-width:1px
+    style TRUTH fill:#0d1117,stroke:#f59e0b,stroke-width:1px
+    style FINAL fill:#0d1117,stroke:#22d3ee,stroke-width:1px
+
+    linkStyle default stroke:#94a3b8,stroke-width:2px
 ```
 
 > [!IMPORTANT]
