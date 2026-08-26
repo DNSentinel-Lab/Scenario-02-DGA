@@ -1,13 +1,16 @@
 <a id="top"></a>
 
-> 🧭 [Scenario 02](../README.md) › [Attacker](README.md) › **Scenario 02 Adversary Playbook — DGA + High NXDOMAIN**
+> 🧭 [Scenario 02](../README.md) › [Adversary / Operator](README.md) › **Scenario 02 Adversary Playbook — DGA + High NXDOMAIN**
 
-![Scenario](https://img.shields.io/badge/Scenario_02-Execution_Complete-2EA44F?style=flat-square)
-![DNSentinel](https://img.shields.io/badge/DNSentinel-Technical_Record-D966FF?style=flat-square)
+<div align="center">
 
----
+![Scenario](https://img.shields.io/badge/Scenario_02-COMPLETE-2EA44F?style=flat-square) ![Workspace](https://img.shields.io/badge/Workspace-Adversary_Operator-A855F7?style=flat-square) ![Document](https://img.shields.io/badge/Document-Evidence_Backed-D966FF?style=flat-square)
 
-# Scenario 02 Adversary Playbook — DGA + High NXDOMAIN
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🧬 Scenario 02 Adversary Playbook — DGA + High NXDOMAIN
 
 **Operator:** [Musfira](https://github.com/MUSFIRA-ZAFAR)  
 **Status:** ✅ Used for the completed official Scenario 02 adversary execution  
@@ -18,7 +21,7 @@
 **MITRE ATT&CK:** `T1568.002 — Dynamic Resolution: Domain Generation Algorithms`  
 **Cyber Kill Chain:** Command & Control
 
-## 1. Adversary objective
+## 🎯 1. Adversary objective
 
 Generate one fresh, believable DGA-style DNS pattern from the internal victim through its normal resolver path.
 
@@ -40,7 +43,7 @@ mostly unsuccessful resolution behavior
 
 The operator is **not** trying to satisfy a Splunk threshold. Detection v1.0 is frozen before execution and is not used as feedback during the run.
 
-## 2. Exercise isolation
+## 🔐 2. Exercise isolation
 
 Scenario 02 uses:
 
@@ -62,7 +65,7 @@ Rules:
 - do not change ML, Detection v1.0 or RPZ;
 - run the official generator once and stop.
 
-## 3. Pre-run check
+## 📌 3. Pre-run check
 
 Preflight should validate only operator prerequisites:
 
@@ -80,7 +83,7 @@ Prefer opening the SSM session before SOC monitoring begins and leaving it idle 
 
 Do not generate DGA traffic during preflight.
 
-## 4. Generator identity
+## 🪪 4. Generator identity
 
 Expected deployed generator:
 
@@ -105,7 +108,7 @@ and performs an A-record lookup using the host's normal `resolvectl` path.
 
 Do not change these values for the official run.
 
-## 5. Official execution wrapper
+## 🎬 5. Official execution wrapper
 
 On `dns-soc-victim01`, use the verified path and preserve timing/hash metadata:
 
@@ -140,7 +143,7 @@ Expected operator-side result:
 
 ![Official DGA execution](../screenshots/attacker/02-official-dga-generator-complete.png)
 
-## 6. Live-run discipline
+## 📌 6. Live-run discipline
 
 While the Python process is active:
 
@@ -159,7 +162,7 @@ DO NOT change RPZ
 
 Let the existing generator finish naturally.
 
-## 7. Official run used
+## 🎬 7. Official run used
 
 The completed official run used:
 
@@ -174,7 +177,7 @@ exit code: 0
 
 The two earlier incorrect-path attempts did not execute `dga_dns.py` and are excluded from the official activity window.
 
-## 8. Ground truth to preserve privately
+## 🎭 8. Ground truth to preserve privately
 
 Record:
 
@@ -194,7 +197,7 @@ Use [`ground-truth-template.md`](ground-truth-template.md).
 
 Do not use attacker-side ground truth as input to the SOC disposition.
 
-## 9. Evidence interpretation
+## 🧾 9. Evidence interpretation
 
 The generator suppresses per-query command output, so the attacker terminal does not contain every generated qname.
 
@@ -205,7 +208,7 @@ Therefore:
 
 Do not fill attacker documentation with defender metrics before the reveal gate.
 
-## 10. Stop conditions
+## 🔐 10. Stop conditions
 
 Stop or abort before execution if:
 
@@ -218,7 +221,7 @@ Stop or abort before execution if:
 
 Once the correct official run starts, allow it to finish naturally unless safety or infrastructure integrity requires an emergency stop.
 
-## 11. What success means from the adversary side
+## 🎯 11. What success means from the adversary side
 
 The operator succeeds when they can prove:
 
@@ -234,12 +237,14 @@ correct victim
 
 Success does **not** require the defender alert to fire. Whether Detection v1.0 detects the run is a defender-side exercise outcome.
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
 
-[🏠 Scenario Home](../README.md) · [📁 Attacker](README.md) · [⬆ Back to top](#top)
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
 
-<sub>DNSentinel Lab · Evidence-first DNS security engineering</sub>
+[🏠 Scenario Home](../README.md) · [🧬 Adversary / Operator](README.md) · [⬆ Back to top](#top)
 
 </div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

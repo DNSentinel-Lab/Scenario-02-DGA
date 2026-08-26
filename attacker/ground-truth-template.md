@@ -1,17 +1,20 @@
 <a id="top"></a>
 
-> 🧭 [Scenario 02](../README.md) › [Attacker](README.md) › **Scenario 02 — Completed Private Adversary Ground Truth**
+> 🧭 [Scenario 02](../README.md) › [Adversary / Operator](README.md) › **Scenario 02 — Completed Private Adversary Ground Truth**
 
-![Scenario](https://img.shields.io/badge/Scenario_02-Execution_Complete-2EA44F?style=flat-square)
-![DNSentinel](https://img.shields.io/badge/DNSentinel-Technical_Record-D966FF?style=flat-square)
+<div align="center">
 
----
+![Scenario](https://img.shields.io/badge/Scenario_02-COMPLETE-2EA44F?style=flat-square) ![Workspace](https://img.shields.io/badge/Workspace-Adversary_Operator-A855F7?style=flat-square) ![Document](https://img.shields.io/badge/Document-Evidence_Backed-D966FF?style=flat-square)
 
-# Scenario 02 — Completed Private Adversary Ground Truth
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🎭 Scenario 02 — Completed Private Adversary Ground Truth
 
 > This record is attacker/controller ground truth. During the information-separated exercise it must remain private from the SOC Analyst and Incident Responder until the defender decision/reveal gate is reached.
 
-## Exercise identity
+## 🎭 Exercise identity
 
 | Field | Value |
 |---|---|
@@ -27,7 +30,7 @@
 | Cyber Kill Chain | Command & Control |
 | External attacker requirement | None for this scenario |
 
-## Official run timing
+## 🎬 Official run timing
 
 | Field | UTC time |
 |---|---|
@@ -38,7 +41,7 @@
 | Approximate generator duration | ~300.34 seconds |
 | Exit code | `0` |
 
-## Generator identity
+## 🪪 Generator identity
 
 | Field | Value |
 |---|---|
@@ -50,7 +53,7 @@
 | Label characters | lowercase ASCII letters + digits |
 | Resolver method | `resolvectl query -t A` |
 
-## Exact official wrapper command
+## 📌 Exact official wrapper command
 
 ```bash
 GEN="/opt/dns-soc-ml-generators/dga_dns.py"
@@ -74,7 +77,7 @@ echo "GENERATOR_EXIT_CODE: $DGA_RC"
 echo "===== OFFICIAL DGA RUN COMPLETE ====="
 ```
 
-## Ground-truth behavior summary
+## 📌 Ground-truth behavior summary
 
 - **Source endpoint:** `dns-soc-victim01`.
 - **DNS path:** victim system DNS → `dns-soc-resolver01` → normal upstream resolution.
@@ -88,7 +91,7 @@ echo "===== OFFICIAL DGA RUN COMPLETE ====="
 - **RPZ modification during adversary execution:** none.
 - **Defender-result inspection during adversary execution:** none.
 
-## Query samples / counts
+## 🔎 Query samples / counts
 
 The generator intentionally redirects `resolvectl` stdout/stderr to `/dev/null`, so individual generated qnames were not printed in the attacker terminal.
 
@@ -106,15 +109,15 @@ AI result
 
 These are defender-side observations and should be populated in a later final-comparison artifact only after the reveal gate.
 
-## Official evidence
+## 🧾 Official evidence
 
-### Evidence A01 — execution command
+### 🎬 Evidence A01 — execution command
 
 ![Official DGA execution command](../screenshots/attacker/01-official-dga-execution-command.png)
 
 Shows the exact wrapper used to capture host, generator path, SHA256, UTC timing and exit status.
 
-### Evidence A02 — successful completion
+### 🧾 Evidence A02 — successful completion
 
 ![Official DGA completion](../screenshots/attacker/02-official-dga-generator-complete.png)
 
@@ -131,13 +134,13 @@ DGA_RUN_END: 2026-08-26T06:42:11Z
 GENERATOR_EXIT_CODE: 0
 ```
 
-### Evidence A03 — compact ground-truth summary
+### 🧾 Evidence A03 — compact ground-truth summary
 
 ![Official DGA ground-truth summary](../screenshots/attacker/03-official-dga-ground-truth-summary.png)
 
 A compact crop of the official terminal result for quick reference.
 
-## Pre-official troubleshooting note
+## 💡 Pre-official troubleshooting note
 
 Before the successful official run, two wrapper attempts used incorrect/nonexistent generator paths and returned Python exit code `2`.
 
@@ -154,7 +157,7 @@ The correct deployed path was verified as:
 /opt/dns-soc-ml-generators/dga_dns.py
 ```
 
-## Reveal checklist
+## 🎭 Reveal checklist
 
 Use this section when the final defender comparison is completed:
 
@@ -167,7 +170,7 @@ Use this section when the final defender comparison is completed:
 - [x] Operator did not inspect defender results during the run
 - [x] Final attacker ↔ telemetry ↔ SOC ↔ IR comparison completed after reveal
 
-## Related evidence / files
+## 🧾 Related evidence / files
 
 - [`PROJECT-LEAD-ADVERSARY.md`](PROJECT-LEAD-ADVERSARY.md)
 - [`SCENARIO-02-ADVERSARY-PLAYBOOK.md`](SCENARIO-02-ADVERSARY-PLAYBOOK.md)
@@ -185,6 +188,17 @@ Use this section when the final defender comparison is completed:
 </div>
 
 
-## Final reveal artifact
+## 🎭 Final reveal artifact
 
 The completed cross-role comparison is preserved in [`../exercise/final-comparison.md`](../exercise/final-comparison.md).
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../README.md) · [🧬 Adversary / Operator](README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />
