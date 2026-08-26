@@ -1,6 +1,6 @@
 <a id="top"></a>
 
-<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=6,12,19,24,30&height=185&section=header&text=%F0%9F%9B%A1%EF%B8%8F%20Incident%20Response%20%26%20Defender%20Workspace&fontSize=30&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Scenario%2002%20%E2%80%94%20DGA%20%2B%20High%20NXDOMAIN%20%7C%20Abdul-Rehman%20%7C%20Human-Approved%20Containment&descSize=14&descAlignY=68&descColor=F59E0B" width="100%" alt="🛡️ Incident Response & Defender Workspace" />
+<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&height=185&section=header&text=Incident%20Response%20and%20Defender%20Workspace&fontSize=30&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Scenario%2002%20-%20DGA%20plus%20High%20NXDOMAIN%20-%20Abdul-Rehman%20-%20Human-Approved%20Containment&descSize=14&descAlignY=68" width="100%" alt="🛡️ Incident Response & Defender Workspace" />
 
 <div align="center">
 
