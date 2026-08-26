@@ -21,7 +21,9 @@
 
 This runbook is the final operational record for Scenario 02. Engineering validation traffic is kept separate from the official information-separated execution. The official result is based on the fresh run that began at `2026-08-26T06:37:10.787620+00:00`.
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🎯 1. Scenario objective
 
@@ -38,7 +40,9 @@ Then determine whether the evidence justifies a human-approved DNS response and 
 
 The scenario is deliberately scoped to DGA/high-NXDOMAIN DNS behavior. It does not claim malware execution, initial access, exploitation, credential theft, or endpoint compromise.
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 👥 2. Roles
 
@@ -50,7 +54,9 @@ The scenario is deliberately scoped to DGA/high-NXDOMAIN DNS behavior. It does n
 | SOC Analyst | Sonia | defender-only investigation, ML/AI validation, 5W1H, disposition, IR handoff |
 | Incident Responder / Defender | Abdul-Rehman | independent validation, response decision, RPZ containment, verification, reset |
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🏗️ 3. Network and telemetry path
 
@@ -91,7 +97,9 @@ AI results:
 index=dns_soc_ai
 ```
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## ✅ 4. Pre-flight gate — completed
 
@@ -112,7 +120,9 @@ The following were frozen before execution:
 - scheduled alert and AI profile;
 - RPZ policy state.
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🎬 5. Official adversary/operator execution — completed
 
@@ -154,7 +164,9 @@ Rules for the official run:
 
 Result: ✅ fresh five-minute DGA-style DNS behavior generated through the normal resolver path.
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🚨 6. Detection v1.0 — frozen and triggered
 
@@ -186,7 +198,9 @@ Result: ✅ five consecutive production-rule matches without live tuning.
 
 Canonical SPL is preserved in [`spl/detection.spl`](spl/detection.spl).
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🧠 7. ML second opinion — completed
 
@@ -208,7 +222,9 @@ Boundary:
 
 > ML says the window differs from the learned baseline. It does not prove maliciousness or authorize response.
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🤖 8. AI assistance — completed
 
@@ -222,7 +238,9 @@ Boundary:
 
 See [`ai/scenario-02-ai-mapping.md`](ai/scenario-02-ai-mapping.md) and [`soc/AI-ML-VALIDATION.md`](soc/AI-ML-VALIDATION.md).
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🔎 9. SOC investigation — completed
 
@@ -264,7 +282,9 @@ Confidence was high that abnormal DGA-like/high-NXDOMAIN behavior occurred, but 
 
 See [`soc/SOC-ANALYST-INVESTIGATION.md`](soc/SOC-ANALYST-INVESTIGATION.md).
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🔎 10. SOC → IR handoff — completed
 
@@ -287,7 +307,9 @@ Operator ground truth was not required for the defender handoff.
 
 See [`soc/SOC-TO-IR-HANDOFF.md`](soc/SOC-TO-IR-HANDOFF.md).
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🛡️ 11. IR independent validation — completed
 
@@ -312,7 +334,9 @@ IR classification:
 
 Attribution remained limited to resolver-visible behavior.
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🛡️ 12. Response decision and approval — completed
 
@@ -332,7 +356,9 @@ The exact separate wall-clock approval timestamp was not preserved and must not 
 
 The response targeted the observed namespace, not all DNS from `10.50.30.20`.
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🛡️ 13. Pre-containment proof — completed
 
@@ -351,7 +377,9 @@ result:   NXDOMAIN
 
 Evidence: [`ir/evidence/S02-IR-E10-PreContainment-NXDOMAIN.png`](ir/evidence/S02-IR-E10-PreContainment-NXDOMAIN.png)
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🛡️ 14. RPZ containment — completed
 
@@ -370,7 +398,9 @@ A 10.50.30.30
 
 Evidence: [`ir/evidence/S02-IR-E14-PostContainment-RPZ-Redirect.png`](ir/evidence/S02-IR-E14-PostContainment-RPZ-Redirect.png)
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🛡️ 15. Response verification — completed
 
@@ -400,7 +430,9 @@ NOERROR
 
 This proved the response changed observable DNS behavior rather than merely changing a configuration file.
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🛡️ 16. Safe reset — completed
 
@@ -415,7 +447,9 @@ After response evidence was captured:
 
 Reset is part of the response lifecycle, not an optional cleanup step.
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🎭 17. Final ground-truth comparison — completed
 
@@ -427,7 +461,9 @@ The comparison confirms that the defender pipeline observed the fresh authorized
 
 See [`exercise/final-comparison.md`](exercise/final-comparison.md).
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## ✅ 18. Final result
 
@@ -449,7 +485,9 @@ Safe reset                    ✅ selected qname → NXDOMAIN again
 Scenario closeout             ✅ complete
 ```
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🧾 19. Evidence and reproducibility
 
@@ -460,7 +498,9 @@ Scenario closeout             ✅ complete
 - Operator record: [`attacker/`](attacker/)
 - Master evidence index: [`evidence/README.md`](evidence/README.md)
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
 
 ## 🔐 20. Final documentation boundary
 
@@ -477,9 +517,6 @@ It does **not** claim:
 
 It does document a complete, realistic defensive workflow from fresh DNS behavior through verified containment and reset.
 
----
-
-[⬆ Back to top](#top)
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
