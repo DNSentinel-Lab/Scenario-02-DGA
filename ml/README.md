@@ -242,19 +242,11 @@ During the official information-separated exercise, the frozen Detection v1.0 ru
 
 This closes the operational loop without changing the original ML responsibility boundary.
 
+**DNSentinel Scenario 02 · Machine Learning Engineering**
+
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
-
-**DNSentinel Scenario 02 · Machine Learning Engineering**
-
-[🏠 Scenario Home](../README.md) · [📖 ML Engineering Story](ML-ENGINEERING.md) · [🧾 Validation Record](../evidence/ml-engineering-validation.md) · [⬆ Back to top](#top)
-
-</div>
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,19,24,30&height=75&
-
----
 
 ## ✅ Live scoring closeout
 
