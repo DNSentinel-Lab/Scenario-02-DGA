@@ -1,11 +1,20 @@
 <a id="top"></a>
 
-> 🧭 [Scenario 02](../README.md) › [SOC](README.md) › **SOC Analyst Investigation**
+<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=6,12,19,24,30&height=170&section=header&text=%F0%9F%94%8E%20SOC%20Analyst%20Investigation%20%E2%80%94%20Sonia&fontSize=30&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Scenario%2002%20%7C%20Alert%20%E2%86%92%20Raw%20DNS%20%E2%86%92%20Baseline%20%E2%86%92%20Scope%20%E2%86%92%20ML%20/%20AI%20Validation%20%E2%86%92%20IR%20Handoff&descSize=14&descAlignY=68&descColor=22D3EE" width="100%" alt="🔎 SOC Analyst Investigation — Sonia" />
 
-![SOC](https://img.shields.io/badge/Role-SOC_Analyst-0078D4?style=flat-square)
-![Disposition](https://img.shields.io/badge/Disposition-INCONCLUSIVE_%E2%86%92_IR-FFB000?style=flat-square)
+<div align="center">
 
-# SOC Analyst Investigation — Sonia
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=17&duration=2700&pause=850&color=22D3EE&center=true&vCenter=true&repeat=true&width=1050&height=62&lines=Scenario+02+%7C+Alert+%E2%86%92+Raw+DNS+%E2%86%92+Baseline+%E2%86%92+Scope+%E2%86%92+ML+%2F+AI+Validation+%E2%86%92+IR+Handoff;Evidence+%E2%86%92+Human+Judgement+%E2%86%92+Reproducible+Decision" alt="Scenario 02 workflow animation" />
+
+![Role](https://img.shields.io/badge/Role-SOC_Analyst-0284C7?style=flat-square) ![Disposition](https://img.shields.io/badge/Disposition-INCONCLUSIVE_%E2%86%92_IR-F59E0B?style=flat-square) ![Evidence](https://img.shields.io/badge/Evidence-E01%E2%80%93E13-A855F7?style=flat-square)
+
+[🏠 Scenario Home](../README.md) · [🔎 SOC Workspace](README.md) · [🧾 Evidence](evidence/README.md) · [🛡️ IR Handoff](SOC-TO-IR-HANDOFF.md)
+
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🔎 SOC Analyst Investigation — Sonia
 
 Scenario 02 placed Sonia in the defender seat after Detection v1.0 had already been frozen. Her job was not to prove an expected exercise outcome. It was to determine what the resolver evidence actually supported.
 
@@ -15,7 +24,7 @@ The investigation therefore followed one rule from the beginning:
 
 ---
 
-## 1. Establish that the alert is real
+## 🚨 1. Establish that the alert is real
 
 The first useful signal was a live Detection v1.0 hit for resolver-visible client `10.50.30.20`. Sonia then requested a clean view of all matching one-minute windows rather than treating one row as a full incident.
 
@@ -35,7 +44,7 @@ That established persistence across five minutes, but it still did not explain c
 
 ---
 
-## 2. Move from the alert back to raw resolver evidence
+## 🚨 2. Move from the alert back to raw resolver evidence
 
 Sonia narrowed the search to the exact detection window and opened the underlying Unbound replies.
 
@@ -57,7 +66,7 @@ This is the point where the investigation could responsibly say **generated-look
 
 ---
 
-## 3. Measure the names instead of judging them by appearance
+## 🔎 3. Measure the names instead of judging them by appearance
 
 The qname search calculated first-label length, uniqueness, query types, and NXDOMAIN behavior per minute.
 
@@ -75,7 +84,7 @@ One useful nuance was preserved: some minutes also contained ordinary background
 
 ---
 
-## 4. Ask the most important SOC question: is this normal for this client?
+## 🔎 4. Ask the most important SOC question: is this normal for this client?
 
 A high number has little meaning without context. Sonia therefore compared the official windows with the same client's historical behavior.
 
@@ -96,7 +105,7 @@ That changed the question from “is the alert high?” to “how far does the o
 
 ---
 
-## 5. Scope recurrence, not just the latest burst
+## 🔎 5. Scope recurrence, not just the latest burst
 
 Sonia widened the frozen Detection v1.0 search across the previous 24 hours.
 
@@ -110,7 +119,7 @@ This finding increased defensive concern while still leaving authorization and p
 
 ---
 
-## 6. Use ML as a second opinion
+## 🧠 6. Use ML as a second opinion
 
 Only after understanding the raw behavior did Sonia inspect the Isolation Forest result.
 
@@ -129,7 +138,7 @@ That reinforced the baseline comparison, but it did not become the verdict. The 
 
 ---
 
-## 7. Review AI after the evidence, not before it
+## 🤖 7. Review AI after the evidence, not before it
 
 The Scenario 02 AI output summarized the defender evidence as possible DGA/high-NXDOMAIN behavior.
 
@@ -152,7 +161,7 @@ The AI description of unusual generated-domain behavior was supported by the DNS
 
 ---
 
-## 8. Check what actually resolved successfully
+## 🎯 8. Check what actually resolved successfully
 
 The non-NXDOMAIN review separated normal successful resolutions from the generated-looking namespace.
 
@@ -164,7 +173,7 @@ This narrowed the DNS story without claiming that the endpoint was clean or unco
 
 ---
 
-## 9. Bring the case into one analyst surface
+## 📊 9. Bring the case into one analyst surface
 
 The final Dashboard Studio view brought the exact client/window into one investigation surface.
 
@@ -183,7 +192,7 @@ The dashboard was an investigation aid, not a replacement for the raw-event chec
 
 ---
 
-## 10. Lock the resolver-visible scope
+## 🔎 10. Lock the resolver-visible scope
 
 The final scope check kept the attribution language precise.
 
@@ -199,7 +208,7 @@ That identifies the client seen by the resolver. It does **not** identify a proc
 
 ---
 
-## 11. 5W1H — the case in one view
+## 🔎 11. 5W1H — the case in one view
 
 | Question | Evidence-backed answer |
 |---|---|
@@ -223,7 +232,7 @@ authorization/business explanation
 
 ---
 
-## 12. Disposition and handoff
+## 📨 12. Disposition and handoff
 
 The final SOC conclusion was:
 
@@ -237,7 +246,7 @@ See [`SOC-TO-IR-HANDOFF.md`](SOC-TO-IR-HANDOFF.md).
 
 ---
 
-## Investigation reflection
+## 🔎 Investigation reflection
 
 The strongest part of this case was not the size of the NXDOMAIN ratio. It was the discipline of moving from **alert → raw evidence → baseline → scope → automation review → human judgement**.
 
@@ -251,7 +260,7 @@ Instead, the investigation ended with a conclusion narrow enough to be defensibl
 
 ---
 
-## Evidence and reproducibility
+## 🧾 Evidence and reproducibility
 
 - [Curated SOC evidence](evidence/)
 - [Complete SOC SPL](spl/)
@@ -261,10 +270,14 @@ Instead, the investigation ended with a conclusion narrow enough to be defensibl
 - [Investigation timeline](INVESTIGATION-TIMELINE.md)
 - [Troubleshooting notes](TROUBLESHOOTING-NOTES.md)
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
 
-[🏠 Scenario Home](../README.md) · [📁 SOC](README.md) · [⬆ Back to top](#top)
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../README.md) · [⬆ Back to top](#top)
 
 </div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

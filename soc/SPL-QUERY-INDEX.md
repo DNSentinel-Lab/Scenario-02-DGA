@@ -1,4 +1,16 @@
-# SPL Query Index
+<a id="top"></a>
+
+> 🧭 [Scenario 02](../README.md) › [SOC Analyst](README.md) › **SPL Query Index**
+
+<div align="center">
+
+![Scenario](https://img.shields.io/badge/Scenario_02-COMPLETE-2EA44F?style=flat-square) ![Workspace](https://img.shields.io/badge/Workspace-SOC_Analyst-0284C7?style=flat-square) ![Document](https://img.shields.io/badge/Document-Evidence_Backed-D966FF?style=flat-square)
+
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🗂️ SPL Query Index
 
 The `spl/` folder preserves **all SPL used in the SOC Analyst chat**, including failed/troubleshooting variants so the GitHub history shows what was tried and how it was fixed.
 
@@ -25,3 +37,14 @@ The `spl/` folder preserves **all SPL used in the SOC Analyst chat**, including 
 | `18_non_nxdomain_replies.spl` | Successful/non-NXDOMAIN DNS replies |
 | `19_exact_window_base_search.spl` | Exact five-minute raw-event base search |
 | `20_final_client_scope.spl` | Final exact-window affected-client scope |
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../README.md) · [🔎 SOC Analyst](README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

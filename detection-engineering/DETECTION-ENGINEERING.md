@@ -1,6 +1,16 @@
 <a id="top"></a>
 
-# Scenario 02 — Detection Engineering
+> 🧭 [Scenario 02](../README.md) › [Detection Engineering](README.md) › **Scenario 02 — Detection Engineering**
+
+<div align="center">
+
+![Scenario](https://img.shields.io/badge/Scenario_02-COMPLETE-2EA44F?style=flat-square) ![Workspace](https://img.shields.io/badge/Workspace-Detection_Engineering-AD1457?style=flat-square) ![Document](https://img.shields.io/badge/Document-Evidence_Backed-D966FF?style=flat-square)
+
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🚨 Scenario 02 — Detection Engineering
 
 **DGA + High NXDOMAIN**  
 **Detection Engineer / AI Integrator:** [Lubaba](https://github.com/lubaba1513-pixel)  
@@ -21,7 +31,7 @@ question → observation → decision → action → validation → lesson
 
 ---
 
-## 1. Engineering finish line
+## 🎯 1. Engineering finish line
 
 Detection Engineering was considered ready only after this complete chain worked:
 
@@ -50,13 +60,13 @@ The finish line was deliberately larger than “make an SPL query return one row
 
 ---
 
-## 2. Start with resolver semantics, not a rule
+## 🚨 2. Start with resolver semantics, not a rule
 
-### The question
+### 📌 The question
 
 Which resolver events represent one real DNS transaction, and which fields can the detection safely trust?
 
-### What Lubaba validated
+### 📌 What Lubaba validated
 
 The primary Scenario 02 source was already onboarded:
 
@@ -83,7 +93,7 @@ response_size
 
 *The rule was built from the live Unbound field model rather than from a planned schema.*
 
-### Query vs reply
+### 🔎 Query vs reply
 
 Unbound generated both query-side and reply-side events. Counting both would turn one DNS transaction into two analytical events.
 
@@ -95,15 +105,15 @@ event_type="reply"
 
 The reply event also carries the final DNS outcome, including `rcode`, which is central to the high-NXDOMAIN behavior being measured.
 
-### Lesson
+### 💡 Lesson
 
 **The analytical unit must match the security behavior.** A clean rule begins by defining what one event actually means.
 
 ---
 
-## 3. Measure ingestion before scheduling
+## 📌 3. Measure ingestion before scheduling
 
-### The question
+### 📌 The question
 
 How long does a resolver event take to travel through:
 
@@ -111,7 +121,7 @@ How long does a resolver event take to travel through:
 Unbound → Universal Forwarder → Splunk
 ```
 
-### Measurement
+### 📌 Measurement
 
 Fresh reply-side DNS telemetry produced this sample:
 
@@ -128,21 +138,21 @@ Fresh reply-side DNS telemetry produced this sample:
 
 The tiny negative minimum was treated as timestamp/index-time precision around zero rather than as true negative delivery.
 
-### Why it mattered
+### 💡 Why it mattered
 
 The result showed that Scenario 02's Unbound → UF → Splunk path was much faster than the Route 53/Kinesis path used in Scenario 01. That later justified a different scheduled-alert window rather than copying the earlier scenario's timing.
 
-### Lesson
+### 💡 Lesson
 
 **Scheduled detection timing is a data-pipeline decision, not a reusable magic number.**
 
 ---
 
-## 4. Build an independent Detection Engineering baseline
+## 🚨 4. Build an independent Detection Engineering baseline
 
 The ML phase already had benign training data, but Lubaba did not treat the ML baseline as a substitute for rule engineering.
 
-### Clean periods
+### 📌 Clean periods
 
 Two known-clean benign raw-DNS periods were reused only as trusted time ranges:
 
@@ -153,7 +163,7 @@ Two known-clean benign raw-DNS periods were reused only as trusted time ranges:
 
 From raw `dns_soc_dns` reply events, Lubaba independently created **32 one-minute/client Detection Engineering windows**.
 
-### Baseline summary
+### 🔎 Baseline summary
 
 | Metric | Median | p95 | Maximum |
 |---|---:|---:|---:|
@@ -169,7 +179,7 @@ From raw `dns_soc_dns` reply events, Lubaba independently created **32 one-minut
 
 ![Rule baseline validation](../screenshots/detection-engineering/03-rule-baseline-validation.png)
 
-### The important finding
+### 💡 The important finding
 
 Normal DNS already demonstrated several features that could look suspicious in isolation:
 
@@ -188,7 +198,7 @@ high uniqueness alone   ≠ DGA
 long qname alone         ≠ DGA
 ```
 
-### Lesson
+### 💡 Lesson
 
 **The baseline did more than provide numbers. It ruled out simplistic detections before they reached alerting.**
 
@@ -196,11 +206,11 @@ The reproducible baseline searches are preserved in [`../spl/baseline.spl`](../s
 
 ---
 
-## 5. Engineer the investigation surface
+## 🔎 5. Engineer the investigation surface
 
 Before freezing the final rule, Lubaba built the analyst-facing view that Sonia later used during the official exercise.
 
-### Final dashboard
+### 📊 Final dashboard
 
 **Scenario 02 — DGA + High NXDOMAIN Investigation**
 
@@ -214,7 +224,7 @@ The deployed Splunk Dashboard Studio artifact contains:
 16 data sources / searches
 ```
 
-### Global controls
+### 🗂️ Global controls
 
 - Global Time Range
 - Client IP
@@ -222,7 +232,7 @@ The deployed Splunk Dashboard Studio artifact contains:
 - Query Type
 - Qname / Domain
 
-### SOC summary
+### 🔎 SOC summary
 
 - Total DNS Replies
 - NXDOMAIN Count
@@ -231,14 +241,14 @@ The deployed Splunk Dashboard Studio artifact contains:
 - Active Clients
 - ML Anomalous Windows
 
-### Behavior views
+### 📌 Behavior views
 
 - DNS Volume + NXDOMAIN Over Time
 - Unique Qnames + NXDOMAIN Ratio Over Time
 - Average + Maximum Qname Length Over Time
 - Query-Type Distribution
 
-### Investigation views
+### 🔎 Investigation views
 
 - Top NXDOMAIN Names
 - Raw DNS Investigation
@@ -246,7 +256,7 @@ The deployed Splunk Dashboard Studio artifact contains:
 
 The exported implementation is preserved in [`../dashboard/scenario-02-dga-investigation-dashboard.json`](../dashboard/scenario-02-dga-investigation-dashboard.json).
 
-### Why the dashboard mattered
+### 💡 Why the dashboard mattered
 
 Every panel was tied to an analyst question:
 
@@ -261,17 +271,17 @@ Which exact DNS requests produced the pattern?
 
 The dashboard was considered complete when those questions could be answered reliably. It was not redesigned later simply to prove more work had occurred.
 
-### Lesson
+### 💡 Lesson
 
 **An investigation surface is complete when it answers the analyst's questions, not when it contains the maximum number of panels.**
 
 ---
 
-## 6. Hunt before detecting
+## 📌 6. Hunt before detecting
 
 Lubaba kept the hunting layer deliberately small.
 
-### Hunt 1 — one-minute/client behavior
+### 🔎 Hunt 1 — one-minute/client behavior
 
 The first hunt exposed the behavior without a threshold:
 
@@ -291,7 +301,7 @@ qname_samples
 
 ![DGA hunting behavior](../screenshots/detection-engineering/05-dga-hunting-behavior.png)
 
-### Hunt 2 — raw resolver pivot
+### 🔎 Hunt 2 — raw resolver pivot
 
 The second hunt returned the exact reply events behind a client/time window:
 
@@ -306,7 +316,7 @@ cache_flag
 response_size
 ```
 
-### Why both were needed
+### 💡 Why both were needed
 
 ```text
 behavior summary → explains the shape
@@ -317,7 +327,7 @@ The final hunts are preserved in [`../spl/hunting.spl`](../spl/hunting.spl).
 
 ---
 
-## 7. Form a simple behavioral hypothesis
+## 📌 7. Form a simple behavioral hypothesis
 
 The evidence pointed toward a combined pattern:
 
@@ -334,13 +344,13 @@ Qname length and query-type behavior remained useful investigation context, but 
 
 Entropy was not forced into v1.0 simply because it could be calculated.
 
-### Lesson
+### 💡 Lesson
 
 **The strongest v1 rule is often the smallest explainable combination that survives testing.**
 
 ---
 
-## 8. Choose a provisional boundary from the observed gap
+## 🔐 8. Choose a provisional boundary from the observed gap
 
 The clean baseline maximums were:
 
@@ -364,7 +374,7 @@ These values were still provisional. The rule had to survive a new positive run 
 
 ---
 
-## 9. Fresh positive validation — prove the rule sees new DGA behavior
+## 🚨 9. Fresh positive validation — prove the rule sees new DGA behavior
 
 Lubaba reused the existing controlled DGA generator on `dns-soc-victim01` instead of inventing a second generator.
 
@@ -391,13 +401,13 @@ max_qname_length   = 65
 
 ![Controlled positive detection](../screenshots/detection-engineering/06-controlled-positive-detection.png)
 
-### Result
+### 📌 Result
 
 **Positive validation: PASS — 6/6 fresh controlled DGA windows crossed the candidate rule.**
 
 ---
 
-## 10. Challenge the same rule with benign traffic
+## 🚨 10. Challenge the same rule with benign traffic
 
 The next question was not “can it detect DGA?” but:
 
@@ -405,15 +415,15 @@ The next question was not “can it detect DGA?” but:
 
 Lubaba kept the candidate rule unchanged while testing several benign patterns.
 
-### Ordinary DNS
+### 📌 Ordinary DNS
 
 Known resolvable names with normal pauses stayed below the full candidate boundary.
 
-### Limited benign NXDOMAIN
+### 📌 Limited benign NXDOMAIN
 
 A small number of failed lookups also stayed below the rule.
 
-### Repeated normal-name burst — an unexpected testing lesson
+### 💡 Repeated normal-name burst — an unexpected testing lesson
 
 A high-volume repeated-name attempt did not create as much resolver-visible telemetry as the generator activity suggested. Client/resolver caching reduced what reached the sensor.
 
@@ -421,7 +431,7 @@ A high-volume repeated-name attempt did not create as much resolver-visible tele
 
 The test itself therefore needed improvement before it could be used as strong evidence.
 
-### Unique legitimate-name burst
+### 📌 Unique legitimate-name burst
 
 A better benign challenge used many distinct legitimate names so resolver-visible activity was actually produced.
 
@@ -437,7 +447,7 @@ Even with high volume and high uniqueness, it stayed **below the full DGA rule**
 
 ![Benign no detection](../screenshots/detection-engineering/07-benign-no-detection.png)
 
-### Lesson
+### 💡 Lesson
 
 **Validate what the sensor observed, not merely what the traffic generator attempted.**
 
@@ -445,7 +455,7 @@ This testing also proved why the final rule combines multiple behavior dimension
 
 ---
 
-## 11. Freeze Detection v1.0
+## 🚨 11. Freeze Detection v1.0
 
 No validation result demonstrated a need to keep moving the candidate thresholds.
 
@@ -470,7 +480,7 @@ The canonical SPL is preserved in [`../spl/detection.spl`](../spl/detection.spl)
 
 ---
 
-## 12. Preserve a reusable validation view
+## 🧾 12. Preserve a reusable validation view
 
 Production `detection.spl` answers:
 
@@ -495,13 +505,13 @@ See [`../spl/validation.spl`](../spl/validation.spl).
 
 ---
 
-## 13. Compare the explainable rule with the existing ML model
+## 🚨 13. Compare the explainable rule with the existing ML model
 
 Scenario 02 already had Musfira's Isolation Forest v1 implementation in `dns_soc_ml`.
 
 Lubaba did **not** retrain or redesign it.
 
-### The first correlation problem
+### 🛡️ The first correlation problem
 
 The initial historical comparison found the rule rows but not the corresponding ML rows.
 
@@ -517,7 +527,7 @@ window_time
 
 The final comparison explicitly parsed that field and aligned both datasets by the one-minute behavior window.
 
-### Final comparison
+### 🎭 Final comparison
 
 ![Rule vs ML comparison](../screenshots/detection-engineering/09-rule-vs-ml-comparison.png)
 
@@ -531,7 +541,7 @@ ML   = ANOMALY
 
 The raw Isolation Forest `anomaly_score` was preserved without reinterpreting it. Negative values on those anomaly rows were expected from the existing model implementation.
 
-### Why ML remained supporting context
+### 🧠 Why ML remained supporting context
 
 The ML engineering phase had also produced:
 
@@ -542,19 +552,19 @@ The ML engineering phase had also produced:
 
 So rule/ML disagreement remains possible and useful. Agreement is stronger context, not an automatic compromise verdict.
 
-### Lesson
+### 💡 Lesson
 
 **Correlate derived analytics by the event/window time they describe, not blindly by index time.**
 
 ---
 
-## 14. Operationalize the rule as a scheduled alert
+## 🚨 14. Operationalize the rule as a scheduled alert
 
 A working search still was not an operational detection.
 
 Lubaba converted Detection v1.0 into a scheduled Splunk alert.
 
-### Final schedule
+### ⏱️ Final schedule
 
 ```text
 Name:         Scenario 02 - Possible DGA / High NXDOMAIN
@@ -567,13 +577,13 @@ Severity:     Medium
 Actions:      Triggered Alerts + Webhook
 ```
 
-### Why the time range is different from Scenario 01
+### 💡 Why the time range is different from Scenario 01
 
 Resolver ingestion validation measured p95 at roughly **9.2 seconds**.
 
 Searching the previous completed minute gives the data far more time than that to arrive while avoiding a larger overlapping lookback that could repeatedly inspect the same window.
 
-### Real trigger validation
+### 🧾 Real trigger validation
 
 A fresh 45-second DGA validation began at `2026-08-25T09:09:34Z`. The scheduled alert later evaluated the previous completed minute and produced a real result for approximately `09:09–09:10 UTC`:
 
@@ -590,13 +600,13 @@ nxdomain_ratio     = 0.8780
 
 The exact alert configuration and reasoning are preserved in [`../spl/scheduled-alert.md`](../spl/scheduled-alert.md).
 
-### Lesson
+### 💡 Lesson
 
 **A scheduled alert is part of the detection design. Cadence and lookback should be explained from measured ingestion behavior.**
 
 ---
 
-## 15. Preserve direct raw-event drilldown
+## 🛡️ 15. Preserve direct raw-event drilldown
 
 The alert row is a summary, not the original evidence.
 
@@ -617,13 +627,13 @@ cache_flag
 response_size
 ```
 
-### Lesson
+### 💡 Lesson
 
 **An alert should shorten investigation, not replace evidence.**
 
 ---
 
-## 16. Engineer one evidence contract for human and AI consumers
+## 🤖 16. Engineer one evidence contract for human and AI consumers
 
 The shared AI bridge already existed in the Infrastructure repository. Scenario 02 did not need a new Flask service, AI container, HEC index or public port.
 
@@ -667,7 +677,7 @@ The final detection limits the AI copy of qname samples to the first 20 values w
 
 ---
 
-## 17. Troubleshooting case study — HTTP 400 was a schema failure, not a network failure
+## 🏗️ 17. Troubleshooting case study — HTTP 400 was a schema failure, not a network failure
 
 The first scheduled AI test reached the shared bridge but received:
 
@@ -705,13 +715,13 @@ What did **not** change:
 - OpenAI integration;
 - HEC architecture.
 
-### Lesson
+### 💡 Lesson
 
 **Reachability proves transport, not schema compatibility. Isolate the failing boundary before redesigning a working system.**
 
 ---
 
-## 18. Scenario 02 AI mapping — `dga_nxdomain_v1`
+## 🤖 18. Scenario 02 AI mapping — `dga_nxdomain_v1`
 
 Once the alert fields were stable, Scenario 02 reused the shared AI foundation with this identity:
 
@@ -738,7 +748,7 @@ The scenario-specific mapping is preserved in [`../ai/scenario-02-ai-mapping.md`
 
 ---
 
-## 19. Validate the complete AI return path
+## 🤖 19. Validate the complete AI return path
 
 After the evidence contract was corrected, a final controlled DGA retest exercised the full path.
 
@@ -766,7 +776,7 @@ human_validation_required = true
 
 The AI also kept uncertainty around process identity, user intent, malware execution and successful C2 rather than converting unusual DNS behavior into a definitive compromise claim.
 
-### AI role
+### 🤖 AI role
 
 AI may:
 
@@ -787,7 +797,7 @@ AI may not:
 
 ---
 
-## 20. Final readiness check — compare AI with raw DNS
+## 🤖 20. Final readiness check — compare AI with raw DNS
 
 The final question was not:
 
@@ -823,7 +833,7 @@ nxdomain_ratio     = 0.9636
 
 The core values matched exactly.
 
-### Result
+### 📌 Result
 
 **Scenario 02 Detection Engineering technical readiness: PASS.**
 
@@ -831,7 +841,7 @@ The AI did not become the evidence source. Raw resolver telemetry remained autho
 
 ---
 
-## 21. Final engineering architecture
+## 🏗️ 21. Final engineering architecture
 
 ```mermaid
 flowchart TB
@@ -862,7 +872,7 @@ Detection, ML and AI are deliberately separate signals/layers. Human investigati
 
 ---
 
-## 22. Engineering reflection
+## 💡 22. Engineering reflection
 
 This assignment moved far beyond writing SPL.
 
@@ -896,9 +906,9 @@ That is the troubleshooting story worth preserving—not every failed command.
 
 ---
 
-## 23. Lessons worth carrying forward
+## 💡 23. Lessons worth carrying forward
 
-### Detection lessons
+### 🚨 Detection lessons
 
 - Use the reply side when query + reply telemetry would double-count transactions.
 - Measure normal behavior before inventing thresholds.
@@ -907,28 +917,28 @@ That is the troubleshooting story worth preserving—not every failed command.
 - Keep v1 detection logic small and explainable.
 - Freeze thresholds when testing supports them; do not chase perfect-looking outputs.
 
-### Validation lessons
+### 🧾 Validation lessons
 
 - Positive validation proves the rule can fire.
 - Benign validation proves the rule means more than “DNS happened.”
 - Check what the sensor actually received, especially when caching can alter test visibility.
 - Keep a validation search that shows both passing and below-threshold windows.
 
-### ML lessons
+### 🧠 ML lessons
 
 - ML is useful as a second opinion, not as an automatic verdict.
 - Do not force rule/ML agreement.
 - Correlate derived results by semantic behavior time.
 - Preserve raw anomaly-score semantics rather than relabeling them for appearance.
 
-### Operational lessons
+### 💡 Operational lessons
 
 - Alert cadence/lookback belongs to the observed ingestion path.
 - A saved search is not an operational detection until a real scheduled trigger is proven.
 - One alert row should be useful to both the human analyst and machine-to-machine integrations.
 - Raw-event drilldown must remain available.
 
-### AI lessons
+### 🤖 AI lessons
 
 - Transport success and schema success are separate checks.
 - Reuse the shared bridge instead of creating scenario-specific infrastructure without need.
@@ -937,7 +947,7 @@ That is the troubleshooting story worth preserving—not every failed command.
 
 ---
 
-## 24. Canonical artifacts
+## 📌 24. Canonical artifacts
 
 | Area | Final artifact |
 |---|---|
@@ -955,7 +965,7 @@ That is the troubleshooting story worth preserving—not every failed command.
 
 ---
 
-## 25. What this Detection Engineering phase does not claim
+## 🚨 25. What this Detection Engineering phase does not claim
 
 Detection Engineering and the later operational exercise are both complete, but their responsibilities remain separate.
 
@@ -983,7 +993,7 @@ The official SOC disposition is documented in [`../soc/SOC-ANALYST-INVESTIGATION
 
 ---
 
-## Operational closeout — what happened after Detection Engineering
+## 🚨 Operational closeout — what happened after Detection Engineering
 
 Detection Engineering ended before the official traffic was generated. The later exercise then tested the frozen work without live tuning:
 
@@ -1004,3 +1014,14 @@ Detection v1.0 frozen
 This operational result closes the engineering loop: Lubaba's explainable detection and investigation surface were not only validated with controlled engineering traffic; they were later used in the information-separated official scenario exactly as intended.
 
 No threshold change was required during the official run.
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../README.md) · [🚦 Detection Engineering](README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

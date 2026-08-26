@@ -1,8 +1,20 @@
-# DNSentinel Scenario 02 — Curated IR/Defender Evidence
+<a id="top"></a>
+
+> 🧭 [Scenario 02](../../README.md) › [Incident Response](../README.md) › **DNSentinel Scenario 02 — Curated IR/Defender Evidence**
+
+<div align="center">
+
+![Scenario](https://img.shields.io/badge/Scenario_02-COMPLETE-2EA44F?style=flat-square) ![Workspace](https://img.shields.io/badge/Workspace-Incident_Response-E5534B?style=flat-square) ![Document](https://img.shields.io/badge/Document-Evidence_Backed-D966FF?style=flat-square)
+
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🛡️ DNSentinel Scenario 02 — Curated IR/Defender Evidence
 
 This is the **recommended GitHub evidence set** for Scenario 02 Incident Response. The screenshots were renamed consistently and trimmed only to remove empty black margins; no event values, commands, or results were altered.
 
-## Recommended usage
+## 📌 Recommended usage
 
 - Put the images under a scenario path such as `incident-response/evidence/`.
 - Keep **E01–E09** for independent validation and scope.
@@ -10,7 +22,7 @@ This is the **recommended GitHub evidence set** for Scenario 02 Incident Respons
 - Keep **E20–E21** for reset/recovery proof.
 - Keep troubleshooting screenshots out of the main README unless you want a dedicated lessons-learned section. They remain available in the complete raw screenshot archive.
 
-## Evidence table
+## 🧾 Evidence table
 
 | ID | File | Category | What it proves |
 |---|---|---|---|
@@ -36,10 +48,21 @@ This is the **recommended GitHub evidence set** for Scenario 02 Incident Respons
 | E20 | `S02-IR-E20-RPZ-Safe-State-Restored.png` | Reset | Shows original safe/non-enforcing RPZ state restored, config valid, Unbound active. |
 | E21 | `S02-IR-E21-PostReset-DNS-Validation.png` | Reset | After reset the test qname is NXDOMAIN again and unrelated AWS DNS resolves normally. |
 
-## Core containment chain
+## 🛡️ Core containment chain
 
 `E10 NXDOMAIN before` → `E11/E12/E13 controlled RPZ change` → `E14 10.50.30.30 redirect` → `E15/E16/E17 sinkhole healthy/reachable` → `E18 normal DNS unaffected` → `E19 Splunk behavior changed` → `E20/E21 safe reset and recovery`.
 
-## Attribution boundary
+## 🔐 Attribution boundary
 
 These screenshots prove abnormal and recurrent resolver-visible DNS behavior and a successful defensive control. They **do not prove malware identity, endpoint compromise, process identity, user identity, malicious intent, or authorization status**.
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../../README.md) · [🛡️ Incident Response](../README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

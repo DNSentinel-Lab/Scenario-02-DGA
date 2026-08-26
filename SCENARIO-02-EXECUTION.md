@@ -1,12 +1,22 @@
 <a id="top"></a>
 
-> 🧭 [Scenario 02](README.md) › **End-to-End Execution**
+<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=6,12,19,24,30&height=155&section=header&text=%F0%9F%8E%AC%20End-to-End%20Execution%20Record&fontSize=30&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Scenario%2002%20%7C%20Official%20Run%20%E2%86%92%20Detection%20%E2%86%92%20SOC%20%E2%86%92%20IR%20%E2%86%92%20Containment%20%E2%86%92%20Reset&descSize=14&descAlignY=68&descColor=D966FF" width="100%" alt="🎬 End-to-End Execution Record" />
 
-# Scenario 02 — End-to-End Execution
+<div align="center">
+
+![Scenario](https://img.shields.io/badge/Scenario_02-COMPLETE-2EA44F?style=flat-square) ![MITRE](https://img.shields.io/badge/MITRE-T1568.002-E34F26?style=flat-square) ![Closeout](https://img.shields.io/badge/Closeout-Evidence_Backed-A855F7?style=flat-square)
+
+[🏠 Scenario Home](README.md) · [🔎 SOC](soc/README.md) · [🛡️ IR](ir/README.md) · [🧾 Evidence](evidence/README.md)
+
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🎬 Scenario 02 — End-to-End Execution
 
 This is the short operational record of the completed **DGA + High NXDOMAIN** exercise. It connects the engineering work, official operator activity, defender telemetry, SOC investigation, Incident Response, sinkhole containment, safe reset, and final reveal without reproducing every command or screenshot.
 
-## 1. Ready before execution
+## 🎬 1. Ready before execution
 
 Before the official run, the environment was already engineered and validated:
 
@@ -20,7 +30,7 @@ Before the official run, the environment was already engineered and validated:
 
 Musfira completed the final pre-flight without changing the detection, ML model, or RPZ policy.
 
-## 2. Official operator run
+## 🎬 2. Official operator run
 
 The operator executed the existing generator once, unchanged, from `dns-soc-victim01`.
 
@@ -37,7 +47,7 @@ The operator executed the existing generator once, unchanged, from `dns-soc-vict
 
 The operator stopped there. Splunk, ML, AI, and defender alerts were not inspected to decide whether the run should be repeated or accelerated.
 
-## 3. Defender-visible result
+## 📌 3. Defender-visible result
 
 Detection v1.0 independently matched five consecutive one-minute windows from `06:37` through `06:41 UTC`.
 
@@ -53,7 +63,7 @@ Across the exact five-minute window, Sonia measured **418 replies, 409 unique qn
 
 ![Five detection windows](soc/evidence/S02-SOC-E02_Detection-Windows.png)
 
-## 4. SOC investigation
+## 🔎 4. SOC investigation
 
 Sonia worked from defender telemetry only. The investigation progressed from alert → raw replies → qname structure → baseline → recurrence → scope → ML → AI → 5W1H.
 
@@ -74,7 +84,7 @@ Sonia locked:
 
 and handed the evidence to IR rather than converting strong DNS evidence into unsupported malware attribution.
 
-## 5. IR independent validation
+## 🛡️ 5. IR independent validation
 
 Abdul-Rehman independently reproduced the SOC findings from raw resolver telemetry:
 
@@ -91,7 +101,7 @@ IR also confirmed historical recurrence and found no endpoint/process telemetry 
 
 The response decision therefore targeted the **observed namespace**, not the whole endpoint.
 
-## 6. Human-approved containment
+## 🛡️ 6. Human-approved containment
 
 IR selected one observed qname as the before/after control:
 
@@ -99,13 +109,13 @@ IR selected one observed qname as the before/after control:
 ywvuacnec7gmul193uc.dga-test.soclab.abdul4rehman215.tech
 ```
 
-### Before
+### 📌 Before
 
 ![Pre-containment NXDOMAIN](ir/evidence/S02-IR-E10-PreContainment-NXDOMAIN.png)
 
 The qname returned `NXDOMAIN` through `10.50.30.10`.
 
-### After approved RPZ enforcement
+### 🛡️ After approved RPZ enforcement
 
 ![Post-containment redirect](ir/evidence/S02-IR-E14-PostContainment-RPZ-Redirect.png)
 
@@ -113,13 +123,13 @@ The same qname returned `NOERROR` with `A 10.50.30.30`.
 
 The sinkhole served HTTP `200`, unrelated AWS DNS continued to resolve, and Splunk preserved the before/after response-code change.
 
-## 7. Safe reset
+## 🛡️ 7. Safe reset
 
 After evidence was captured, RPZ was returned to its documented safe/non-enforcing state. The selected qname returned to `NXDOMAIN` and normal DNS remained healthy.
 
 The response was therefore not merely applied; it was **verified and reversed cleanly**.
 
-## 8. Final reveal
+## 🎭 8. Final reveal
 
 Only after SOC and IR decisions were locked was operator ground truth compared with defender evidence.
 
@@ -133,7 +143,7 @@ The timelines aligned:
 
 The defender stack observed the fresh authorized DGA execution without receiving operator timing or intended outcome during the decision process.
 
-## Final outcome
+## ✅ Final outcome
 
 > **Scenario 02 completed successfully as an information-separated DGA/high-NXDOMAIN defense exercise.** Detection v1.0 surfaced the fresh behavior without live tuning; SOC independently confirmed a recurrent DNS anomaly while preserving attribution limits; IR independently reproduced the evidence and validated a narrowly scoped RPZ sinkhole response; the resolver was then restored safely.
 
@@ -149,3 +159,14 @@ For the deeper role stories, continue to:
 ---
 
 [⬆ Back to top](#top)
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

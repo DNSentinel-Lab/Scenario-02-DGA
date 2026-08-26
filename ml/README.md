@@ -22,7 +22,7 @@ Scenario 02 now has a working anomaly-detection layer built from real defender D
 > [!IMPORTANT]
 > ML is **not** the final Scenario 02 detection and it is **not** an automatic incident verdict. The completed Detection Engineering phase now compares explainable SPL behavior with this independent ML signal; the official human analyst still makes the security decision.
 
-## What was built
+## 🎯 What was built
 
 ```text
 dns-soc-victim01
@@ -53,7 +53,7 @@ Splunk / index=dns_soc_ml
 
 The ML component runs as `dns-soc-ml` on the existing Splunk EC2/Docker platform. No new EC2, public ML API or host-published ML port was required.
 
-## Result at a glance
+## 🎯 Result at a glance
 
 | Item | Observed implementation |
 |---|---|
@@ -73,7 +73,7 @@ The ML component runs as `dns-soc-ml` on the existing Splunk EC2/Docker platform
 
 This small controlled result proves the end-to-end engineering path. It does **not** claim production accuracy or that every anomaly is malicious.
 
-## Actual v1 feature set
+## 🧠 Actual v1 feature set
 
 The implemented model uses nine directly explainable DNS behavior features:
 
@@ -93,7 +93,7 @@ aaaa_count
 
 Earlier planning considered entropy, digit-ratio and interarrival features. Those were **not** part of the final v1 model and are not presented as implemented.
 
-## Training design
+## 🧠 Training design
 
 The model was trained only on controlled benign DNS periods.
 
@@ -119,7 +119,7 @@ The implementation then generated a separate controlled DGA period:
 
 Those six DGA windows were used for evaluation, not for teaching the model what normal looks like.
 
-## Actual model parameters
+## 🧠 Actual model parameters
 
 ```python
 IsolationForest(
@@ -131,7 +131,7 @@ IsolationForest(
 
 The stored artifact contains the fitted model, the fixed feature order and the train/holdout row counts.
 
-## Security boundary
+## 🔐 Security boundary
 
 Read and write access are intentionally separate:
 
@@ -156,7 +156,7 @@ SPLUNK_ML_HEC_TOKEN
 
 The current v1 scripts use HTTPS with `verify=False` only on the private `dns-soc-internal` path because the lab Splunk service presents a self-signed internal certificate. This is preserved as an implementation fact and a hardening item; production-style deployment should trust the Splunk certificate/CA and restore certificate verification.
 
-## Repository map
+## 🗂️ Repository map
 
 | Area | Purpose |
 |---|---|
@@ -170,7 +170,7 @@ The current v1 scripts use HTTPS with `verify=False` only on the private `dns-so
 | [`../evidence/ml-engineering-validation.md`](../evidence/ml-engineering-validation.md) | Compact acceptance/evaluation record |
 | [`../screenshots/ml/`](../screenshots/ml/) | Curated success, setup and troubleshooting evidence |
 
-## Why the ML SPL is kept here
+## 🧠 Why the ML SPL is kept here
 
 The searches under `ml/spl/` support the ML engineering workflow: data inventory, feature construction, DGA evaluation and ML-result validation.
 
@@ -185,7 +185,7 @@ validation.spl
 
 Keeping those areas separate prevents ML feature-building SPL from being mistaken for the final security detection.
 
-## What this model means to the SOC
+## 🧠 What this model means to the SOC
 
 The model answers one narrow question:
 
@@ -208,13 +208,13 @@ ML prediction / score
 human SOC judgement
 ```
 
-## Score interpretation
+## 🧠 Score interpretation
 
 The field named `anomaly_score` currently preserves scikit-learn's `decision_function()` output from the implemented code.
 
 For the controlled DGA windows, anomalous values were negative. Therefore the current field must **not** be documented as “higher = more suspicious.” The completed Detection Engineering/dashboard work preserved the raw score semantics instead of silently normalizing it.
 
-## What the small evaluation showed
+## 📌 What the small evaluation showed
 
 Held-out benign data was not perfect:
 
@@ -234,7 +234,7 @@ Controlled DGA data showed clear separation in this lab run:
 
 That is exactly why the model remains a second opinion. Anomaly means **unusual**, not automatically malicious.
 
-## What this ML phase did not complete by itself
+## 🧠 What this ML phase did not complete by itself
 
 ML Engineering stopped at the anomaly-signal boundary. It did not own the explainable detection, the SOC disposition, the response decision, or containment. Those later phases are now complete and are documented in their dedicated workspaces.
 
@@ -252,15 +252,25 @@ This closes the operational loop without changing the original ML responsibility
 
 </div>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,19,24,30&height=75&section=footer" width="100%" alt="footer" />
-
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,19,24,30&height=75&
 
 ---
 
-## Live scoring closeout
+## ✅ Live scoring closeout
 
 Before the official exercise, the existing Isolation Forest model was operationalized for fresh DNS windows without retraining it. The final runtime uses a root-only token file, a previous-completed-minute scorer, HEC write-back to `dns_soc_ml`, and a systemd timer at `:45` seconds after each minute.
 
 The implementation and safe placeholder configuration are preserved in [`operations/`](operations/).
 
 During the official latest cluster, all five corresponding ML windows were available to Sonia as `ANOMALY` second-opinion evidence. The model did not determine Sonia's disposition or Abdul-Rehman's response decision.
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

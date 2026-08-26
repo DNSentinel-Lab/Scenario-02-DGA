@@ -1,13 +1,16 @@
 <a id="top"></a>
 
-> 🧭 [Scenario 02](../README.md) › [Attacker](README.md) › **Project Lead / Adversary — Scenario 02 DGA + High NXDOMAIN**
+> 🧭 [Scenario 02](../README.md) › [Adversary / Operator](README.md) › **Project Lead / Adversary — Scenario 02 DGA + High NXDOMAIN**
 
-![Scenario](https://img.shields.io/badge/Scenario_02-Execution_Complete-2EA44F?style=flat-square)
-![DNSentinel](https://img.shields.io/badge/DNSentinel-Technical_Record-D966FF?style=flat-square)
+<div align="center">
 
----
+![Scenario](https://img.shields.io/badge/Scenario_02-COMPLETE-2EA44F?style=flat-square) ![Workspace](https://img.shields.io/badge/Workspace-Adversary_Operator-A855F7?style=flat-square) ![Document](https://img.shields.io/badge/Document-Evidence_Backed-D966FF?style=flat-square)
 
-# Project Lead / Adversary — Scenario 02 DGA + High NXDOMAIN
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🧬 Project Lead / Adversary — Scenario 02 DGA + High NXDOMAIN
 
 **Role owner:** [Musfira](https://github.com/MUSFIRA-ZAFAR)  
 **Scenario:** DGA + High NXDOMAIN  
@@ -18,7 +21,7 @@ This document records the Project Lead / Adversary Operator side of Scenario 02:
 
 The official run used **real DNS traffic through the lab's normal resolver path** and remained scoped to controlled DGA/high-NXDOMAIN behavior.
 
-## 1. Role objective
+## 🎯 1. Role objective
 
 The adversary/operator role had two responsibilities:
 
@@ -37,7 +40,7 @@ flowchart LR
 
 Unlike Scenario 01, there was no requirement for an external Kali attacker. Scenario 02 represents **DGA-style dynamic DNS behavior on an internal endpoint** rather than initial-access activity.
 
-## 2. Information separation
+## 🎭 2. Information separation
 
 Before execution, the Project Lead kept private:
 
@@ -56,13 +59,13 @@ The SOC Analyst and Incident Responder were not given these facts in advance.
 
 The operator also did **not** use Splunk, the DGA dashboard, `dns_soc_ml`, scheduled-alert history or `dga_nxdomain_v1` AI output to decide whether to extend, repeat or modify the run.
 
-## 3. Pre-flight — freeze the environment before traffic
+## 🛡️ 3. Pre-flight — freeze the environment before traffic
 
 Before the official run, Musfira verified the victim was healthy, UTC/time was ready, the host still used `dns-soc-resolver01` through its normal system DNS path, the pre-deployed generator was present, RPZ remained safe/non-enforcing, and private ground-truth capture was ready.
 
 The pre-flight deliberately changed none of the production logic: Detection v1.0, ML, AI, and RPZ policy stayed frozen.
 
-## 3. Controlled generator
+## 📌 3. Controlled generator
 
 The official generator was the pre-deployed Python file:
 
@@ -86,7 +89,7 @@ The script intentionally suppresses normal `resolvectl` output. It prints only i
 
 This matters for evidence interpretation: the attacker-side terminal proves **what generator ran and when**, while exact DNS event counts and individual generated labels are defender/resolver-side evidence and were not inspected during the information-separated operator phase.
 
-## 4. Official execution
+## 🎬 4. Official execution
 
 The official execution occurred on `dns-soc-victim01`.
 
@@ -107,7 +110,7 @@ The fresh run was allowed to finish naturally. It was **not** restarted, acceler
 
 ![Official DGA generator completion](../screenshots/attacker/02-official-dga-generator-complete.png)
 
-### Official run identity
+### 🪪 Official run identity
 
 ```text
 host: dns-soc-victim01
@@ -122,7 +125,7 @@ exit code: 0
 
 The generator therefore ran for approximately five minutes and exited cleanly.
 
-## 5. Why the run was not tuned to the detection
+## 🚨 5. Why the run was not tuned to the detection
 
 Detection v1.0 already existed and was frozen before the official exercise.
 
@@ -140,7 +143,7 @@ Generate the pre-designed DGA-style behavior naturally through the victim's norm
 
 This preserves the point of an information-separated exercise. If the frozen detection catches the run, that is evidence of coverage. If it misses, that is a legitimate detection-gap result. The operator does not repair the outcome during live execution.
 
-## 6. Scope boundary
+## 🔎 6. Scope boundary
 
 Allowed:
 
@@ -163,7 +166,7 @@ Not part of this adversary phase:
 - denial of service;
 - unrelated Internet targets.
 
-## 7. Ground-truth discipline
+## 📌 7. Ground-truth discipline
 
 The clean official run is separate from earlier command-path troubleshooting.
 
@@ -177,7 +180,7 @@ The official ground-truth window begins only when the correct script actually st
 2026-08-26T06:42:11.129575Z
 ```
 
-## 8. Evidence limitations
+## 🧾 8. Evidence limitations
 
 The attacker-side record intentionally does **not** claim:
 
@@ -193,7 +196,7 @@ Those facts belong to defender evidence and should be added only during the fina
 
 Because the generator suppresses per-query output, individual generated labels were also not captured attacker-side. The controlled suffix and label-generation logic are documented from the pre-deployed source code; exact names should be taken from preserved resolver evidence only after information separation is no longer required.
 
-## 9. Adversary lessons
+## 💡 9. Adversary lessons
 
 - Scenario realism came from **fresh traffic + strict information separation**, not from hiding how the lab is engineered.
 - DGA behavior can originate from an internal endpoint even when there is no external attacker machine participating in the DNS path.
@@ -202,7 +205,7 @@ Because the generator suppresses per-query output, individual generated labels w
 - Engineering validation traffic and the official exercise run must remain clearly separated.
 - A defender-side sinkhole is a response mechanism; it is not part of the attack itself.
 
-## 10. Related files
+## 🗂️ 10. Related files
 
 - [`SCENARIO-02-ADVERSARY-PLAYBOOK.md`](SCENARIO-02-ADVERSARY-PLAYBOOK.md) — controlled DGA execution sequence and scope boundary
 - [`ground-truth-template.md`](ground-truth-template.md) — completed private operator record
@@ -211,12 +214,14 @@ Because the generator suppresses per-query output, individual generated labels w
 - [`scripts/official-dga-run-wrapper.sh`](scripts/official-dga-run-wrapper.sh) — wrapper used to preserve host/hash/timing/exit evidence
 - [`../exercise/final-comparison.md`](../exercise/final-comparison.md) — defender results added only after the reveal gate
 
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
 
-[🏠 Scenario Home](../README.md) · [📁 Attacker](README.md) · [⬆ Back to top](#top)
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
 
-<sub>DNSentinel Lab · Evidence-first DNS security engineering</sub>
+[🏠 Scenario Home](../README.md) · [🧬 Adversary / Operator](README.md) · [⬆ Back to top](#top)
 
 </div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

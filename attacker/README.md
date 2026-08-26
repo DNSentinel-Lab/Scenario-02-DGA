@@ -34,13 +34,13 @@ normal upstream resolution
 
 The purpose of the adversary role was to generate one fresh, believable DGA-style / high-NXDOMAIN pattern using the already-deployed Python generator while keeping execution timing and ground truth private from the SOC and IR roles until the reveal gate.
 
-## Start here
+## 🗂️ Start here
 
 - [`PROJECT-LEAD-ADVERSARY.md`](PROJECT-LEAD-ADVERSARY.md) — end-to-end adversary/operator story, execution logic and lessons.
 - [`SCENARIO-02-ADVERSARY-PLAYBOOK.md`](SCENARIO-02-ADVERSARY-PLAYBOOK.md) — reproducible controlled DGA execution sequence and scope boundary.
 - [`ground-truth-template.md`](ground-truth-template.md) — completed private execution record for the official run.
 
-## Exercise boundary
+## 🔐 Exercise boundary
 
 The operator used only project-owned AWS infrastructure and the pre-deployed generator on `dns-soc-victim01`.
 
@@ -66,9 +66,19 @@ No malware, credential attack, persistence, denial of service, unrelated Interne
 
 </div>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="footer" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&
 
-
-## Final reveal complete
+## 🎭 Final reveal complete
 
 SOC and IR decisions are now locked and the response/reset evidence has been preserved. The operator ground truth can therefore be compared safely with defender observations in [`../exercise/final-comparison.md`](../exercise/final-comparison.md).
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

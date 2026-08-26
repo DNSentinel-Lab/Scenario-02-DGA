@@ -13,7 +13,7 @@
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
-# Scenario 02 — DGA + High NXDOMAIN Investigation
+# 🔎 Scenario 02 — DGA + High NXDOMAIN Investigation
 
 **Status:** ✅ Complete and validated  
 **Platform:** Splunk Enterprise 10.4.2 / Dashboard Studio  
@@ -23,7 +23,7 @@ The dashboard was engineered as an **investigation surface**, not decoration. It
 
 ![Final Scenario 02 dashboard](../screenshots/detection-engineering/04-dga-investigation-dashboard.png)
 
-## Final implementation
+## 🗂️ Final implementation
 
 ```text
 5 global inputs
@@ -33,7 +33,7 @@ The dashboard was engineered as an **investigation surface**, not decoration. It
 
 The exported JSON is the actual validated Dashboard Studio definition. It is preserved here rather than recreated from screenshots.
 
-## Global controls
+## 🗂️ Global controls
 
 - Global Time Range
 - Client IP
@@ -43,7 +43,7 @@ The exported JSON is the actual validated Dashboard Studio definition. It is pre
 
 Raw-DNS filters are applied to raw resolver searches. Response-code/query-type/qname filters are not blindly forced onto the already-aggregated ML result dataset.
 
-## SOC summary row
+## 🔎 SOC summary row
 
 | KPI | Analyst question |
 |---|---|
@@ -54,14 +54,14 @@ Raw-DNS filters are applied to raw resolver searches. Response-code/query-type/q
 | Active Clients | Which clients generated the visible activity? |
 | ML Anomalous Windows | Does the independent Isolation Forest also consider any window unusual? |
 
-## Behavior over time
+## 📊 Behavior over time
 
 - **DNS Volume + NXDOMAIN Over Time** — is there a concentrated burst and did failure rise with it?
 - **Unique Qnames + NXDOMAIN Ratio Over Time** — did name breadth and failed resolution rise together?
 - **Average + Maximum Qname Length Over Time** — are requested names structurally longer than the clean baseline?
 - **Query-Type Distribution** — what DNS record types were involved?
 
-## Investigation views
+## 🔎 Investigation views
 
 - **Top NXDOMAIN Names** — which failed names dominate the selected context?
 - **Raw DNS Investigation** — exact resolver replies with client, qname, qtype, rcode and response time.
@@ -70,7 +70,7 @@ Raw-DNS filters are applied to raw resolver searches. Response-code/query-type/q
 > [!NOTE]
 > The dashboard was already complete before the final rule/alert/AI integration work. Later engineering did not justify redesigning a working analyst surface simply to add more panels. Rule ↔ ML validation is preserved separately in the SPL/evidence workspace.
 
-## Evidence path
+## 🧾 Evidence path
 
 ```text
 Dashboard summary
@@ -95,6 +95,17 @@ The dashboard supports investigation; it does not make the final SOC disposition
 </div>
 
 
-## Official exercise closeout
+## ✅ Official exercise closeout
 
 The same analyst surface was later used during Sonia's completed Scenario 02 investigation. It supported the exact 06:37–06:41 UTC window after Detection v1.0 surfaced five consecutive matches. The final SOC narrative and exact-window dashboard evidence are preserved in [`../soc/SOC-ANALYST-INVESTIGATION.md`](../soc/SOC-ANALYST-INVESTIGATION.md).
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />

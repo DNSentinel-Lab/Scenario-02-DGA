@@ -1,12 +1,22 @@
 <a id="top"></a>
 
-> 🧭 [Scenario 02](../../README.md) › [ML](../README.md) › **Live Scoring Operations**
+<img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=6,12,19,24,30&height=140&section=header&text=%F0%9F%A7%A0%20ML%20Live%20Scoring%20Operations&fontSize=26&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Scenario%2002%20%E2%80%94%20Previous-Minute%20Scoring%20%E2%86%92%20Isolation%20Forest%20%E2%86%92%20HEC&descSize=14&descAlignY=68&descColor=2EA44F" width="100%" alt="🧠 ML Live Scoring Operations" />
 
-# ML Live Scoring Operations
+<div align="center">
+
+![Scenario](https://img.shields.io/badge/Scenario_02-ML_Engineering-2EA44F?style=flat-square) ![Workspace](https://img.shields.io/badge/Workspace-ML-A855F7?style=flat-square)
+
+[🏠 Scenario Home](../../README.md) · [🧠 ML Workspace](../README.md) · [📖 ML Engineering](../ML-ENGINEERING.md)
+
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+# 🧠 ML Live Scoring Operations
 
 The original validated `score_and_hec.py` was a historical/on-demand scorer with a fixed engineering time range. Before the official Scenario 02 run, the model itself was left unchanged and a small operational wrapper was added so fresh DNS windows could be scored automatically.
 
-## Final operational path
+## 📌 Final operational path
 
 ```text
 previous completed DNS minute
@@ -19,18 +29,18 @@ previous completed DNS minute
 
 The timer runs at `:45` seconds after each minute to allow normal resolver → Splunk ingestion time before scoring the previous complete minute.
 
-## Files
+## 🗂️ Files
 
 - [`dns-soc-ml-live-score`](dns-soc-ml-live-score) — live previous-minute scorer wrapper
 - [`dns-soc-ml-live-score.service`](dns-soc-ml-live-score.service) — oneshot systemd unit
 - [`dns-soc-ml-live-score.timer`](dns-soc-ml-live-score.timer) — per-minute timer
 - [`ml.env.example`](ml.env.example) — placeholder-only environment-file format
 
-## Security boundary
+## 🔐 Security boundary
 
 Real tokens were stored root-only on the host and are **not** committed here. The repository preserves only environment-variable names and placeholder values.
 
-## Problems isolated during operationalization
+## 📌 Problems isolated during operationalization
 
 The closeout/pre-flight work found and fixed four implementation boundaries without retraining the model:
 
@@ -41,7 +51,7 @@ The closeout/pre-flight work found and fixed four implementation boundaries with
 
 The final benign validation produced fresh current-time `dns_soc_ml` records and `HEC_HTTP=200`.
 
-## Important model lesson
+## 🧠 Important model lesson
 
 The benign validation windows were still marked `ANOMALY` by the Isolation Forest. That is not a transport failure; it reinforces the intended architecture:
 
@@ -54,10 +64,21 @@ Human          = final judgement / response authority
 
 No model tuning was performed to make the official exercise look cleaner.
 
-## Operational note
+## 💡 Operational note
 
 The wrapper marks a completed minute after the scorer exits successfully. The timer delay was chosen to reduce the chance of scoring a minute before its resolver events are indexed.
 
 ---
 
 [📘 ML Engineering](../ML-ENGINEERING.md) · [🏠 Scenario Home](../../README.md) · [⬆ Back to top](#top)
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+<div align="center">
+
+**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+
+[🏠 Scenario Home](../../README.md) · [⬆ Back to top](#top)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&section=footer" width="100%" alt="DNSentinel Scenario 02 footer" />
