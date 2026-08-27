@@ -14,7 +14,7 @@
 
 # 🧠 ML Live Scoring Operations
 
-The original validated `score_and_hec.py` was a historical/on-demand scorer with a fixed engineering time range. Before the official Scenario 02 run, the model itself was left unchanged and a small operational wrapper was added so fresh DNS windows could be scored automatically.
+The original validated [`score_and_hec.py`](../model/score_and_hec.py) was a historical/on-demand scorer with a fixed engineering time range. Before the official Scenario 02 run, the model itself was left unchanged and a small operational wrapper was added so fresh DNS windows could be scored automatically.
 
 ## 📌 Final operational path
 

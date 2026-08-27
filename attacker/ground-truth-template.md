@@ -146,7 +146,7 @@ Before the successful official run, two wrapper attempts used incorrect/nonexist
 
 Those attempts:
 
-- did not execute `dga_dns.py`;
+- did not execute [`dga_dns.py`](../ml/generators/dga_dns.py);
 - did not constitute the official DGA run;
 - are troubleshooting-only artifacts;
 - are excluded from the official activity window and final evidence set.

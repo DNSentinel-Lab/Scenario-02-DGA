@@ -61,7 +61,7 @@ A controlled 45-second DGA validation ran on 2026-08-25 from 09:09:34Z to 09:10:
 
 The result preserved Detection v1.0 metadata and a raw-event path back to `index=dns_soc_dns`.
 
-The initial AI webhook test received HTTP 400 because the scheduled result did not yet carry the common alert/evidence contract. The final `detection.spl` was updated only at the result-contract layer; the frozen threshold logic did not change.
+The initial AI webhook test received HTTP 400 because the scheduled result did not yet carry the common alert/evidence contract. The final [`detection.spl`](detection.spl) was updated only at the result-contract layer; the frozen threshold logic did not change.
 
 The corrected AI retest succeeded end-to-end and indexed structured output into `index=dns_soc_ai`, `sourcetype=dns_soc:ai:triage`.
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />

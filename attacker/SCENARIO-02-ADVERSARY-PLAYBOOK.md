@@ -175,7 +175,7 @@ generator end: 2026-08-26T06:42:11.129575+00:00
 exit code: 0
 ```
 
-The two earlier incorrect-path attempts did not execute `dga_dns.py` and are excluded from the official activity window.
+The two earlier incorrect-path attempts did not execute [`dga_dns.py`](../ml/generators/dga_dns.py) and are excluded from the official activity window.
 
 ## 🎭 8. Ground truth to preserve privately
 

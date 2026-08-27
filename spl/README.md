@@ -61,17 +61,17 @@ The read-only resolver field/timing/contamination/baseline work is preserved as 
 
 | Search | Engineering question |
 |---|---|
-| `historical-candidate-validation.spl` | Would the candidate separate the known historical DGA run from benign history? |
-| `fresh-positive-validation.spl` | Does a new controlled DGA run cross the same candidate? |
-| `benign-ordinary-dns-validation.spl` | Does ordinary DNS stay below? |
-| `benign-limited-nxdomain-validation.spl` | Does a small benign NXDOMAIN pattern stay below? |
-| `benign-cache-limited-burst-validation.spl` | What did the resolver actually observe during a repeated-name burst? |
-| `benign-unique-normal-burst-validation.spl` | Does high-volume/high-unique legitimate DNS still stay below without high NXDOMAIN? |
-| `rule-vs-ml-comparison.spl` | How does frozen rule output compare with the existing Isolation Forest on the same historical DGA windows? |
-| `scheduled-alert-raw-drilldown.spl` | Can the analyst recover the raw resolver events behind a triggered minute? |
-| `ai-evidence-contract-test.spl` | Does one detection row satisfy the shared webhook evidence contract? |
-| `ai-index-validation.spl` | Did structured AI triage return to `dns_soc_ai`? |
-| `ai-vs-raw-final-validation.spl` | Do the AI's core DNS numbers match raw resolver telemetry? |
+| [`historical-candidate-validation.spl`](engineering-validation/historical-candidate-validation.spl) | Would the candidate separate the known historical DGA run from benign history? |
+| [`fresh-positive-validation.spl`](engineering-validation/fresh-positive-validation.spl) | Does a new controlled DGA run cross the same candidate? |
+| [`benign-ordinary-dns-validation.spl`](engineering-validation/benign-ordinary-dns-validation.spl) | Does ordinary DNS stay below? |
+| [`benign-limited-nxdomain-validation.spl`](engineering-validation/benign-limited-nxdomain-validation.spl) | Does a small benign NXDOMAIN pattern stay below? |
+| [`benign-cache-limited-burst-validation.spl`](engineering-validation/benign-cache-limited-burst-validation.spl) | What did the resolver actually observe during a repeated-name burst? |
+| [`benign-unique-normal-burst-validation.spl`](engineering-validation/benign-unique-normal-burst-validation.spl) | Does high-volume/high-unique legitimate DNS still stay below without high NXDOMAIN? |
+| [`rule-vs-ml-comparison.spl`](engineering-validation/rule-vs-ml-comparison.spl) | How does frozen rule output compare with the existing Isolation Forest on the same historical DGA windows? |
+| [`scheduled-alert-raw-drilldown.spl`](engineering-validation/scheduled-alert-raw-drilldown.spl) | Can the analyst recover the raw resolver events behind a triggered minute? |
+| [`ai-evidence-contract-test.spl`](engineering-validation/ai-evidence-contract-test.spl) | Does one detection row satisfy the shared webhook evidence contract? |
+| [`ai-index-validation.spl`](engineering-validation/ai-index-validation.spl) | Did structured AI triage return to `dns_soc_ai`? |
+| [`ai-vs-raw-final-validation.spl`](engineering-validation/ai-vs-raw-final-validation.spl) | Do the AI's core DNS numbers match raw resolver telemetry? |
 
 ## 🧠 Separation from ML SPL
 
@@ -83,7 +83,7 @@ Root `spl/` belongs to Lubaba's explainable rule-based Detection Engineering lif
 
 - `NXDOMAIN` is central to this scenario but **not sufficient by itself**.
 - `unique_qname_ratio` and qname length remain useful investigation context even though they are not mandatory v1.0 conditions.
-- ML is supporting context, not a dependency of `detection.spl`.
+- ML is supporting context, not a dependency of [`detection.spl`](detection.spl).
 - No SPL here enables RPZ, sinkholes a domain or authorizes Incident Response.
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
