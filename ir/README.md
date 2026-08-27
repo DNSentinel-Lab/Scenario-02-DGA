@@ -43,59 +43,79 @@ This folder preserves the completed Incident Response phase that began from Soni
 ## 🧭 Response Lifecycle
 
 ```mermaid
-flowchart TB
+flowchart LR
 
-    %% ==========================================
-    %% 1 — VALIDATE & DECIDE
-    %% ==========================================
-    subgraph VALIDATE["🔎 1 · Validate & Decide"]
-        direction LR
+    %% =====================================================
+    %% COLUMN 1 — VALIDATE & DECIDE
+    %% =====================================================
+    subgraph VALIDATE[" "]
+        direction TB
+
+        VH["🔎 1 · Validate & Decide"]
 
         A["📨 SOC<br/>Handoff"]
         B["🔎 Independent<br/>Validation"]
         C["🧭 Classification"]
         D["👤 Human<br/>Approval"]
 
-        A --> B --> C --> D
+        VH --> A --> B --> C --> D
     end
 
 
-    %% ==========================================
-    %% 2 — CONTAIN
-    %% ==========================================
-    subgraph CONTAIN["🛡️ 2 · Preserve & Contain"]
-        direction LR
+    %% =====================================================
+    %% COLUMN 2 — PRESERVE & CONTAIN
+    %% =====================================================
+    subgraph CONTAIN[" "]
+        direction TB
+
+        CH["🛡️ 2 · Preserve & Contain"]
 
         E["📸 Preserve<br/>Before-State"]
         F["🛡️ RPZ<br/>Enforcement"]
         G["🎯 Sinkhole<br/>Redirect"]
 
-        E --> F --> G
+        CH --> E --> F --> G
     end
 
 
-    %% ==========================================
-    %% 3 — VERIFY & RECOVER
-    %% ==========================================
-    subgraph VERIFY["✅ 3 · Verify & Recover"]
-        direction LR
+    %% =====================================================
+    %% COLUMN 3 — VERIFY & RECOVER
+    %% =====================================================
+    subgraph VERIFY[" "]
+        direction TB
+
+        RH["✅ 3 · Verify & Recover"]
 
         H["✅ DNS + HTTP + Splunk<br/>Verification"]
         I["🌐 Normal DNS<br/>Safety"]
         J["♻️ Safe<br/>Reset"]
 
-        H --> I --> J
+        RH --> H --> I --> J
     end
 
 
-    D --> E
-    G --> H
+    %% =====================================================
+    %% COLUMN-TO-COLUMN FLOW
+    %% =====================================================
+    VALIDATE --> CONTAIN
+    CONTAIN --> VERIFY
 
 
-    %% ==========================================
-    %% STYLING
-    %% ==========================================
+    %% =====================================================
+    %% HEADER STYLING
+    %% =====================================================
+    classDef validateHeader fill:#0b2239,stroke:#60a5fa,stroke-width:2px,color:#ffffff;
+    classDef containHeader fill:#2a1111,stroke:#f87171,stroke-width:2px,color:#ffffff;
+    classDef verifyHeader fill:#0f2a1d,stroke:#4ade80,stroke-width:2px,color:#ffffff;
 
+    class VH validateHeader;
+    class CH containHeader;
+    class RH verifyHeader;
+
+
+    %% =====================================================
+    %% NODE STYLING
+    %% =====================================================
     classDef handoff fill:#172554,stroke:#60a5fa,stroke-width:2px,color:#ffffff;
     classDef validate fill:#083344,stroke:#22d3ee,stroke-width:2px,color:#ffffff;
     classDef decision fill:#3b0764,stroke:#c084fc,stroke-width:2px,color:#ffffff;
@@ -122,6 +142,10 @@ flowchart TB
     class I safety;
     class J reset;
 
+
+    %% =====================================================
+    %% CONTAINER STYLING
+    %% =====================================================
     style VALIDATE fill:#0d1117,stroke:#60a5fa,stroke-width:1px
     style CONTAIN fill:#0d1117,stroke:#f87171,stroke-width:1px
     style VERIFY fill:#0d1117,stroke:#4ade80,stroke-width:1px
