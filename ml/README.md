@@ -172,7 +172,7 @@ The current v1 scripts use HTTPS with `verify=False` only on the private `dns-so
 
 ## 🧠 Why the ML SPL is kept here
 
-The searches under `ml/spl/` support the ML engineering workflow: data inventory, feature construction, DGA evaluation and ML-result validation.
+The searches under [`ml/spl/`](spl) support the ML engineering workflow: data inventory, feature construction, DGA evaluation and ML-result validation.
 
 The root [`../spl/`](../spl/) directory now contains the completed Scenario 02 Detection Engineering lifecycle:
 
