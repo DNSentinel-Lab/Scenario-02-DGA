@@ -86,25 +86,17 @@ index=dns_soc_dns
 
 The dashboard supports investigation; it does not make the final SOC disposition.
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
-
-<div align="center">
-
-[🏠 Scenario Home](../README.md) · [📖 Detection Story](../detection-engineering/DETECTION-ENGINEERING.md) · [⬆ Back to top](#top)
-
-</div>
-
-
 ## ✅ Official exercise closeout
 
 The same analyst surface was later used during Sonia's completed Scenario 02 investigation. It supported the exact 06:37–06:41 UTC window after Detection v1.0 surfaced five consecutive matches. The final SOC narrative and exact-window dashboard evidence are preserved in [`../soc/SOC-ANALYST-INVESTIGATION.md`](../soc/SOC-ANALYST-INVESTIGATION.md).
+
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
 
 **DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
 
-[🏠 Scenario Home](../README.md) · [⬆ Back to top](#top)
+[🏠 Scenario Home](../README.md) · [📖 Detection Story](../detection-engineering/DETECTION-ENGINEERING.md) · [⬆ Back to top](#top)
 
 </div>
 
