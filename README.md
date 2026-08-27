@@ -67,20 +67,15 @@ The exercise used real DNS requests through the lab's normal resolver path. Oper
 
 ## 🚦 Final Status
 
-| Stage | Status | Owner |
+| Workstream | Status | Owner |
 |---|---|---|
 | Defender DNS infrastructure | ✅ Complete | [Abdul-Rehman](https://github.com/abdul4rehman215) |
-| ML Engineering | ✅ Complete | [Musfira](https://github.com/MUSFIRA-ZAFAR) |
-| Detection Engineering + Dashboard + AI integration | ✅ Complete | [Lubaba](https://github.com/lubaba1513-pixel) |
-| Official DGA execution | ✅ Complete | [Musfira](https://github.com/MUSFIRA-ZAFAR) |
-| SOC investigation | ✅ Complete | [Sonia](https://github.com/sonia11mansha415) |
-| SOC → IR handoff | ✅ Complete | [Sonia](https://github.com/sonia11mansha415) |
-| Independent IR validation | ✅ Complete | [Abdul-Rehman](https://github.com/abdul4rehman215) |
-| Human containment approval | ✅ Complete | Abdul-Rehman |
-| RPZ sinkhole containment | ✅ Validated | Abdul-Rehman |
-| Normal-DNS safety check | ✅ Passed | Abdul-Rehman |
-| Safe RPZ reset | ✅ Complete | Abdul-Rehman |
-| Ground-truth comparison | ✅ Complete | Team closeout |
+| ML Engineering + official DGA execution | ✅ Complete | [Musfira](https://github.com/MUSFIRA-ZAFAR) |
+| Detection Engineering + Dashboard + AI | ✅ Complete | [Lubaba](https://github.com/lubaba1513-pixel) |
+| SOC investigation + IR handoff | ✅ Complete | [Sonia](https://github.com/sonia11mansha415) |
+| IR validation + response decision | ✅ Complete | [Abdul-Rehman](https://github.com/abdul4rehman215) |
+| RPZ containment + verification + safe reset | ✅ Validated | [Abdul-Rehman](https://github.com/abdul4rehman215) |
+| Ground-truth comparison / closeout | ✅ Complete | Team |
 
 <div align="center">
 
@@ -230,9 +225,11 @@ The controlled namespace was:
 
 The operator did not inspect Splunk, Detection v1.0, ML, AI, or the dashboard to steer the outcome.
 
-### 🚨 3. The Detection Surfaced Five Consecutive Windows
+### 🚨 3. [**Lubaba**](https://github.com/lubaba1513-pixel)'s Frozen Detection Engineering Pipeline Surfaced the Official Run
 
-Detection spl remained unchanged:
+Before the official exercise, [Lubaba](https://github.com/lubaba1513-pixel) had frozen Detection v1.0, the Dashboard Studio investigation views, scheduled alerting, validation searches, and the Scenario 02 AI evidence contract. None of those defender-side components were tuned using the official live run.
+
+Detection v1.0 remained unchanged:
 
 ```text
 query_count >= 20
@@ -240,7 +237,9 @@ unique_qnames >= 15
 nxdomain_ratio >= 0.75
 ```
 
-During the official window, it matched five consecutive one-minute client windows from `06:37` through `06:41 UTC`.
+During the official window, the unchanged Detection SPL matched five consecutive one-minute client windows from `06:37` through `06:41 UTC`.
+
+The dashboard and AI path then supplied investigation context to the SOC Analyst; neither replaced the analyst's final judgement.
 
 ### 🔎 4. [**Sonia**](https://github.com/sonia11mansha415) Rebuilt the Case from Raw DNS
 
@@ -353,8 +352,6 @@ The repository preserves the complete evidence chain from **ML and Detection Eng
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
-<div align="center">
-
 ### 🛠️ Detection Engineering & AI Evidence Highlights
 
 <table>
@@ -377,13 +374,13 @@ The repository preserves the complete evidence chain from **ML and Detection Eng
 </tr>
 </table>
 
+<div align="center">
+
 **Explore:** [🛠️ Detection Engineering](detection-engineering/DETECTION-ENGINEERING.md) · [📊 Dashboard](dashboard/README.md) · [🤖 AI Mapping](ai/scenario-02-ai-mapping.md)
 
 </div>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
-
-<div align="center">
 
 ### 🎯 Official Exercise & Operator Ground Truth
 
@@ -407,13 +404,13 @@ The repository preserves the complete evidence chain from **ML and Detection Eng
 </tr>
 </table>
 
+<div align="center">
+
 **Explore:** [🎯 Adversary Workspace](attacker/README.md) · [📘 Operator Story](attacker/PROJECT-LEAD-ADVERSARY.md) · [🎭 Exercise Protocol](exercise/REALISTIC-EXERCISE-PROTOCOL.md)
 
 </div>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
-
-<div align="center">
 
 ### 🔎 SOC Investigation Evidence Highlights
 
@@ -437,13 +434,13 @@ The repository preserves the complete evidence chain from **ML and Detection Eng
 </tr>
 </table>
 
+<div align="center">
+
 **Explore:** [🔎 SOC Workspace](soc/README.md) · [🧾 SOC Evidence E01–E13](soc/evidence/README.md) · [📘 Full Investigation](soc/SOC-ANALYST-INVESTIGATION.md)
 
 </div>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
-
-<div align="center">
 
 ### 🛡️ IR, Containment & Verification Evidence Highlights
 
@@ -488,17 +485,23 @@ The repository preserves the complete evidence chain from **ML and Detection Eng
 </tr>
 </table>
 
+<div align="center">
+
 **Explore:** [🛡️ IR Workspace](ir/README.md) · [🧾 IR Evidence E01–E21](ir/evidence/README.md) · [📋 Final IR Report](ir/IR-FINAL-REPORT.md)
 
 </div>
 
 <div align="center">
 
-### **Detection was only the beginning. The scenario closed when containment was proven, normal DNS remained safe, and the resolver returned to its documented safe state.**
+<strong>Detection was only the beginning. The scenario closed when containment was proven, normal DNS remained safe, and the resolver returned to its documented safe state.</strong>
 
 </div>
 
-<div align="center"> <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" /> </div>
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
+
+</div>
 
 ## 🧠 Detection, ML, AI & Human Judgement
 
