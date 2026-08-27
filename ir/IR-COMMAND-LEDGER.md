@@ -16,18 +16,18 @@ This file records the commands/searches used during the Incident Responder / Def
 
 ## 🧾 Splunk validation sequence
 
-1. Raw event presence — `spl/01_raw_dns_window_presence.spl`
-2. Core DNS metrics — `spl/02_core_dns_metrics.spl`
-3. One-minute windows — `spl/03_one_minute_validation.spl`
-4. Raw qname examples — `spl/04_raw_qname_examples.spl`
-5. Client scope — `spl/05_client_scope.spl`
-6. Non-NXDOMAIN review — `spl/06_non_nxdomain_review.spl`
-7. Endpoint/process telemetry availability — `spl/07_endpoint_telemetry_availability.spl`
-8. Historical recurrence — `spl/08_historical_recurrence.spl`
-9. Current activity — `spl/09_current_activity_check.spl`
-10. Exact-qname before/after attempt — `spl/10_before_after_exact_qname_attempt.spl` (returned 0 because of field-format matching)
-11. Substring before/after search — `spl/11_before_after_substring_match.spl` (successful)
-12. Broad namespace fallback — `spl/12_namespace_broad_fallback.spl` (provided as fallback; not required once #11 succeeded)
+1. Raw event presence — [`spl/01_raw_dns_window_presence.spl`](spl/01_raw_dns_window_presence.spl)
+2. Core DNS metrics — [`spl/02_core_dns_metrics.spl`](spl/02_core_dns_metrics.spl)
+3. One-minute windows — [`spl/03_one_minute_validation.spl`](spl/03_one_minute_validation.spl)
+4. Raw qname examples — [`spl/04_raw_qname_examples.spl`](spl/04_raw_qname_examples.spl)
+5. Client scope — [`spl/05_client_scope.spl`](spl/05_client_scope.spl)
+6. Non-NXDOMAIN review — [`spl/06_non_nxdomain_review.spl`](spl/06_non_nxdomain_review.spl)
+7. Endpoint/process telemetry availability — [`spl/07_endpoint_telemetry_availability.spl`](spl/07_endpoint_telemetry_availability.spl)
+8. Historical recurrence — [`spl/08_historical_recurrence.spl`](spl/08_historical_recurrence.spl)
+9. Current activity — [`spl/09_current_activity_check.spl`](spl/09_current_activity_check.spl)
+10. Exact-qname before/after attempt — [`spl/10_before_after_exact_qname_attempt.spl`](spl/10_before_after_exact_qname_attempt.spl) (returned 0 because of field-format matching)
+11. Substring before/after search — [`spl/11_before_after_substring_match.spl`](spl/11_before_after_substring_match.spl) (successful)
+12. Broad namespace fallback — [`spl/12_namespace_broad_fallback.spl`](spl/12_namespace_broad_fallback.spl) (provided as fallback; not required once #11 succeeded)
 
 ## 🛡️ Resolver / victim / sinkhole sequence
 
@@ -42,7 +42,7 @@ This file records the commands/searches used during the Incident Responder / Def
 - Verify the sinkhole service and normal DNS.
 - Restore the backed-up safe RPZ state and prove the qname returns NXDOMAIN again.
 
-See `shell/` for command files.
+See [`shell/`](shell) for command files.
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
