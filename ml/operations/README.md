@@ -68,16 +68,13 @@ No model tuning was performed to make the official exercise look cleaner.
 
 The wrapper marks a completed minute after the scorer exits successfully. The timer delay was chosen to reduce the chance of scoring a minute before its resolver events are indexed.
 
----
-
-[📘 ML Engineering](../ML-ENGINEERING.md) · [🏠 Scenario Home](../../README.md) · [⬆ Back to top](#top)
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
 
 **DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
 
-[🏠 Scenario Home](../../README.md) · [⬆ Back to top](#top)
+[📘 ML Engineering](../ML-ENGINEERING.md) · [🏠 Scenario Home](../../README.md) · [⬆ Back to top](#top)
 
 </div>
 
