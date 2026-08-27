@@ -45,58 +45,79 @@ This folder preserves the completed defender-side investigation. Sonia received 
 ## 🧭 Investigation Workflow
 
 ```mermaid
-flowchart TB
+flowchart LR
 
-    %% ==========================================
-    %% 1 — EVIDENCE COLLECTION
-    %% ==========================================
-    subgraph EVIDENCE["📡 1 · Evidence Collection"]
-        direction LR
+    %% =====================================================
+    %% PHASE 1 — EVIDENCE COLLECTION
+    %% =====================================================
+    subgraph EVIDENCE[" "]
+        direction TB
+
+        EH["📡 1 · Evidence Collection"]
 
         A["🚨 Detection<br/>v1.0"]
         B["📡 Raw Unbound<br/>DNS"]
         C["🧬 Qname<br/>Metrics"]
 
-        A --> B --> C
+        EH --> A --> B --> C
     end
 
 
-    %% ==========================================
-    %% 2 — BEHAVIOR ANALYSIS
-    %% ==========================================
-    subgraph ANALYSIS["🔍 2 · Behavior Analysis"]
-        direction LR
+    %% =====================================================
+    %% PHASE 2 — BEHAVIOR ANALYSIS
+    %% =====================================================
+    subgraph ANALYSIS[" "]
+        direction TB
+
+        AH["🔍 2 · Behavior Analysis"]
 
         D["📊 Same-Client<br/>Baseline"]
         E["🕒 Recurrence<br/>+ Scope"]
         F["🧠 ML<br/>Second Opinion"]
 
-        D --> E --> F
+        AH --> D --> E --> F
     end
 
 
-    %% ==========================================
-    %% 3 — ANALYST DECISION
-    %% ==========================================
-    subgraph DECISION["🧭 3 · Analyst Decision"]
-        direction LR
+    %% =====================================================
+    %% PHASE 3 — ANALYST DECISION
+    %% =====================================================
+    subgraph DECISION[" "]
+        direction TB
+
+        DH["🧭 3 · Analyst Decision"]
 
         G["🤖 AI Claim<br/>Validation"]
         H["🧭 5W1H<br/>Assessment"]
         I["📨 IR<br/>Handoff"]
 
-        G --> H --> I
+        DH --> G --> H --> I
     end
 
 
-    C --> D
-    F --> G
+    %% =====================================================
+    %% CONNECT PHASES — GROUP TO GROUP
+    %% Keeps each column layout intact
+    %% =====================================================
+    EVIDENCE --> ANALYSIS
+    ANALYSIS --> DECISION
 
 
-    %% ==========================================
-    %% STYLING
-    %% ==========================================
+    %% =====================================================
+    %% HEADER STYLING
+    %% =====================================================
+    classDef evidenceHeader fill:#083344,stroke:#22d3ee,stroke-width:2px,color:#ffffff;
+    classDef analysisHeader fill:#312e81,stroke:#818cf8,stroke-width:2px,color:#ffffff;
+    classDef decisionHeader fill:#052e16,stroke:#4ade80,stroke-width:2px,color:#ffffff;
 
+    class EH evidenceHeader;
+    class AH analysisHeader;
+    class DH decisionHeader;
+
+
+    %% =====================================================
+    %% NODE STYLING
+    %% =====================================================
     classDef detection fill:#450a0a,stroke:#f87171,stroke-width:2px,color:#ffffff;
     classDef telemetry fill:#083344,stroke:#22d3ee,stroke-width:2px,color:#ffffff;
     classDef metrics fill:#172554,stroke:#60a5fa,stroke-width:2px,color:#ffffff;
@@ -121,6 +142,10 @@ flowchart TB
     class H analyst;
     class I handoff;
 
+
+    %% =====================================================
+    %% GROUP STYLING
+    %% =====================================================
     style EVIDENCE fill:#0d1117,stroke:#22d3ee,stroke-width:1px
     style ANALYSIS fill:#0d1117,stroke:#818cf8,stroke-width:1px
     style DECISION fill:#0d1117,stroke:#4ade80,stroke-width:1px
