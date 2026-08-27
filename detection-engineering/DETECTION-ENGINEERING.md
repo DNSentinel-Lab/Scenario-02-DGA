@@ -482,11 +482,11 @@ The canonical SPL is preserved in [`../spl/detection.spl`](../spl/detection.spl)
 
 ## 🧾 12. Preserve a reusable validation view
 
-Production `detection.spl` answers:
+Production [`detection.spl`](../spl/detection.spl) answers:
 
 > Which windows should alert?
 
-`validation.spl` answers:
+[`validation.spl`](../spl/validation.spl) answers:
 
 > Why did this window detect or stay below the rule?
 

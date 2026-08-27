@@ -53,7 +53,7 @@ AND nxdomain_ratio >= 0.75
 | Repeated normal burst | Understand sensor-visible behavior | Cache-limited visibility identified; test not overstated | ✅ PASS |
 | Unique legitimate-name burst | Challenge volume + uniqueness without NXDOMAIN | `23` queries, `23` unique names, `0.0` NXDOMAIN ratio → below full rule | ✅ PASS |
 | Threshold freeze | Avoid tuning to desired outcome | Candidate retained unchanged as Detection v1.0 | ✅ PASS |
-| `validation.spl` | Show positive and below-threshold rows | `WOULD DETECT` + `BELOW THRESHOLD` visible using same v1.0 logic | ✅ PASS |
+| [`validation.spl`](../spl/validation.spl) | Show positive and below-threshold rows | `WOULD DETECT` + `BELOW THRESHOLD` visible using same v1.0 logic | ✅ PASS |
 | Rule ↔ ML comparison | Compare without forcing agreement | Historical controlled DGA: 6/6 `DETECT` + `ANOMALY` | ✅ PASS |
 | ML integrity | Do not retrain/redesign model | Existing Isolation Forest preserved; raw score semantics retained | ✅ PASS |
 | Scheduled alert | Real automatic execution | Cron `* * * * *`, range `-2m@m` → `-1m@m`, real trigger confirmed | ✅ PASS |

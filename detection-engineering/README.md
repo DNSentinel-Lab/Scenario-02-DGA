@@ -177,7 +177,7 @@ The known-clean 32-window baseline reached maximums of **14 queries**, **10 uniq
 | Fresh controlled DGA positive validation | ✅ 6/6 windows crossed candidate |
 | Benign / false-positive challenges | ✅ PASS |
 | Detection `v1.0` | ✅ Frozen |
-| Reusable `validation.spl` | ✅ Complete |
+| Reusable [`validation.spl`](../spl/validation.spl) | ✅ Complete |
 | Rule ↔ ML historical comparison | ✅ 6/6 agreement on controlled DGA windows |
 | Scheduled alert + real trigger | ✅ Validated |
 | Analyst evidence row + raw drilldown | ✅ Validated |
