@@ -982,17 +982,6 @@ The official SOC disposition is documented in [`../soc/SOC-ANALYST-INVESTIGATION
 
 ---
 
-<div align="center">
-
-[🏠 Scenario Home](../README.md) · [🚦 Detection Workspace](README.md) · [📊 Dashboard](../dashboard/README.md) · [🔎 SPL](../spl/README.md) · [🤖 AI](../ai/README.md) · [⬆ Back to top](#top)
-
-<sub>DNSentinel Lab · Telemetry before theory · Evidence before verdict · Humans before automation</sub>
-
-</div>
-
-
----
-
 ## 🚨 Operational closeout — what happened after Detection Engineering
 
 Detection Engineering ended before the official traffic was generated. The later exercise then tested the frozen work without live tuning:
@@ -1014,13 +1003,14 @@ Detection v1.0 frozen
 This operational result closes the engineering loop: Lubaba's explainable detection and investigation surface were not only validated with controlled engineering traffic; they were later used in the information-separated official scenario exactly as intended.
 
 No threshold change was required during the official run.
+
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
 
-**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
+**DNSentinel Scenario 02 · Telemetry before theory · Evidence before verdict · Humans before automation**
 
-[🏠 Scenario Home](../README.md) · [🚦 Detection Engineering](README.md) · [⬆ Back to top](#top)
+[🏠 Scenario Home](../README.md) · [🚦 Detection Workspace](README.md) · [📊 Dashboard](../dashboard/README.md) · [🔎 SPL](../spl/README.md) · [🤖 AI](../ai/README.md) · [⬆ Back to top](#top)
 
 </div>
 
