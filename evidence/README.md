@@ -23,11 +23,64 @@ This folder is the cross-role evidence map for the completed Scenario 02 case. D
 
 ```mermaid
 flowchart LR
-    ENG["🧠 Engineering Evidence"] --> OP["🧬 Operator Ground Truth"]
-    ENG --> SOC["🔎 SOC E01–E13"]
-    SOC --> IR["🛡️ IR E01–E21"]
-    OP --> CMP["🎭 Final Comparison"]
-    IR --> CMP
+
+    %% =====================================================
+    %% STARTING EVIDENCE
+    %% =====================================================
+    ENG["🧠 Engineering<br/>Evidence"]
+
+    %% =====================================================
+    %% TWO INDEPENDENT EVIDENCE PATHS
+    %% =====================================================
+    OP["🧬 Operator<br/>Ground Truth"]
+
+    SOC["🔎 SOC Evidence<br/>E01–E13"]
+    IR["🛡️ IR Evidence<br/>E01–E21"]
+
+    %% =====================================================
+    %% FINAL COMPARISON
+    %% =====================================================
+    CMP["🎭 Final<br/>Comparison"]
+
+    %% =====================================================
+    %% EVIDENCE FLOW
+    %% =====================================================
+
+    ENG -. "Protected Ground Truth" .-> OP
+
+    ENG -->|"Detection / Engineering Context"| SOC
+    SOC -->|"Evidence-Backed Handoff"| IR
+
+    OP -->|"Reveal After Decisions"| CMP
+    IR -->|"Independent Findings"| CMP
+
+
+    %% =====================================================
+    %% NODE STYLING
+    %% =====================================================
+
+    classDef engineering fill:#172554,stroke:#60a5fa,stroke-width:3px,color:#ffffff;
+    classDef groundtruth fill:#450a0a,stroke:#fb923c,stroke-width:3px,color:#ffffff;
+    classDef soc fill:#083344,stroke:#22d3ee,stroke-width:3px,color:#ffffff;
+    classDef ir fill:#052e16,stroke:#4ade80,stroke-width:3px,color:#ffffff;
+    classDef comparison fill:#3b0764,stroke:#c084fc,stroke-width:3px,color:#ffffff;
+
+    class ENG engineering;
+    class OP groundtruth;
+    class SOC soc;
+    class IR ir;
+    class CMP comparison;
+
+
+    %% =====================================================
+    %% EDGE STYLING
+    %% =====================================================
+
+    linkStyle 0 stroke:#fb923c,stroke-width:2px,stroke-dasharray:6 5
+    linkStyle 1 stroke:#60a5fa,stroke-width:3px
+    linkStyle 2 stroke:#22d3ee,stroke-width:3px
+    linkStyle 3 stroke:#fb923c,stroke-width:3px
+    linkStyle 4 stroke:#4ade80,stroke-width:3px
 ```
 
 ## 🧠 Engineering Evidence
