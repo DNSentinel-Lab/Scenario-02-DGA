@@ -490,6 +490,8 @@ The repository preserves the complete evidence chain from **ML and Detection Eng
 
 **Explore:** [🛡️ IR Workspace](ir/README.md) · [🧾 IR Evidence E01–E21](ir/evidence/README.md) · [📋 Final IR Report](ir/IR-FINAL-REPORT.md)
 
+</div>
+
 <div align="center">
 
 ### **Detection was only the beginning. The scenario closed when containment was proven, normal DNS remained safe, and the resolver returned to its documented safe state.**
@@ -538,10 +540,10 @@ The mapping describes the **DGA behavior under study**. The repository does not 
 
 | Role | Contributor | Scenario 02 contribution |
 |---|---|---|
-| Project Lead / Adversary + ML Engineer | **Musfira** | Prepared the run boundary, executed fresh DGA behavior without defender feedback, preserved ground truth, and engineered the Isolation Forest support path |
-| Detection Engineer / AI Integrator | **Lubaba** | Baselined resolver behavior, built Detection v1.0, Dashboard Studio investigation views, validation searches, scheduled alerting, and the Scenario 02 AI evidence contract |
-| SOC Analyst | **Sonia** | Reconstructed the alert from raw DNS, measured and baselined the behavior, scoped recurrence, validated ML/AI, documented 5W1H, and produced the IR handoff |
-| Incident Responder / Defender | **Abdul-Rehman** | Independently reproduced the evidence, preserved attribution limits, executed approved RPZ containment, verified the sinkhole and normal DNS, and restored the resolver safely |
+| Project Lead / Adversary + ML Engineer | **[Musfira](https://github.com/MUSFIRA-ZAFAR)** | Prepared the run boundary, executed fresh DGA behavior without defender feedback, preserved ground truth, and engineered the Isolation Forest support path |
+| Detection Engineer / AI Integrator | **[Lubaba](https://github.com/lubaba1513-pixel)** | Baselined resolver behavior, built Detection v1.0, Dashboard Studio investigation views, validation searches, scheduled alerting, and the Scenario 02 AI evidence contract |
+| SOC Analyst | **[Sonia](https://github.com/sonia11mansha415)** | Reconstructed the alert from raw DNS, measured and baselined the behavior, scoped recurrence, validated ML/AI, documented 5W1H, and produced the IR handoff |
+| Incident Responder / Defender | **[Abdul-Rehman](https://github.com/abdul4rehman215)** | Independently reproduced the evidence, preserved attribution limits, executed approved RPZ containment, verified the sinkhole and normal DNS, and restored the resolver safely |
 
 <div align="center">
 
