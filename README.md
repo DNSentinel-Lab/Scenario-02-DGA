@@ -69,7 +69,7 @@ The exercise used real DNS requests through the lab's normal resolver path. Oper
 
 | Workstream | Status | Owner |
 |---|---|---|
-| Defender DNS infrastructure | ✅ Complete | [Abdul-Rehman](https://github.com/abdul4rehman215) |
+| Defender DNS infrastructure Build up | ✅ Complete | [Abdul-Rehman](https://github.com/abdul4rehman215) |
 | ML Engineering + official DGA execution | ✅ Complete | [Musfira](https://github.com/MUSFIRA-ZAFAR) |
 | Detection Engineering + Dashboard + AI | ✅ Complete | [Lubaba](https://github.com/lubaba1513-pixel) |
 | SOC investigation + IR handoff | ✅ Complete | [Sonia](https://github.com/sonia11mansha415) |
