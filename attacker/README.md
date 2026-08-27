@@ -56,6 +56,11 @@ The official execution rules were:
 
 No malware, credential attack, persistence, denial of service, unrelated Internet targeting or destructive activity was part of this exercise.
 
+## 🎭 Final reveal complete
+
+SOC and IR decisions are now locked and the response/reset evidence has been preserved. The operator ground truth can therefore be compared safely with defender observations in [`../exercise/final-comparison.md`](../exercise/final-comparison.md).
+
+
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
@@ -63,21 +68,6 @@ No malware, credential attack, persistence, denial of service, unrelated Interne
 **DNSentinel Scenario 02 · DGA + High NXDOMAIN**
 
 [🏠 Scenario Home](../README.md) · [🏗️ Infrastructure](https://github.com/DNSentinel-Lab/DNS-Lab-Infrastructure) · [⬆ Back to top](#top)
-
-</div>
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,24,19,12,6&height=75&
-
-## 🎭 Final reveal complete
-
-SOC and IR decisions are now locked and the response/reset evidence has been preserved. The operator ground truth can therefore be compared safely with defender observations in [`../exercise/final-comparison.md`](../exercise/final-comparison.md).
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
-
-<div align="center">
-
-**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
-
-[🏠 Scenario Home](../README.md) · [⬆ Back to top](#top)
 
 </div>
 
