@@ -20,13 +20,31 @@ This folder preserves the exact searches Sonia used during the completed investi
 ## 🧭 Query Flow
 
 ```mermaid
+%%{init: {"themeVariables": {"fontSize": "22px"}}}%%
+
 flowchart LR
-    A["00 · Telemetry Health"] --> B["01–02 · Detection Validation"]
-    B --> C["03–05 · Raw DNS / Qname"]
-    C --> D["06–10 · Baseline / Recurrence"]
-    D --> E["11–13 · ML Review"]
-    E --> F["14–17 · AI Validation"]
-    F --> G["18–20 · Resolution / Final Scope"]
+
+    A["📡 00<br/><b>TELEMETRY HEALTH</b>"]
+
+    B["🛡️ 01–05<br/><b>DETECTION + DNS EVIDENCE</b><br/><br/>01–02 · Detection Validation<br/>03–05 · Raw DNS + Qname"]
+
+    C["📊 06–13<br/><b>BEHAVIOR ANALYSIS</b><br/><br/>06–10 · Baseline + Recurrence<br/>11–13 · ML Review"]
+
+    D["🎯 14–20<br/><b>VALIDATION + RESOLUTION</b><br/><br/>14–17 · AI Validation<br/>18–20 · Final Scope"]
+
+    A ==> B ==> C ==> D
+
+    classDef health fill:#172554,stroke:#60a5fa,stroke-width:3px,color:#ffffff,font-size:22px;
+    classDef evidence fill:#083344,stroke:#22d3ee,stroke-width:3px,color:#ffffff,font-size:22px;
+    classDef analysis fill:#312e81,stroke:#c084fc,stroke-width:3px,color:#ffffff,font-size:22px;
+    classDef resolution fill:#14532d,stroke:#4ade80,stroke-width:3px,color:#ffffff,font-size:22px;
+
+    class A health;
+    class B evidence;
+    class C analysis;
+    class D resolution;
+
+    linkStyle default stroke:#cbd5e1,stroke-width:4px;
 ```
 
 ## 📋 Query Index
