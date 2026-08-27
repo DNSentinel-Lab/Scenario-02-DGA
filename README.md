@@ -69,7 +69,7 @@ The exercise used real DNS requests through the lab's normal resolver path. Oper
 
 | Stage | Status | Owner |
 |---|---|---|
-| Defender DNS infrastructure | ✅ Complete | Project team |
+| Defender DNS infrastructure | ✅ Complete | [Abdul-Rehman](https://github.com/abdul4rehman215) |
 | ML Engineering | ✅ Complete | [Musfira](https://github.com/MUSFIRA-ZAFAR) |
 | Detection Engineering + Dashboard + AI integration | ✅ Complete | [Lubaba](https://github.com/lubaba1513-pixel) |
 | Official DGA execution | ✅ Complete | [Musfira](https://github.com/MUSFIRA-ZAFAR) |
