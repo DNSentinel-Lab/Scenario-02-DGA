@@ -41,44 +41,107 @@ Lubaba owned the Scenario 02 Detection Engineering lifecycle from trusted Unboun
 ## 🔁 Engineering path
 
 ```mermaid
-flowchart TB
+flowchart LR
 
-    subgraph ROW1[" "]
-        direction LR
+    %% =====================================================
+    %% COLUMN 1
+    %% =====================================================
+    subgraph C1[" "]
+        direction TB
+        H1["📡 1 · Data Intake"]
+
         A["📡 Unbound<br/>Telemetry"]
         B["🔎 Reply-Side<br/>Semantics"]
         C["⏱️ Ingestion<br/>Timing"]
+
+        H1 --> A --> B --> C
+    end
+
+    %% =====================================================
+    %% COLUMN 2
+    %% =====================================================
+    subgraph C2[" "]
+        direction TB
+        H2["🛠️ 2 · Detection Prep"]
+
         D["📊 Clean<br/>Baseline"]
         E["🖥️ Dashboard<br/>+ Hunts"]
         F["🛡️ Detection<br/>v1.0"]
 
-        A --> B --> C --> D --> E --> F
+        H2 --> D --> E --> F
     end
 
-    subgraph ROW2[" "]
-        direction RL
+    %% =====================================================
+    %% COLUMN 3
+    %% =====================================================
+    subgraph C3[" "]
+        direction TB
+        H3["✅ 3 · Validation"]
+
         G["✅ Positive + Benign<br/>Validation"]
         H["🧠 Rule ↔ ML<br/>Comparison"]
         I["🚨 Scheduled<br/>Alert"]
+
+        H3 --> G --> H --> I
+    end
+
+    %% =====================================================
+    %% COLUMN 4
+    %% =====================================================
+    subgraph C4[" "]
+        direction TB
+        H4["🎯 4 · SOC Delivery"]
+
         J["📦 Raw Evidence<br/>+ Contract"]
         K["🤖 Shared AI<br/>Bridge"]
         L["🎯 SOC-Ready"]
 
-        G --> H --> I --> J --> K --> L
+        H4 --> J --> K --> L
     end
 
-    F --> G
+    %% =====================================================
+    %% COLUMN-TO-COLUMN FLOW
+    %% =====================================================
+    C1 --> C2
+    C2 --> C3
+    C3 --> C4
 
-    style ROW1 fill:none,stroke:none
-    style ROW2 fill:none,stroke:none
+    %% =====================================================
+    %% HEADER STYLES
+    %% =====================================================
+    classDef head1 fill:#0b2239,stroke:#58a6ff,stroke-width:2px,color:#ffffff;
+    classDef head2 fill:#10243f,stroke:#60a5fa,stroke-width:2px,color:#ffffff;
+    classDef head3 fill:#24123a,stroke:#a371f7,stroke-width:2px,color:#ffffff;
+    classDef head4 fill:#0f2a1d,stroke:#3fb950,stroke-width:2px,color:#ffffff;
 
-    classDef engineering fill:#161b22,stroke:#58a6ff,stroke-width:1.5px,color:#f0f6fc,font-size:16px;
-    classDef validation fill:#161b22,stroke:#a371f7,stroke-width:1.5px,color:#f0f6fc,font-size:16px;
-    classDef final fill:#161b22,stroke:#3fb950,stroke-width:2px,color:#f0f6fc,font-size:16px;
+    class H1 head1;
+    class H2 head2;
+    class H3 head3;
+    class H4 head4;
+
+    %% =====================================================
+    %% NODE STYLES
+    %% =====================================================
+    classDef engineering fill:#161b22,stroke:#58a6ff,stroke-width:1.5px,color:#f0f6fc;
+    classDef validation fill:#161b22,stroke:#a371f7,stroke-width:1.5px,color:#f0f6fc;
+    classDef final fill:#161b22,stroke:#3fb950,stroke-width:2px,color:#f0f6fc;
 
     class A,B,C,D,E,F engineering;
     class G,H,I,J,K validation;
     class L final;
+
+    %% =====================================================
+    %% CONTAINER STYLES
+    %% =====================================================
+    style C1 fill:#0d1117,stroke:#30363d,stroke-width:1px
+    style C2 fill:#0d1117,stroke:#30363d,stroke-width:1px
+    style C3 fill:#0d1117,stroke:#30363d,stroke-width:1px
+    style C4 fill:#0d1117,stroke:#30363d,stroke-width:1px
+
+    %% =====================================================
+    %% EDGE STYLE
+    %% =====================================================
+    linkStyle default stroke:#8b949e,stroke-width:2px
 ```
 
 The finish line was not simply **"the SPL returned a result."** The rule had to survive both sides of validation, run automatically, preserve a raw-event path, correlate cleanly with ML, and send structured evidence to the existing AI bridge without giving Detection, ML or AI containment authority.
@@ -182,15 +245,6 @@ The detailed SOC and IR conclusions live in their own role workspaces. This fold
 **DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
 
 [🏠 Scenario Home](../README.md) · [📖 Full Engineering Story](DETECTION-ENGINEERING.md) · [⬆ Back to top](#top)
-
-</div>
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
-
-<div align="center">
-
-**DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
-
-[🏠 Scenario Home](../README.md) · [⬆ Back to top](#top)
 
 </div>
 
