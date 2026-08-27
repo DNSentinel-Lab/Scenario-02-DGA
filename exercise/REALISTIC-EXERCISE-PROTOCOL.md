@@ -115,9 +115,6 @@ Public documentation distinguishes clearly between:
 
 The final comparison is useful because each role reached its conclusion with the evidence appropriate to that role. The exercise therefore measures more than whether a search returned a row: it measures detection coverage, analyst reasoning, automation discipline, response judgement, technical verification, and evidence integrity.
 
----
-
-[🏠 Scenario Home](../README.md) · [📊 Final Comparison](final-comparison.md) · [⬆ Back to top](#top)
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
