@@ -108,15 +108,6 @@ This validation is the reason the AI path is documented as **evidence-grounded a
 
 AI does **not** enable RPZ, sinkhole domains, isolate hosts or authorize Incident Response.
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
-
-<div align="center">
-
-[🏠 Scenario Home](../README.md) · [📖 AI Mapping](scenario-02-ai-mapping.md) · [⬆ Back to top](#top)
-
-</div>
-
-
 ## ✅ Official exercise closeout
 
 During the completed official investigation, Sonia reviewed Scenario 02 AI output only after understanding the raw DNS behavior. AI claims were checked against Splunk and were not used as containment authority. See [`../soc/AI-ML-VALIDATION.md`](../soc/AI-ML-VALIDATION.md) and [`../soc/SOC-ANALYST-INVESTIGATION.md`](../soc/SOC-ANALYST-INVESTIGATION.md).
@@ -126,7 +117,7 @@ During the completed official investigation, Sonia reviewed Scenario 02 AI outpu
 
 **DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
 
-[🏠 Scenario Home](../README.md) · [⬆ Back to top](#top)
+[🏠 Scenario Home](../README.md) · [📖 AI Mapping](scenario-02-ai-mapping.md) · [⬆ Back to top](#top)
 
 </div>
 
