@@ -244,10 +244,6 @@ This closes the operational loop without changing the original ML responsibility
 
 **DNSentinel Scenario 02 · Machine Learning Engineering**
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
-
-<div align="center">
-
 ## ✅ Live scoring closeout
 
 Before the official exercise, the existing Isolation Forest model was operationalized for fresh DNS windows without retraining it. The final runtime uses a root-only token file, a previous-completed-minute scorer, HEC write-back to `dns_soc_ml`, and a systemd timer at `:45` seconds after each minute.
