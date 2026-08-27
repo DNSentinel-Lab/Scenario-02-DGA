@@ -740,19 +740,6 @@ The analyst still proves why by checking the client, qnames, NXDOMAIN ratio, que
 
 ML remained intentionally narrow throughout the final case: it supplied anomaly context beside Detection v1.0 and the shared AI evidence path, but it did not determine the SOC disposition or authorize containment. During the official information-separated exercise, the five latest Detection v1.0 windows had five corresponding ML `ANOMALY` windows; Sonia validated them against raw DNS, and IR independently completed the human-approved response and verification cycle.
 
----
-
-<div align="center">
-
-[🏠 Scenario Home](../README.md) · [🧠 ML Workspace](README.md) · [🧾 Validation Record](../evidence/ml-engineering-validation.md) · [🖼️ ML Screenshots](../screenshots/ml/) · [⬆ Back to top](#top)
-
-<sub>DNSentinel Lab · Evidence-first DNS security engineering</sub>
-
-</div>
-
-
----
-
 ## ✅ 21. Operational closeout — fresh minute scoring
 
 The validated historical scorer originally used a fixed engineering time range. The model and feature schema were left unchanged, while a separate live wrapper was added to score the previous completed DNS minute automatically.
@@ -762,13 +749,14 @@ The closeout work also isolated four operational issues: persistent root-only cr
 A benign validation still produced `ANOMALY` results in some windows. Rather than tuning that away, the team preserved it as evidence of the model's intended limitation: unusual does not automatically mean malicious.
 
 See [`operations/README.md`](operations/README.md).
+
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="section divider" />
 
 <div align="center">
 
 **DNSentinel Scenario 02 · Evidence before verdict · Humans before automation**
 
-[🏠 Scenario Home](../README.md) · [⬆ Back to top](#top)
+[🏠 Scenario Home](../README.md) · [🧠 ML Workspace](README.md) · [🧾 Validation Record](../evidence/ml-engineering-validation.md) · [🖼️ ML Screenshots](../screenshots/ml/) · [⬆ Back to top](#top)
 
 </div>
 
