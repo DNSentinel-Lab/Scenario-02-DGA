@@ -70,12 +70,12 @@ The exercise used real DNS requests through the lab's normal resolver path. Oper
 | Stage | Status | Owner |
 |---|---|---|
 | Defender DNS infrastructure | ✅ Complete | Project team |
-| ML Engineering | ✅ Complete | Musfira |
-| Detection Engineering + Dashboard + AI integration | ✅ Complete | Lubaba |
-| Official DGA execution | ✅ Complete | Musfira |
-| SOC investigation | ✅ Complete | Sonia |
-| SOC → IR handoff | ✅ Complete | Sonia |
-| Independent IR validation | ✅ Complete | Abdul-Rehman |
+| ML Engineering | ✅ Complete | [Musfira](https://github.com/MUSFIRA-ZAFAR) |
+| Detection Engineering + Dashboard + AI integration | ✅ Complete | [Lubaba](https://github.com/lubaba1513-pixel) |
+| Official DGA execution | ✅ Complete | [Musfira](https://github.com/MUSFIRA-ZAFAR) |
+| SOC investigation | ✅ Complete | [Sonia](https://github.com/sonia11mansha415) |
+| SOC → IR handoff | ✅ Complete | [Sonia](https://github.com/sonia11mansha415) |
+| Independent IR validation | ✅ Complete | [Abdul-Rehman](https://github.com/abdul4rehman215) |
 | Human containment approval | ✅ Complete | Abdul-Rehman |
 | RPZ sinkhole containment | ✅ Validated | Abdul-Rehman |
 | Normal-DNS safety check | ✅ Passed | Abdul-Rehman |
@@ -206,7 +206,7 @@ The response path was deliberately narrow: **the observed Scenario 02 namespace 
 
 ### 🧊 1. The Environment Was Frozen Before the Run
 
-Musfira completed a compact pre-flight check covering victim health, UTC readiness, the configured resolver path, the deployed DGA generator, RPZ safe state, and private ground-truth readiness. Detection v1.0, ML, and the response policy were not tuned for the live run.
+[**Musfira**](https://github.com/MUSFIRA-ZAFAR) completed a compact pre-flight check covering victim health, UTC readiness, the configured resolver path, the deployed DGA generator, RPZ safe state, and private ground-truth readiness. Detection v1.0, ML, and the response policy were not tuned for the live run.
 
 ### 🧬 2. One Fresh Official DGA Run Was Executed
 
@@ -230,9 +230,9 @@ The controlled namespace was:
 
 The operator did not inspect Splunk, Detection v1.0, ML, AI, or the dashboard to steer the outcome.
 
-### 🚨 3. The Frozen Detection Surfaced Five Consecutive Windows
+### 🚨 3. The Detection Surfaced Five Consecutive Windows
 
-Detection v1.0 remained unchanged:
+Detection spl remained unchanged:
 
 ```text
 query_count >= 20
@@ -242,9 +242,9 @@ nxdomain_ratio >= 0.75
 
 During the official window, it matched five consecutive one-minute client windows from `06:37` through `06:41 UTC`.
 
-### 🔎 4. Sonia Rebuilt the Case from Raw DNS
+### 🔎 4. [**Sonia**](https://github.com/sonia11mansha415) Rebuilt the Case from Raw DNS
 
-Sonia did not treat the alert as a verdict. She moved back into raw Unbound replies, measured the qname pattern, compared the same client with its historical baseline, checked recurrence, scoped the affected client, reviewed ML only as a second opinion, and challenged the AI summary against Splunk evidence.
+[Sonia](https://github.com/sonia11mansha415) did not treat the alert as a verdict. She moved back into raw Unbound replies, measured the qname pattern, compared the same client with its historical baseline, checked recurrence, scoped the affected client, reviewed ML only as a second opinion, and challenged the AI summary against Splunk evidence.
 
 The exact investigated five-minute window contained:
 
@@ -262,11 +262,11 @@ Her final disposition was deliberately cautious:
 
 > **INCONCLUSIVE — escalation warranted**
 
-The DNS behavior was real and highly abnormal, but DNS did not prove a process, malware identity, endpoint compromise, user identity, malicious intent, or authorization status.
+The DNS behavior was real and highly abnormal, but DNS did not prove a process, malware identity, endpoint compromise, user identity or malicious intent.
 
 ### 🛡️ 5. Incident Response Independently Reproduced the Evidence
 
-Abdul-Rehman did not simply accept the SOC handoff. IR independently reproduced the core counts, the five one-minute windows, the generated-looking qname structure, the one-client resolver-visible scope, historical recurrence, and the absence of useful process-attribution telemetry.
+[Abdul-Rehman](https://github.com/abdul4rehman215) did not simply accept the SOC handoff. IR independently reproduced the core counts, the five one-minute windows, the generated-looking qname structure, the one-client resolver-visible scope, historical recurrence, and the absence of useful process-attribution telemetry.
 
 This produced an IR classification of:
 
